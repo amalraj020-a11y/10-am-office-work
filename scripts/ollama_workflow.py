@@ -37,21 +37,22 @@ def extract_json(text: str) -> dict:
 
 def build_site_from_approved_template(business: dict, content: dict, target: Path) -> None:
     """Copy the approved ThemeWagon/Technext template and adapt only verified facts."""
-    source = ROOT.parent / "foodee-template"
+    source = ROOT.parent / "feane-template"
     if not source.exists():
-        raise RuntimeError("Approved template checkout is missing; no generic replacement is permitted.")
+        raise RuntimeError("Fresh approved template checkout is missing; no previously used template or generic replacement is permitted.")
     shutil.copytree(source, target, dirs_exist_ok=True)
     index = target / "index.html"
     html = index.read_text(encoding="utf-8")
     business_name = business["business_name"]
     intro = content.get("intro", "A welcoming local place for good food and good company.")
     replacements = {
-        "Foodee - Restaurant HTML Template": f"{business_name} | Website Preview",
-        "Foodee": business_name,
+        "Feane": business_name,
         "A restaurant website template": intro,
         "FREEHTML5.co": "MultiMax",
         "freehtml5.co": "#",
         "2016": "2026",
+        "ThemeWagon": "MultiMax",
+        "https://themewagon.com/": "#",
     }
     for old, new in replacements.items():
         html = html.replace(old, new)
@@ -155,8 +156,17 @@ TEMPLATE CATALOG: {json.dumps(template_catalog, ensure_ascii=False)}'''
     required_license = str(content.get("license_note", "")).strip()
     if not required_template or not required_name or not required_license or content.get("template_source") == "Retired legacy run; not approved for future builds":
         raise RuntimeError("Approved template source, name, URL, and license note are required; no website was created.")
+    used_path = ROOT / "data" / "used-templates.json"
+    used_templates = json.loads(used_path.read_text(encoding="utf-8")) if used_path.exists() else {}
+    prior_users = used_templates.get(required_name, {}).get("used_for", [])
+    if prior_users and business["business_name"] not in prior_users:
+        raise RuntimeError(f"Template {required_name} was already used for another prospect; Qwen must select a fresh ThemeWagon template.")
     site_slug = slug(business["business_name"])
     build_site_from_approved_template(business, content, ROOT / "sites" / site_slug)
+    used_templates.setdefault(required_name, {"source": content.get("template_source", ""), "url": required_template, "used_for": []})
+    if business["business_name"] not in used_templates[required_name]["used_for"]:
+        used_templates[required_name]["used_for"].append(business["business_name"])
+    used_path.write_text(json.dumps(used_templates, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     (ROOT / "docs" / f"{site_slug}-ollama-run.md").write_text(f"# Ollama run\\n\\nModel: `{MODEL}`\\nRun: `{now}`\\n\\nNiche: `{content.get('niche', business.get('category', 'local business'))}`\\nTemplate source: `{content.get('template_source', 'Approved template required')}`\\nTemplate URL: `{content.get('template_url', '')}`\\nTemplate name: `{content.get('template_name', '')}`\\nLicense note: {content.get('license_note', 'Confirm before commercial delivery.')}\\n\\nBusiness facts:\\n```json\\n{json.dumps(business, indent=2, ensure_ascii=False)}\\n```\\n\\nNo business details were invented by the workflow.\\n", encoding="utf-8")
     (ROOT / "messages" / f"{site_slug}-ollama-email.md").write_text(content.get("email_body", ""), encoding="utf-8")
     (ROOT / "messages" / f"{site_slug}-ollama-whatsapp.md").write_text(content.get("whatsapp_body", ""), encoding="utf-8")

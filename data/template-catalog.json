@@ -5,6 +5,7 @@
     "Do not copy a competitor's branding, photos, text, logo, or business identity.",
     "Use editor-only Canva, Figma, or Wix templates as visual references unless code/export rights allow reuse.",
     "Never generate the customer website from the workflow's own generic/original layout.",
+    "Never reuse a template already used for another prospect; select a fresh catalog template and record it in used-templates.json.",
     "Never use a source with unclear ownership, license, attribution, or export rights; stop and choose another approved source instead."
   ],
   "sources": [

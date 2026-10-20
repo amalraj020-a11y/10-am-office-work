@@ -65,3 +65,11 @@ Amala must search the business name across public listings before marking a cont
 - WhatsApp: contact candidate +971 50 802 7760; verify availability before sending.
 - Email: no public email found; keep outreach as draft-only unless a verified email is found.
 - Deployment: not deployed; owner approval and budget confirmation required.
+
+## Cafe Valley Coffee Shoppe
+
+- Template: fresh Feane restaurant template selected from [ThemeWagon's free catalog](https://themewagon.com/themes/free-bootstrap-4-html5-restaurant-website-template-feane/); Foodee was not reused for this prospect.
+- Website: sites/cafe-valley-coffee-shoppe/index.html`r
+- Model: qwen3:4b through local Ollama.
+- Contact: public phone +91 33 4006 3723; no public email found.
+- Outreach: WhatsApp queue created; sending requires the connected WhatsApp session to be logged in.
