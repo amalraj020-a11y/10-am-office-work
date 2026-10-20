@@ -57,8 +57,10 @@ def prepare_outreach(business: dict, content: dict, site_slug: str, now: str) ->
     """Create reviewable delivery records; this never sends a message by itself."""
     repo_url = f"https://github.com/amalraj020-a11y/{REPO_NAME}/tree/main/sites/{site_slug}"
     whatsapp_text = content.get("whatsapp_body", "").strip()
+    screenshot_paths = [f"work/screenshots/{site_slug}-home.jpg", f"work/screenshots/{site_slug}-services.jpg"]
+    screenshot_links = [f"https://github.com/amalraj020-a11y/{REPO_NAME}/blob/main/{path}" for path in screenshot_paths]
     if repo_url not in whatsapp_text:
-        whatsapp_text = f"{whatsapp_text}\n\nWebsite preview: {repo_url}\n\nIf you are interested, I can customize it, deploy it, and add backend features within a small agreed budget."
+        whatsapp_text = f"{whatsapp_text}\n\nWebsite preview: {repo_url}\n\nScreenshots: {screenshot_links[0]} and {screenshot_links[1]}\n\nIf you are interested, I can customize it, deploy it, and add backend features within a small agreed budget."
     phone = re.sub(r"[^0-9]", "", business.get("phone", ""))
     record = {
         "prospect_id": business["id"],
@@ -66,7 +68,7 @@ def prepare_outreach(business: dict, content: dict, site_slug: str, now: str) ->
         "model": MODEL,
         "created_at": now,
         "email": {"status": "draft_only", "subject": content.get("email_subject", f"A website preview for {business['business_name']}"), "body": content.get("email_body", "")},
-        "whatsapp": {"status": "pending_user_send", "phone": business.get("phone", ""), "prefilled_url": f"https://wa.me/{phone}?text={urllib.parse.quote(whatsapp_text)}" if phone else "", "body": whatsapp_text},
+        "whatsapp": {"status": "pending_user_send", "phone": business.get("phone", ""), "prefilled_url": f"https://wa.me/{phone}?text={urllib.parse.quote(whatsapp_text)}" if phone else "", "body": whatsapp_text, "attachments": screenshot_paths},
         "note": "Qwen prepared this outreach. Sending requires a connected account/API and user approval.",
     }
     outreach_dir = ROOT / "outreach"
