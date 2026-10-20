@@ -53,3 +53,15 @@ Amala must search the business name across public listings before marking a cont
 - WhatsApp: queued for the connected adapter to attempt at `+44 20 3417 3500`; delivery must be recorded as sent, delivered, unavailable, or failed.
 - Email: draft prepared for `no41coffeekitchen@outlook.com`; send only through the connected mail adapter and record the result.
 - Deployment: [live on GitHub Pages](https://amalraj020-a11y.github.io/10-am-office-work/); customer approval is still required before production customization or ownership transfer.
+
+## 7sea Specialty Cafe
+
+- Research: public UAE Biz Connect listing reviewed; no dedicated website was listed.
+- Website: sites/7sea-specialty-cafe/index.html`r
+- Model: qwen3:4b through local Ollama.
+- Template: ThemeWagon's free Foodee restaurant template from [Technext's GitHub source](https://github.com/technext/foodee), adapted for 7sea Specialty Cafe.
+- Branding cleanup: original template/demo branding removed; footer shows only Developed by MultiMax.
+- Screenshots: screenshots/7sea-specialty-cafe-home.jpg and screenshots/7sea-specialty-cafe-services.jpg.
+- WhatsApp: contact candidate +971 50 802 7760; verify availability before sending.
+- Email: no public email found; keep outreach as draft-only unless a verified email is found.
+- Deployment: not deployed; owner approval and budget confirmation required.
