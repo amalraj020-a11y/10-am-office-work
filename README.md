@@ -29,6 +29,7 @@ Codex is not the runtime for this workflow. The Codex heartbeat automation is pa
 - Prefer free research, free development tools, GitHub, and free hosting tiers.
 - Record evidence before marking a business as having no website.
 - Contact-channel priority: record every reliable public phone, WhatsApp number, email, contact form, or social-message channel found, preserve its source URL, and use the available channel for outreach.
+- Outreach order: attempt public email, then WhatsApp, then phone call or SMS when the corresponding connected adapter is available; record each attempt and its exact result without claiming success unless visibly confirmed.
 - Test demos on mobile and desktop.
 - Ask the user to handle or approve payment collection.
 - Never claim a message was sent unless the channel visibly reports sent/delivered.
