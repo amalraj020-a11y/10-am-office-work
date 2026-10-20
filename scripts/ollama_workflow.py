@@ -107,7 +107,7 @@ def main() -> int:
     if not force_id:
         pending = contactable
     if not pending:
-        print(json.dumps({"status": "owner_contact_required", "model": MODEL, "reason": "No contactable prospect found; ask the owner for a verified channel or add another same-niche no-website prospect."}))
+        print(json.dumps({"status": "global_research_required", "model": MODEL, "reason": "No contactable prospect in the current queue; the research step must search worldwide for another same-niche no-website prospect before reporting no work."}))
         return 0
     business = pending[0]
     if business["business_name"].startswith("REPLACE"):

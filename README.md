@@ -10,7 +10,7 @@ Find local businesses with no functioning official website, create a polished de
 
 The Windows scheduled task runs `scripts/run-ollama-10am.ps1` every day at 10:00 AM IST. The local Qwen workflow is responsible for:
 
-1. Researching a verified local business and checking for a dedicated official website.
+1. Searching worldwide for a verified local business and checking for a dedicated official website.
 2. Generating an original demo website from verified facts only.
 3. Testing and saving the website under `sites/<business>/`.
 4. Creating the research note, email draft, WhatsApp draft, public screenshot links, and outreach record.
@@ -32,6 +32,7 @@ Codex is not the runtime for this workflow. The Codex heartbeat automation is pa
 - Ask the user to handle or approve payment collection.
 - Never claim a message was sent unless the channel visibly reports sent/delivered.
 - If a prospect has no usable WhatsApp channel, mark it clearly, ask the owner for a verified contact channel when required, and continue with another same-niche no-website prospect.
+- Prospect discovery is global: if the local queue is empty, search other cities and countries for the same niche rather than reporting that there is no work.
 - Before delivery, remove template/demo branding such as template names, years, “Free HTML5,” and original demo credits from the customer-facing footer; keep required legal attribution only in the project documentation/license record, and show `Developed by MultiMax`.
 - Every outreach message must introduce Amala from MultiMax, explain that MultiMax creates affordable websites for local businesses, mention that the shop had no dedicated website, and say that the work can proceed at a low agreed budget.
 - Standard introduction for every 10 AM outreach: “Hi, I’m Amala from MultiMax. MultiMax is a small web development company that creates affordable websites for local businesses. We found your shop and thought it looked great, but noticed it did not have a dedicated website, so we prepared a website concept for you. If you are interested, we can proceed and offer it at a low agreed budget. Tell me and I will send the website preview and full details.”
