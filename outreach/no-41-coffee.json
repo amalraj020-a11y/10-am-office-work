@@ -6,6 +6,8 @@
   "email": {
     "status": "sent",
     "sent_message_id": "1a159ba252fac037",
+    "updated_screenshot_email_message_id": "1a159bd7d3b14d3f",
+    "updated_screenshot_attachments_sent": true,
     "subject": "A website preview for No. 41 Coffee",
     "body": ""
   },
