@@ -9,7 +9,7 @@
     "body": "Hello Bune - The Coffee Room team,\n\nI prepared a website preview for Bune using your public business details. It uses a coffee-shop template adapted for your business. This is only a concept for your review. If you are interested, I can customize it, deploy it, and add backend features after confirming the exact requirements and a small budget.\n\nThank you."
   },
   "whatsapp": {
-    "status": "pending_whatsapp_check",
+    "status": "not_on_whatsapp",
     "checked_at": "2026-10-20",
     "phone": "+91 9330321589",
     "prefilled_url": "https://wa.me/919330321589",
@@ -19,5 +19,5 @@
       "work/screenshots/bune-the-coffee-room-services.jpg"
     ]
   },
-  "note": "A second public listing search found +91 9330321589. WhatsApp availability must be checked before sending. If no reliable contact number is found in future, Amala must ask the owner in WhatsApp for a verified contact channel. Email remains draft-only because no public email was found."
+  "note": "A second public listing search found +91 9330321589, but connected WhatsApp Web reported that this number is not registered on WhatsApp, so no message was sent. If no reliable contact channel is found in future, Amala must ask the owner in WhatsApp for a verified contact channel. Email remains draft-only because no public email was found."
 }
