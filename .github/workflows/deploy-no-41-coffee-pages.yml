@@ -1,0 +1,39 @@
+name: Deploy No. 41 Coffee to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "sites/no-41-coffee/**"
+      - ".github/workflows/deploy-no-41-coffee-pages.yml"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages-no-41-coffee
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload website artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: sites/no-41-coffee
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
