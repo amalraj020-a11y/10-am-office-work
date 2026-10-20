@@ -23,6 +23,10 @@ Qwen does not invent business facts, prices, reviews, or services. Production de
 
 Codex is not the runtime for this workflow. The Codex heartbeat automation is paused; the local Windows Ollama task is the only scheduled runner.
 
+## Execution ownership
+
+Qwen `qwen3:4b` generates the website copy and outreach message. The active automation adapter performs GitHub, email, and WhatsApp actions. Each run must report the actual executor truthfully; in the current test, Codex orchestrated the run and performed the WhatsApp send, while OpenClaw was not the sender.
+
 ## Operating rules
 
 - Work only during the 10:00–11:00 AM IST window.
