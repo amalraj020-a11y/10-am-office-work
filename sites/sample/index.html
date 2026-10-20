@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Local Business Demo</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; }
+    body { margin: 0; color: #17365d; background: #f7fafc; }
+    header, main, footer { max-width: 960px; margin: auto; padding: 24px; }
+    header { display: flex; justify-content: space-between; align-items: center; }
+    .hero { background: #d9eaf7; border-radius: 18px; padding: 48px 28px; }
+    .button { display: inline-block; background: #17365d; color: white; padding: 12px 18px; border-radius: 8px; text-decoration: none; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 24px; }
+    .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 12px #17365d18; }
+  </style>
+</head>
+<body>
+  <header><strong>{{business_name}}</strong><a href="tel:{{phone}}">Call us</a></header>
+  <main>
+    <section class="hero"><h1>Good local service, easy to find.</h1><p>{{short_description}}</p><a class="button" href="#contact">Get in touch</a></section>
+    <section class="cards"><article class="card"><h2>Services</h2><p>{{services}}</p></article><article class="card"><h2>Visit us</h2><p>{{address}}</p><p>{{hours}}</p></article><article class="card"><h2>Contact</h2><p>{{phone}}</p><p>{{email}}</p></article></section>
+  </main>
+  <footer id="contact">Demo prepared for review. Replace placeholders with verified business details before production.</footer>
+</body>
+</html>
