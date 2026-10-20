@@ -68,5 +68,19 @@
     "services": ["coffee shop", "coffee", "dessert"],
     "website_evidence": "Public UAE Biz Connect listing reviewed; it shows a phone number and explicitly lists no website yet. Confirm current details with the business before production.",
     "source_urls": ["https://uaebizconnect.com/listing/420/7sea-specialty-cafe"]
+  },
+  {
+    "id": "KOL-005",
+    "business_name": "Cafe Valley Coffee Shoppe",
+    "category": "coffee shop",
+    "city_area": "Kolkata - Lake Town",
+    "phone": "+91 33 4006 3723",
+    "public_email": "",
+    "social_url": "",
+    "address": "885, Lake Town Rd, Block A, Lake Town, Kolkata, West Bengal 700089, India",
+    "hours": "Confirm with the business before publishing",
+    "services": ["coffee shop", "coffee", "cafe service"],
+    "website_evidence": "Public Bharatibiz listing reviewed; it provides the address and phone number and explicitly says no website is listed. Confirm current details with the business before production.",
+    "source_urls": ["https://www.bharatibiz.com/en/cafe-valley-coffee-shoppe-033-4006-3723"]
   }
 ]

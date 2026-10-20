@@ -19,7 +19,7 @@ The Windows scheduled task runs `scripts/run-ollama-10am.ps1` every day at 10:00
 7. Sending outreach through the connected channel when available without asking for per-run permission, then recording the exact result for the owner.
 8. If WhatsApp is unavailable, recording the reason and moving to another same-niche business with no official website instead of stopping the run.
 
-Qwen does not invent business facts, prices, reviews, or services. Production deployment, payment collection, ownership transfer, and backend work happen only after owner approval and payment agreement. Routine website creation, GitHub/Excel updates, and outreach sending are authorized for the 10 AM workflow without a new permission request each day.
+Qwen does not invent business facts, prices, reviews, or services. Production deployment, payment collection, ownership transfer, and backend work happen only after owner approval and payment agreement. Routine website creation, GitHub/Excel updates, and outreach sending are authorized for the 10 AM workflow without a new permission request each day. This includes every fresh daily test: after validation, Amala sends the prepared outreach through each verified connected channel automatically and reports the exact result afterward.
 
 Codex is not the runtime for this workflow. The Codex heartbeat automation is paused; the local Windows Ollama task is the only scheduled runner.
 

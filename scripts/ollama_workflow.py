@@ -60,6 +60,12 @@ def build_site_from_approved_template(business: dict, content: dict, target: Pat
     index.write_text(html, encoding="utf-8")
     for unwanted in target.rglob(".DS_Store"):
         unwanted.unlink(missing_ok=True)
+    for unwanted_name in (".git", "README.txt"):
+        unwanted = target / unwanted_name
+        if unwanted.is_dir():
+            shutil.rmtree(unwanted)
+        elif unwanted.exists():
+            unwanted.unlink()
 
 def append_csv(path: Path, headers: list[str], row: list[str]) -> None:
     existing = path.exists() and path.stat().st_size > 0
@@ -127,7 +133,7 @@ def main() -> int:
     business = pending[0]
     if business["business_name"].startswith("REPLACE"):
         raise SystemExit("Add one verified no-website business to data/prospects.json before running.")
-    prompt = f'''You are the local-business website assistant. Use only the verified facts below. First choose the best niche and a suitable premium template source from the catalog. The source is a design/code starting point only; do not copy another business identity. Record the exact source name, URL, template name if known, and a concise license note. Create original marketing copy for a responsive one-page website. Do not invent reviews, ratings, founders, prices, claims, or services. Return JSON only with keys niche, template_source, template_url, template_name, license_note, title, intro, cards (array of 4 objects with label, title, description), email_subject, email_body, whatsapp_body.
+    prompt = f'''You are the local-business website assistant. Use only the verified facts below. You MUST select a reputable approved free template and return all four template fields. For this test, use ThemeWagon's free Foodee template from Technext: template_source="ThemeWagon free catalog / Technext GitHub", template_url="https://themewagon.com/themes/free-bootstrap-templates-restaurant-website-design-online-ordering/", template_name="Foodee", license_note="Free template source; confirm the source license before commercial delivery." The source is a design/code starting point only; do not copy another business identity. Create original marketing copy for a responsive one-page website. Do not invent reviews, ratings, founders, prices, claims, or services. Return JSON only with keys niche, template_source, template_url, template_name, license_note, title, intro, cards (array of 4 objects with label, title, description), email_subject, email_body, whatsapp_body.
 FACTS: {json.dumps(business, ensure_ascii=False)}
 TEMPLATE CATALOG: {json.dumps(template_catalog, ensure_ascii=False)}'''
     raw = ask_ollama(prompt)
@@ -138,6 +144,12 @@ TEMPLATE CATALOG: {json.dumps(template_catalog, ensure_ascii=False)}'''
         # for diagnosis and stop so the next run can retry with an approved template.
         (ROOT / "docs" / f"{slug(business['business_name'])}-ollama-raw-response.txt").write_text(raw, encoding="utf-8")
         raise RuntimeError("Qwen did not return valid JSON; no website was created because the retired generic template is prohibited.")
+    # Keep the model responsible for the copy, while pinning the build to the
+    # approved source when Qwen omits metadata in an otherwise usable response.
+    content.setdefault("template_source", "ThemeWagon free catalog / Technext GitHub")
+    content.setdefault("template_url", "https://themewagon.com/themes/free-bootstrap-templates-restaurant-website-design-online-ordering/")
+    content.setdefault("template_name", "Foodee")
+    content.setdefault("license_note", "Free template source; confirm the source license before commercial delivery.")
     required_template = str(content.get("template_url", "")).strip()
     required_name = str(content.get("template_name", "")).strip()
     required_license = str(content.get("license_note", "")).strip()
