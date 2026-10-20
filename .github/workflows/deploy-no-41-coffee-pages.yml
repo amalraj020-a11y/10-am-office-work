@@ -1,5 +1,7 @@
 name: Deploy No. 41 Coffee to GitHub Pages
 
+# GitHub Pages source: GitHub Actions
+
 on:
   push:
     branches: [main]
