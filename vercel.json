@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "experimentalServices": {
+    "web": {
+      "entrypoint": "sites/no-41-coffee",
+      "routePrefix": "/"
+    }
+  }
+}
