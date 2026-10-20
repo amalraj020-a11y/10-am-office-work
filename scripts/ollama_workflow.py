@@ -1,7 +1,7 @@
 """Local 10 AM workflow powered by Ollama qwen3:4b.
 
-This script creates website/demo assets and synchronizes them to GitHub.
-The 10 AM workflow authorizes routine outreach without per-run permission; a connected WhatsApp/email adapter must perform the send and record the result.
+This script creates website/demo assets and prepares the OpenClaw send queue.
+OpenClaw is the only authorized runtime for outreach; Codex must never send or orchestrate this workflow.
 """
 from __future__ import annotations
 import csv, json, os, re, shutil, subprocess, sys, urllib.parse, urllib.request
@@ -114,7 +114,7 @@ def prepare_outreach(business: dict, content: dict, site_slug: str, now: str) ->
         "created_at": now,
         "email": {"status": "draft_only", "subject": content.get("email_subject", f"A website preview for {business['business_name']}"), "body": email_text, "live_url": live_url},
         "whatsapp": {"status": "queued_for_auto_send", "phone": business.get("phone", ""), "prefilled_url": f"https://wa.me/{phone}?text={urllib.parse.quote(whatsapp_text)}" if phone else "", "body": whatsapp_text, "attachments": screenshot_paths, "live_url": live_url},
-        "note": "Routine outreach is authorized by the 10 AM workflow without per-run permission. The connected adapter must send and record sent/delivered, unavailable, or failed status.",
+    "note": "Routine outreach is authorized by the 10 AM workflow without per-run permission. OpenClaw must send and record sent/delivered, unavailable, or failed status; Codex is prohibited from sending.",
     }
     outreach_dir = ROOT / "outreach"
     outreach_dir.mkdir(exist_ok=True)

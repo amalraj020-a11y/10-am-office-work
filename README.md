@@ -21,11 +21,11 @@ The Windows scheduled task runs `scripts/run-ollama-10am.ps1` every day at 10:00
 
 Qwen does not invent business facts, prices, reviews, or services. Production deployment, payment collection, ownership transfer, and backend work happen only after owner approval and payment agreement. Routine website creation, GitHub/Excel updates, and outreach sending are authorized for the 10 AM workflow without a new permission request each day. This includes every fresh daily test: after validation, Amala sends the prepared outreach through each verified connected channel automatically and reports the exact result afterward.
 
-Codex is not the runtime for this workflow. The Codex heartbeat automation is paused; the local Windows Ollama task is the only scheduled runner.
+Codex is prohibited from running, sending, or orchestrating this workflow. OpenClaw must be the only runtime and sender; the local Windows Ollama task is called by OpenClaw. If OpenClaw is unavailable, the run must stop and report `openclaw_not_connected` rather than falling back to Codex.
 
 ## Execution ownership
 
-Qwen `qwen3:4b` generates the website copy and outreach message. The active automation adapter performs GitHub, email, and WhatsApp actions. Each run must report the actual executor truthfully; in the current test, Codex orchestrated the run and performed the WhatsApp send, while OpenClaw was not the sender.
+Qwen `qwen3:4b` generates the website copy and outreach message. OpenClaw performs GitHub, email, and WhatsApp actions and reports the exact result. Codex must not perform any project action, including sending, browser control, orchestration, or fallback execution.
 
 ## Operating rules
 
