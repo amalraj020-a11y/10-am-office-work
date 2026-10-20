@@ -12,5 +12,19 @@
     "services": ["home-style continental food", "Asian dishes", "coffee", "desserts", "cat cafe experience"],
     "website_evidence": "Public listing reviewed: https://catcafemap.com/cat-cafe/mrs-wilsons-cafe-kolkata. Listing identifies Instagram as the website/social presence; no dedicated official domain was found in the search performed. Confirm with owner before production.",
     "source_urls": ["https://catcafemap.com/cat-cafe/mrs-wilsons-cafe-kolkata"]
+  },
+  {
+    "id": "KOL-003",
+    "business_name": "Bune - The Coffee Room",
+    "category": "coffee shop",
+    "city_area": "Kolkata - Desapriya Park",
+    "phone": "+91 3346014070",
+    "public_email": "",
+    "social_url": "",
+    "address": "Lake View Road, Desapriya Park, Kolkata, West Bengal 700019, India",
+    "hours": "Daily 8 AM–8 PM",
+    "services": ["coffee shop", "coffee", "cafe service"],
+    "website_evidence": "Public LocalU listing reviewed. The listing provides the business address, hours, and phone numbers but no dedicated official website URL. Confirm with the owner before production.",
+    "source_urls": ["https://www.localu.in/listing/bune-the-coffee-room/", "https://www.district.in/dining/kolkata/bune-the-coffee-room-jodhpur-park"]
   }
 ]
