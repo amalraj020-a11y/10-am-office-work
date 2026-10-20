@@ -78,22 +78,26 @@ def append_csv(path: Path, headers: list[str], row: list[str]) -> None:
 def prepare_outreach(business: dict, content: dict, site_slug: str, now: str) -> None:
     """Create the auto-send queue record; the connected adapter sends and reports the result."""
     repo_url = f"https://github.com/amalraj020-a11y/{REPO_NAME}/tree/main/sites/{site_slug}"
+    live_url = f"https://amalraj020-a11y.github.io/{REPO_NAME}/sites/{site_slug}/"
+    email_text = content.get("email_body", "").strip()
     whatsapp_text = content.get("whatsapp_body", "").strip()
     company_followup = "Hi, I’m Amala from MultiMax. MultiMax is a small web development company that creates affordable websites for local businesses. We found your shop and thought it looked great, but noticed it did not have a dedicated website, so we prepared a website concept for you. If you are interested, we can proceed and offer it at a low agreed budget. Tell me and I will send the website preview and full details."
     screenshot_paths = [f"work/screenshots/{site_slug}-home.jpg", f"work/screenshots/{site_slug}-services.jpg"]
     screenshot_links = [f"https://raw.githubusercontent.com/amalraj020-a11y/{REPO_NAME}/main/{path}" for path in screenshot_paths]
-    if repo_url not in whatsapp_text:
-        whatsapp_text = f"{whatsapp_text}\n\nWebsite preview: {repo_url}\n\nScreenshots: {screenshot_links[0]} and {screenshot_links[1]}\n\nIf you are interested, I can customize it, deploy it, and add backend features within a small agreed budget."
+    if live_url not in whatsapp_text:
+        whatsapp_text = f"{whatsapp_text}\n\nLive website preview: {live_url}\n\nGitHub source: {repo_url}\n\nScreenshots: {screenshot_links[0]} and {screenshot_links[1]}\n\nIf you are interested, I can customize it, deploy it, and add backend features within a small agreed budget."
     if company_followup not in whatsapp_text:
         whatsapp_text = f"{whatsapp_text}\n\n{company_followup}"
+    if live_url not in email_text:
+        email_text = f"{email_text}\n\nLive website preview: {live_url}\n\nGitHub source: {repo_url}\n\nScreenshots: {screenshot_links[0]} and {screenshot_links[1]}".strip()
     phone = re.sub(r"[^0-9]", "", business.get("phone", ""))
     record = {
         "prospect_id": business["id"],
         "business_name": business["business_name"],
         "model": MODEL,
         "created_at": now,
-        "email": {"status": "draft_only", "subject": content.get("email_subject", f"A website preview for {business['business_name']}"), "body": content.get("email_body", "")},
-        "whatsapp": {"status": "queued_for_auto_send", "phone": business.get("phone", ""), "prefilled_url": f"https://wa.me/{phone}?text={urllib.parse.quote(whatsapp_text)}" if phone else "", "body": whatsapp_text, "attachments": screenshot_paths},
+        "email": {"status": "draft_only", "subject": content.get("email_subject", f"A website preview for {business['business_name']}"), "body": email_text, "live_url": live_url},
+        "whatsapp": {"status": "queued_for_auto_send", "phone": business.get("phone", ""), "prefilled_url": f"https://wa.me/{phone}?text={urllib.parse.quote(whatsapp_text)}" if phone else "", "body": whatsapp_text, "attachments": screenshot_paths, "live_url": live_url},
         "note": "Routine outreach is authorized by the 10 AM workflow without per-run permission. The connected adapter must send and record sent/delivered, unavailable, or failed status.",
     }
     outreach_dir = ROOT / "outreach"
