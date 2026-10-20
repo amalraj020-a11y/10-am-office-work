@@ -120,7 +120,13 @@ def has_contact_channel(candidate: dict) -> bool:
     """
     if candidate.get("whatsapp_available") is False:
         return False
-    return bool(re.sub(r"[^0-9]", "", candidate.get("phone", "")) or candidate.get("public_email", "").strip())
+    phone = bool(re.sub(r"[^0-9]", "", candidate.get("phone", "")))
+    email = bool(candidate.get("public_email", "").strip())
+    # A phone-only prospect must be checked by the connected WhatsApp adapter
+    # before Qwen is allowed to build a site for it.
+    if phone and not email:
+        return candidate.get("whatsapp_available") is True
+    return phone or email
 
 def main() -> int:
     now = datetime.now().astimezone().isoformat(timespec="seconds")
