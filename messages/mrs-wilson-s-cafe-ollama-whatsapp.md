@@ -1,1 +1,0 @@
-Hello Mrs. Wilson's Cafe team. I prepared a simple website preview for your cafe using public business details. I can customize it, deploy it, and add backend features if you are interested, with a small budget agreed in advance. May I share the preview with you?

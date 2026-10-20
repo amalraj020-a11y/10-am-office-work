@@ -1,4 +1,4 @@
-# Ollama run\n\nModel: `qwen3:4b`\nRun: `2026-10-20T18:12:45+05:30`\n\nNiche: `cafe`\nTemplate source: `Original implementation`\nTemplate URL: ``\nTemplate name: ``\nLicense note: No external template used because the local model response was not valid JSON.\n\nBusiness facts:\n```json\n{
+# Ollama run\n\nModel: `qwen3:4b`\nRun: `2026-10-20T18:16:21+05:30`\n\nNiche: `cafe`\nTemplate source: `Original implementation`\nTemplate URL: ``\nTemplate name: ``\nLicense note: Confirm before commercial delivery.\n\nBusiness facts:\n```json\n{
   "id": "KOL-002",
   "business_name": "Mrs. Wilson's Cafe",
   "category": "cafe",
