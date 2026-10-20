@@ -53,6 +53,7 @@ Codex is not the runtime for this workflow. The Codex heartbeat automation is pa
 - `messages/` — outreach and follow-up templates.
 - `tracker/` — spreadsheet/tracker export when the live workbook is available.
 - `sites/` — demo websites for qualified prospects.
+- `websites/` — website builds organized by business slug.
 - `work/` — company-by-company work log, screenshots, README, and Excel tracker.
 - `outreach/` — Qwen-generated channel drafts, links, attachments, and delivery status.
 
