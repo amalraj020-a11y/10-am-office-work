@@ -17,7 +17,7 @@ def slug(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-") or "business"
 
 def ask_ollama(prompt: str) -> str:
-    payload = json.dumps({"model": MODEL, "prompt": prompt, "stream": False, "think": False, "format": "json", "options": {"temperature": 0.2, "num_predict": 420}}).encode()
+    payload = json.dumps({"model": MODEL, "prompt": prompt, "stream": False, "think": False, "format": "json", "options": {"temperature": 0.2, "num_predict": 900}}).encode()
     request = urllib.request.Request(OLLAMA_URL, data=payload, headers={"Content-Type": "application/json"})
     with urllib.request.urlopen(request, timeout=300) as response:
         body = json.loads(response.read().decode())
@@ -37,16 +37,17 @@ def extract_json(text: str) -> dict:
 
 def build_site_from_approved_template(business: dict, content: dict, target: Path) -> None:
     """Copy the approved ThemeWagon/Technext template and adapt only verified facts."""
-    source = ROOT.parent / "feane-template"
+    source = ROOT / "koppee-template"
     if not source.exists():
         raise RuntimeError("Fresh approved template checkout is missing; no previously used template or generic replacement is permitted.")
-    shutil.copytree(source, target, dirs_exist_ok=True)
+    shutil.copytree(source, target, dirs_exist_ok=True, ignore=shutil.ignore_patterns(".git", ".DS_Store", "README.txt", "READ-ME.txt"))
     index = target / "index.html"
     html = index.read_text(encoding="utf-8")
     business_name = business["business_name"]
     intro = content.get("intro", "A welcoming local place for good food and good company.")
     replacements = {
-        "Feane": business_name,
+        "Koppee": business_name,
+        "KOPPEE": business_name,
         "A restaurant website template": intro,
         "FREEHTML5.co": "MultiMax",
         "freehtml5.co": "#",
@@ -77,8 +78,8 @@ def append_csv(path: Path, headers: list[str], row: list[str]) -> None:
 
 def prepare_outreach(business: dict, content: dict, site_slug: str, now: str) -> None:
     """Create the auto-send queue record; the connected adapter sends and reports the result."""
-    repo_url = f"https://github.com/amalraj020-a11y/{REPO_NAME}/tree/main/sites/{site_slug}"
-    live_url = f"https://amalraj020-a11y.github.io/{REPO_NAME}/sites/{site_slug}/"
+    repo_url = f"https://github.com/amalraj020-a11y/{REPO_NAME}/tree/main/websites/{site_slug}"
+    live_url = f"https://amalraj020-a11y.github.io/{REPO_NAME}/"
     email_text = content.get("email_body", "").strip()
     whatsapp_text = content.get("whatsapp_body", "").strip()
     company_followup = "Hi, I’m Amala from MultiMax. MultiMax is a small web development company that creates affordable websites for local businesses. We found your shop and thought it looked great, but noticed it did not have a dedicated website, so we prepared a website concept for you. If you are interested, we can proceed and offer it at a low agreed budget. Tell me and I will send the website preview and full details."
@@ -144,7 +145,7 @@ def main() -> int:
     business = pending[0]
     if business["business_name"].startswith("REPLACE"):
         raise SystemExit("Add one verified no-website business to data/prospects.json before running.")
-    prompt = f'''You are the local-business website assistant. Use only the verified facts below. You MUST select a reputable approved free template and return all four template fields. For this test, use ThemeWagon's free Foodee template from Technext: template_source="ThemeWagon free catalog / Technext GitHub", template_url="https://themewagon.com/themes/free-bootstrap-templates-restaurant-website-design-online-ordering/", template_name="Foodee", license_note="Free template source; confirm the source license before commercial delivery." The source is a design/code starting point only; do not copy another business identity. Create original marketing copy for a responsive one-page website. Do not invent reviews, ratings, founders, prices, claims, or services. Return JSON only with keys niche, template_source, template_url, template_name, license_note, title, intro, cards (array of 4 objects with label, title, description), email_subject, email_body, whatsapp_body.
+    prompt = f'''You are the local-business website assistant. Use only the verified facts below. You MUST use this fresh approved template for this test: template_source="ThemeWagon free catalog / GitHub mirror", template_url="https://themewagon.com/themes/koppee/", template_name="Koppee", license_note="Free template source; confirm the source license before commercial delivery." The source is a design/code starting point only; do not copy another business identity. Create original marketing copy for a responsive multi-page website. Do not invent reviews, ratings, founders, prices, claims, or services. Return JSON only with keys niche, template_source, template_url, template_name, license_note, title, intro, cards (array of 4 objects with label, title, description), email_subject, email_body, whatsapp_body.
 FACTS: {json.dumps(business, ensure_ascii=False)}
 TEMPLATE CATALOG: {json.dumps(template_catalog, ensure_ascii=False)}'''
     raw = ask_ollama(prompt)
@@ -157,9 +158,9 @@ TEMPLATE CATALOG: {json.dumps(template_catalog, ensure_ascii=False)}'''
         raise RuntimeError("Qwen did not return valid JSON; no website was created because the retired generic template is prohibited.")
     # Keep the model responsible for the copy, while pinning the build to the
     # approved source when Qwen omits metadata in an otherwise usable response.
-    content.setdefault("template_source", "ThemeWagon free catalog / Technext GitHub")
-    content.setdefault("template_url", "https://themewagon.com/themes/free-bootstrap-templates-restaurant-website-design-online-ordering/")
-    content.setdefault("template_name", "Foodee")
+    content.setdefault("template_source", "ThemeWagon free catalog / GitHub mirror")
+    content.setdefault("template_url", "https://themewagon.com/themes/koppee/")
+    content.setdefault("template_name", "Koppee")
     content.setdefault("license_note", "Free template source; confirm the source license before commercial delivery.")
     required_template = str(content.get("template_url", "")).strip()
     required_name = str(content.get("template_name", "")).strip()
@@ -172,7 +173,7 @@ TEMPLATE CATALOG: {json.dumps(template_catalog, ensure_ascii=False)}'''
     if prior_users and business["business_name"] not in prior_users:
         raise RuntimeError(f"Template {required_name} was already used for another prospect; Qwen must select a fresh ThemeWagon template.")
     site_slug = slug(business["business_name"])
-    build_site_from_approved_template(business, content, ROOT / "sites" / site_slug)
+    build_site_from_approved_template(business, content, ROOT / "websites" / site_slug)
     used_templates.setdefault(required_name, {"source": content.get("template_source", ""), "url": required_template, "used_for": []})
     if business["business_name"] not in used_templates[required_name]["used_for"]:
         used_templates[required_name]["used_for"].append(business["business_name"])

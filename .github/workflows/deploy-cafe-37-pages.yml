@@ -1,0 +1,36 @@
+name: Deploy Cafe 37 to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "websites/cafe-37/**"
+      - ".github/workflows/deploy-cafe-37-pages.yml"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages-cafe-37
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Cafe 37 website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: websites/cafe-37
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

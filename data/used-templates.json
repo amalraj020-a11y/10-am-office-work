@@ -2,11 +2,23 @@
   "Foodee": {
     "source": "ThemeWagon free catalog / Technext GitHub",
     "url": "https://themewagon.com/themes/free-bootstrap-templates-restaurant-website-design-online-ordering/",
-    "used_for": ["No. 41 Coffee", "7sea Specialty Cafe"]
+    "used_for": [
+      "No. 41 Coffee",
+      "7sea Specialty Cafe"
+    ]
   },
   "Feane": {
     "source": "ThemeWagon free catalog / HTML Design",
     "url": "https://themewagon.com/themes/free-bootstrap-4-html5-restaurant-website-template-feane/",
-    "used_for": ["Cafe Valley Coffee Shoppe"]
+    "used_for": [
+      "Cafe Valley Coffee Shoppe"
+    ]
+  },
+  "Koppee": {
+    "source": "ThemeWagon free catalog / GitHub mirror",
+    "url": "https://themewagon.com/themes/koppee/",
+    "used_for": [
+      "Cafe 37"
+    ]
   }
 }
