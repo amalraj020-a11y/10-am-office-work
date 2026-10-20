@@ -1,0 +1,1 @@
+Hi! I'm checking out Cafe 37 in Belgachia, Kolkata. Can you tell me about your cafe dining, restaurant meals, and local takeaway options? I'd love to know your hours and contact details too!

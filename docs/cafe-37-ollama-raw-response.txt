@@ -1,0 +1,32 @@
+{
+  "niche": "cafe and restaurant",
+  "template_source": "ThemeWagon free catalog / GitHub mirror",
+  "template_url": "https://themewagon.com/themes/koppee/",
+  "template_name": "Koppee",
+  "license_note": "Free template source; confirm the source license before commercial delivery.",
+  "title": "Cafe 37: Your Local Kolkata Cafe & Restaurant",
+  "intro": "Cafe 37 is a beloved cafe and restaurant in Belgachia, Kolkata, serving delicious meals and local takeaway options. With a warm atmosphere and authentic flavors, we invite you to enjoy a meal or a coffee at our cozy location.",
+  "cards": [
+    {
+      "label": "Location",
+      "title": "Kolkata - Belgachia",
+      "description": "64/1/45C, Belgachia Road, near SBI Bank, Milk Colony, Kolkata 700037, West Bengal, India"
+    },
+    {
+      "label": "Hours",
+      "title": "12 PM–11:30 PM",
+      "description": "Confirm with the business for exact timings"
+    },
+    {
+      "label": "Contact",
+      "title": "Phone & Email",
+      "description": "+91 98308 64437 | cafe37restaurant@gmail.com"
+    },
+    {
+      "label": "Services",
+      "title": "Local Dining & Takeaway",
+      "description": "Cafe dining, restaurant meals, and local takeaway options"
+    }
+  ],
+  "email_subject": "Discover Cafe 37: Your Perfect Spot for Kolkata Dining",
+  "email_body": "Hello,\n\nYou might be looking for a cozy cafe and restaurant in Kolkata's Belgachia area. Cafe 37 is your ideal spot for delicious meals and local takeaway options.\n\n📍 Location: 64/1/45C, Belg
