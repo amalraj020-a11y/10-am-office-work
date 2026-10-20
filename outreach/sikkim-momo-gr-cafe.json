@@ -1,0 +1,24 @@
+{
+  "prospect_id": "KOL-007",
+  "business_name": "Sikkim Momo Gr. Cafe",
+  "model": "qwen3:4b",
+  "created_at": "2026-10-21T00:07:58+05:30",
+  "email": {
+    "status": "draft_only",
+    "subject": "Sikkim Momo Gr. Cafe - Your Local Baguiati Bistro",
+    "body": "Hello,\n\nYou've been selected as a local business to showcase on our platform. Sikkim Momo Gr. Cafe is a beloved cafe and fast food spot in Kolkata's Baguiati neighborhood, serving authentic momos, coffee, and quick meals.\n\nWe're excited to help you reach more customers with a professional website that highlights your unique offerings.\n\nBest regards,\nYour Local Business Website Assistant\n\nLive website preview: https://amalraj020-a11y.github.io/10-am-office-work/\n\nGitHub source: https://github.com/amalraj020-a11y/10-am-office-work/tree/main/websites/sikkim-momo-gr-cafe\n\nScreenshots: https://raw.githubusercontent.com/amalraj020-a11y/10-am-office-work/main/work/screenshots/sikkim-momo-gr-cafe-home.jpg and https://raw.githubusercontent.com/amalraj020-a11y/10-am-office-work/main/work/screenshots/sikkim-momo-gr-cafe-services.jpg",
+    "live_url": "https://amalraj020-a11y.github.io/10-am-office-work/"
+  },
+  "whatsapp": {
+    "status": "queued_for_auto_send",
+    "phone": "+91 98302 11764",
+    "prefilled_url": "https://wa.me/919830211764?text=Hi%20there%21%20%F0%9F%91%8B%0A%0AI%27m%20helping%20Sikkim%20Momo%20Gr.%20Cafe%20create%20a%20professional%20website.%20We%27re%20a%20cafe%20and%20fast%20food%20restaurant%20in%20Kolkata%27s%20Baguiati%20area.%20We%20serve%20momos%2C%20coffee%2C%20and%20fast%20food.%0A%0AWould%20you%20like%20to%20see%20a%20quick%20preview%20of%20the%20website%20we%27ll%20build%20for%20you%3F%20%F0%9F%98%8A%0A%0ALive%20website%20preview%3A%20https%3A//amalraj020-a11y.github.io/10-am-office-work/%0A%0AGitHub%20source%3A%20https%3A//github.com/amalraj020-a11y/10-am-office-work/tree/main/websites/sikkim-momo-gr-cafe%0A%0AScreenshots%3A%20https%3A//raw.githubusercontent.com/amalraj020-a11y/10-am-office-work/main/work/screenshots/sikkim-momo-gr-cafe-home.jpg%20and%20https%3A//raw.githubusercontent.com/amalraj020-a11y/10-am-office-work/main/work/screenshots/sikkim-momo-gr-cafe-services.jpg%0A%0AIf%20you%20are%20interested%2C%20I%20can%20customize%20it%2C%20deploy%20it%2C%20and%20add%20backend%20features%20within%20a%20small%20agreed%20budget.%0A%0AHi%2C%20I%E2%80%99m%20Amala%20from%20MultiMax.%20MultiMax%20is%20a%20small%20web%20development%20company%20that%20creates%20affordable%20websites%20for%20local%20businesses.%20We%20found%20your%20shop%20and%20thought%20it%20looked%20great%2C%20but%20noticed%20it%20did%20not%20have%20a%20dedicated%20website%2C%20so%20we%20prepared%20a%20website%20concept%20for%20you.%20If%20you%20are%20interested%2C%20we%20can%20proceed%20and%20offer%20it%20at%20a%20low%20agreed%20budget.%20Tell%20me%20and%20I%20will%20send%20the%20website%20preview%20and%20full%20details.",
+    "body": "Hi there! 👋\n\nI'm helping Sikkim Momo Gr. Cafe create a professional website. We're a cafe and fast food restaurant in Kolkata's Baguiati area. We serve momos, coffee, and fast food.\n\nWould you like to see a quick preview of the website we'll build for you? 😊\n\nLive website preview: https://amalraj020-a11y.github.io/10-am-office-work/\n\nGitHub source: https://github.com/amalraj020-a11y/10-am-office-work/tree/main/websites/sikkim-momo-gr-cafe\n\nScreenshots: https://raw.githubusercontent.com/amalraj020-a11y/10-am-office-work/main/work/screenshots/sikkim-momo-gr-cafe-home.jpg and https://raw.githubusercontent.com/amalraj020-a11y/10-am-office-work/main/work/screenshots/sikkim-momo-gr-cafe-services.jpg\n\nIf you are interested, I can customize it, deploy it, and add backend features within a small agreed budget.\n\nHi, I’m Amala from MultiMax. MultiMax is a small web development company that creates affordable websites for local businesses. We found your shop and thought it looked great, but noticed it did not have a dedicated website, so we prepared a website concept for you. If you are interested, we can proceed and offer it at a low agreed budget. Tell me and I will send the website preview and full details.",
+    "attachments": [
+      "work/screenshots/sikkim-momo-gr-cafe-home.jpg",
+      "work/screenshots/sikkim-momo-gr-cafe-services.jpg"
+    ],
+    "live_url": "https://amalraj020-a11y.github.io/10-am-office-work/"
+  },
+  "note": "Routine outreach is authorized by the 10 AM workflow without per-run permission. The connected adapter must send and record sent/delivered, unavailable, or failed status."
+}
