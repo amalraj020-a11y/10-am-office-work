@@ -52,4 +52,4 @@ Amala must search the business name across public listings before marking a cont
 - Screenshots: `screenshots/no-41-coffee-home.jpg` and `screenshots/no-41-coffee-services.jpg`.
 - WhatsApp: queued for the connected adapter to attempt at `+44 20 3417 3500`; delivery must be recorded as sent, delivered, unavailable, or failed.
 - Email: draft prepared for `no41coffeekitchen@outlook.com`; send only through the connected mail adapter and record the result.
-- Deployment: not deployed; owner approval and budget confirmation required.
+- Deployment: [live on GitHub Pages](https://amalraj020-a11y.github.io/10-am-office-work/); customer approval is still required before production customization or ownership transfer.
