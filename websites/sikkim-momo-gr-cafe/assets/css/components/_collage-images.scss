@@ -1,0 +1,85 @@
+// -----------------------------------------------------------------------------
+// Component: Image Collage Wrap
+// An overlapping 3-image composition with depth and responsive adjustments.
+// -----------------------------------------------------------------------------
+
+
+/**
+ * Image Collage Container
+ * Creates a relative coordinate system for the absolute-positioned images.
+ */
+.img-collage-wrap {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    padding: 20px;
+
+    /**
+     * Shared Image Styles
+     * Standardizes the look of all images within the collage including 
+     * shadows and a clean "Polaroid" style border.
+     */
+    img {
+        position: absolute;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        border: 4px solid white;
+    }
+
+    // --- Image Layering & Positioning ---
+
+    /**
+     * First Layer (Background)
+     * The largest anchor image of the composition.
+     */
+    .first {
+        width: 70%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+
+    .second {
+        width: 45%;
+        height: 300px;
+        top: 15%;
+        right: 0;
+        z-index: 2;
+    }
+
+    .third {
+        width: 200px;
+        height: 200px;
+        bottom: 18%;
+        right: 20%;
+        z-index: 3;
+    }
+
+    /**
+     * Responsive Adjustments
+     * Resizes the collage and its elements for tablets and mobile devices.
+     */
+    @media (max-width: 768px) {
+        height: 400px;
+
+        .first {
+            width: 75%;
+            height: 300px;
+        }
+
+        .second {
+            width: 50%;
+            height: 180px;
+            top: 10%;
+        }
+
+        .third {
+            width: 120px;
+            height: 120px;
+            bottom: 10%;
+            right: 15%;
+        }
+    }
+}

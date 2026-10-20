@@ -1,0 +1,78 @@
+// -----------------------------------------------------------------------------
+// Global Mixins
+// This file contains reusable logic for hover effects, animations, and overlays.
+// -----------------------------------------------------------------------------
+
+@use '../abstract/variables' as *;
+
+// 1. Image Zoom Effect
+// Scales the <img> child element when the parent container is hovered.
+// * * @param {Number} $scale (1.15) - The magnification level of the zoom.
+// * @param {Time} $speed (0.4s)   - The duration of the transition.
+// * * Usage: 
+// * .card-image { @include hover-zoom(1.2, 0.5s); }
+
+// 1. The Zoom Effect On Hover 
+@mixin hover-zoom($scale: 1.15, $speed: 0.4s) {
+    // Ensure the container clips the scaling image
+    overflow: hidden;
+
+    img {
+        transition: transform $speed ease-in-out;
+    }
+
+    &:hover img {
+        transform: scale($scale);
+    }
+}
+
+
+// * 2. Dark Overlay Effect
+// * Creates a pseudo-element overlay that appears on hover.
+// * Useful for banners, cards, and gallery items.
+// * * @param {Number} $opacity (0.1) - The final opacity of the overlay.
+// * @param {Time} $speed (0.3s)    - The fade-in speed.
+// * * Usage:
+// .portfolio-item { @include hover-overlay(0.5); }
+//
+
+@mixin hover-overlay($opacity: 0.1, $speed: 0.3s) {
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        // Background hover color is pulled from variables for theme consistency
+        // background: rgba(0, 0, 0, $opacity); 
+        opacity: 0;
+        transition: opacity $speed;
+        pointer-events: none; // Prevents the overlay from blocking link clicks
+    }
+
+    &:hover::after {
+        opacity: 1;
+    }
+}
+
+// This animation lifts up the element on hover and gives a box shadow
+
+.hover-lift {
+    // Defines the speed and "feel" of the movement
+    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+        box-shadow 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+
+    will-change: transform;
+
+    &:hover {
+        // Moves element up
+        transform: translateY(-5px);
+
+        // Soft deep shadow
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1) !important;
+    }
+}

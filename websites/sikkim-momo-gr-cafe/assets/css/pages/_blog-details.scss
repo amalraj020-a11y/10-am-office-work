@@ -1,0 +1,70 @@
+// -----------------------------------------------------------------------------
+// Page Styles: Blog Details
+// Dedicated layout logic for single article pages and long-form content.
+// -----------------------------------------------------------------------------
+
+@use '../abstract/variables' as *;
+
+/**
+ * Blog Details Wrapper
+ * The main container for article content, featuring a clean card-style layout.
+ */
+
+.blog-details-wrap {
+    padding: 32px;
+    border: 0px;
+    background: $color-bg-light;
+    border-radius: 10px;
+    margin-bottom: 24px;
+
+    @media (max-width: 767px) {
+        padding: 16px;
+    }
+
+    /**
+    * Article Header
+    * Contains the title and meta-information such as the author/writer section.
+    */
+    header {
+        .writer {
+            display: flex;
+            align-items: center;
+            margin: 34px 0 20px 0;
+
+            span {
+                margin-right: 10px;
+                font-size: 20px;
+            }
+
+            i {
+                color: $color-primary;
+                font-size: 20px;
+            }
+        }
+    }
+
+    /**
+    * Featured & Content Images
+    * Standardizes all images within the blog body with smooth rounded corners.
+    */
+    img {
+        border-radius: 10px;
+    }
+
+    p,
+    li {
+        color: $color-text-dark-muted;
+    }
+
+    i {
+        margin-right: 8px;
+    }
+
+    ol {
+        padding-left: 20px;
+
+        li {
+            margin-bottom: 15px;
+        }
+    }
+}

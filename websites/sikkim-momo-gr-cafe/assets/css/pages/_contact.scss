@@ -1,0 +1,37 @@
+// -----------------------------------------------------------------------------
+// Page Styles: Contact Page
+// Specific layout logic for the Contact Us page, including info lists and social integration.
+// -----------------------------------------------------------------------------
+
+@use '../abstract/variables' as *;
+
+/**
+ * Contact Section List
+ * Manages the layout for address, phone, and email information.
+ */
+
+.contact-section ul {
+    padding: 0px;
+
+    li {
+        display: block;
+        margin: 0 0 15px;
+
+        span {
+            display: inline-block;
+            min-width: 140px;
+        }
+    }
+
+    .social-links {
+        display: inline;
+
+        a {
+            border-color: $color-text-dark-base;
+
+            i {
+                color: $color-text-dark-base;
+            }
+        }
+    }
+}

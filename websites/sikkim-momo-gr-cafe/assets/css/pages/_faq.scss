@@ -1,0 +1,22 @@
+// -----------------------------------------------------------------------------
+// Page Styles: FAQ Page
+// Layout and sidebar logic specifically for the Frequently Asked Questions page.
+// -----------------------------------------------------------------------------
+
+@use '../abstract/variables' as *;
+
+/**
+ * Contact Block Wrapper
+ * A modern, rounded container designed to house contact-related CTAs or FAQ highlights.
+ */
+
+.contact-block {
+    background: $color-bg-light;
+    border-radius: 15px;
+    padding: 40px 20px 50px 20px;
+
+    img {
+        max-width: 200px;
+        padding: 20px 0;
+    }
+}

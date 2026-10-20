@@ -1,0 +1,77 @@
+// -----------------------------------------------------------------------------
+// Component: Page Pre-Loader
+// A full-screen overlay with a 3D rotating animation to improve perceived load time.
+// -----------------------------------------------------------------------------
+
+@use '../abstract/variables' as *;
+
+/**
+ * Loader Wrapper
+ * Creates a high-z-index, full-screen background to hide the page content
+ * until it is fully loaded.
+ */
+
+.loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: #fff;
+}
+
+/**
+ * Loading Spinner
+ * The central animated square. Uses the theme's primary brand color.
+ */
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    margin: -20px 0 0 -20px;
+    background: $color-primary;
+    -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+    animation: sk-rotateplane 1.2s infinite ease-in-out;
+}
+
+// --- Keyframe Animations ---
+
+/**
+ * 3D Rotating Plane Animation
+ * Creates a sophisticated "flipping" effect using CSS 3D perspectives.
+ */
+@-webkit-keyframes sk-rotateplane {
+    0% {
+        -webkit-transform: perspective(120px);
+    }
+
+    50% {
+        -webkit-transform: perspective(120px) rotateY(180deg);
+    }
+
+    100% {
+        -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg);
+    }
+}
+
+@keyframes sk-rotateplane {
+    0% {
+        transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    }
+
+    50% {
+        transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+        -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    }
+
+    100% {
+        transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    }
+}

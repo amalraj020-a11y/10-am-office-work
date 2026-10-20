@@ -1,0 +1,179 @@
+// -----------------------------------------------------------------------------
+// Component: Custom Navigation Bar
+// Advanced header with transparent-to-solid transitions and multi-theme support.
+// -----------------------------------------------------------------------------
+
+// Add classes navbar-theme-dark navbar-dark for dark theme 
+// Add classes navbar-theme-light navbar-light for light theme 
+
+@use '../abstract/variables' as *;
+
+.custom-navbar {
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+
+    // -----------------------------------
+    // Logo
+    // -----------------------------------
+    .nav-logo {
+        max-width: 160px;
+
+        @media (max-width: 767px) {
+            max-width: 130px;
+        }
+    }
+
+    // -----------------------------------
+    // Nav Items
+    // -----------------------------------
+    .nav-item {
+        padding-right: 30px;
+
+        &:last-child {
+            padding-right: 0;
+        }
+    }
+
+    // -----------------------------------
+    // Dropdowns (shared)
+    // -----------------------------------
+    .dropdown-menu {
+        border: none;
+        padding: 10px 0;
+        border-radius: 8px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+        .dropdown-item {
+            padding: 8px 20px;
+            transition: background-color 0.3s, color 0.3s;
+
+            &:hover,
+            &:active {
+                background-color: $color-bg-light;
+                color: $color-primary;
+            }
+        }
+    }
+
+    // -----------------------------------
+    // Mobile Toggler
+    // -----------------------------------
+    .navbar-toggler {
+        border: none;
+
+        &:focus {
+            box-shadow: none;
+        }
+    }
+
+    // ===========================================================================
+    // LIGHT THEME
+    // ===========================================================================
+    &.navbar-theme-light {
+        background-color: transparent;
+
+        // Default (top of page)
+        &.navbar-light-mode {
+            .nav-link {
+                color: $color-text-dark-base;
+            }
+
+            .navbar-toggler-icon {
+                filter: brightness(0);
+            }
+        }
+
+        // Scrolled state
+        &.navbar-scrolled {
+            background-color: $color-text-light-base;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+            .nav-link {
+                color: $color-text-dark-base;
+
+                &:hover,
+                &.active {
+                    color: $color-primary;
+                }
+            }
+
+            .navbar-toggler-icon {
+                filter: brightness(0);
+            }
+        }
+
+        // Mobile Menu
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background-color: $color-text-light-base;
+                padding: 20px;
+                margin-top: 15px;
+                border-radius: 10px;
+
+                .nav-link {
+                    color: $color-text-dark-base;
+
+                    &:hover,
+                    &.active {
+                        color: $color-primary;
+                    }
+                }
+            }
+        }
+    }
+
+    // ===========================================================================
+    // DARK THEME
+    // ===========================================================================
+    &.navbar-theme-dark {
+        background-color: transparent;
+
+        // Default (top of page)
+        &.navbar-dark {
+            .nav-link {
+                color: $color-text-light-base;
+            }
+
+            .navbar-toggler-icon {
+                filter: brightness(1);
+            }
+        }
+
+        // Scrolled state
+        &.navbar-scrolled {
+            background-color: $color-text-dark-base;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+
+            .nav-link {
+                color: $color-text-light-base;
+
+                &:hover,
+                &.active {
+                    color: $color-primary;
+                }
+            }
+
+            .navbar-toggler-icon {
+                filter: brightness(1);
+            }
+        }
+
+        // Mobile Menu
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background-color: $color-text-dark-base;
+                padding: 20px;
+                margin-top: 15px;
+                border-radius: 10px;
+
+                .nav-link {
+                    color: $color-text-light-base;
+
+                    &:hover,
+                    &.active {
+                        color: $color-primary;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>DinePro Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            line-height: 1.7;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            background: #111;
+            padding: 30px 20px;
+        }
+
+        .sidebar h4 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #bbb;
+            text-decoration: none;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .sidebar a:hover {
+            color: #fff;
+        }
+
+        .content {
+            padding: 40px;
+            background: #fff;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-weight: 600;
+        }
+
+        h2 {
+            margin-top: 50px;
+        }
+
+        code {
+            background: #f1f1f1;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        pre {
+            background: #111;
+            color: #0f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .badge {
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 sidebar">
+                <h4>DinePro</h4>
+                <a href="#intro">Introduction</a>
+                <a href="#features">Key Features</a>
+                <a href="#pages">Pages Included</a>
+                <a href="#structure">Folder Structure</a>
+                <a href="#install">Installation</a>
+                <a href="#html">HTML Structure</a>
+                <a href="#seo">SEO Settings</a>
+                <a href="#scss">SCSS Customization</a>
+                <a href="#aos">AOS Animattion (Scroll Animation)</a>
+                <a href="#js">JavaScript</a>
+                <a href="#responsive">Responsive Design</a>
+                <a href="#browser">Browser Support</a>
+                <a href="#fonts">Fonts & Icons</a>
+                <a href="#credits">Images & Credits</a>
+                <a href="#support">Support</a>
+            </div>
+
+            <!-- Content -->
+            <div class="col-md-9 col-lg-10 content">
+
+                <h1 id="intro">DinePro Documentation</h1>
+                <p class="text-muted">
+                    Restaurant & Café Bootstrap 5.3.8 HTML Template
+                </p>
+                <span class="badge bg-success">Bootstrap 5.3.8</span>
+                <span class="badge bg-primary">HTML5</span>
+                <span class="badge bg-warning text-dark">SCSS</span>
+
+                <hr>
+
+                <!-- Introduction -->
+                <h2>1. Introduction</h2>
+                <p>
+                    DinePro is a modern, fully responsive Restaurant & Café HTML template built with
+                    <strong>Bootstrap 5.3.8</strong>, <strong>HTML5</strong>, <strong>CSS3</strong>, and <strong>SCSS</strong>.
+                    It is suitable for restaurants, cafés, bistros, food courts, and hospitality businesses.
+                </p>
+
+                <!-- Features -->
+                <h2 id="features">2. Key Features</h2>
+                <ul>
+                    <li>Built with Bootstrap 5.3.8 (Latest)</li>
+                    <li>Fully Responsive (Mobile, Tablet, Desktop & Laptop)</li>
+                    <li>3 Unique Homepage Layouts</li>
+                    <li>SCSS Architecture (Pages & Components)</li>
+                    <li>Modern & Clean UI Design</li>
+                    <li>Valid HTML5 & CSS3</li>
+                    <li>Cross-Browser Compatibility</li>
+                    <li>SEO-Friendly Markup</li>
+                    <li>Well-Documented Code</li>
+                    <li>Easy Customization</li>
+                </ul>
+
+                <!-- Pages -->
+                <h2 id="pages">3. Pages Included</h2>
+                <h5>Home Pages</h5>
+                <ul>
+                    <li>Home – Image Background</li>
+                    <li>Home – Video Background</li>
+                    <li>Home – Image Carousel</li>
+                </ul>
+
+                <h5>Inner Pages</h5>
+                <ul>
+                    <li>About Us</li>
+                    <li>Menu Classic</li>
+                    <li>Menu Showcase</li>
+                    <li>Gallery</li>
+                    <li>Chef</li>
+                    <li>Testimonials</li>
+                    <li>Reservation</li>
+                    <li>FAQ</li>
+                    <li>Blog</li>
+                    <li>Blog Details</li>
+                    <li>Contact</li>
+                    <li>Privacy Policy</li>
+                    <li>Terms & Conditions</li>
+                </ul>
+
+                <!-- Folder Structure -->
+                <h2 id="structure">4. Folder Structure</h2>
+                <pre>
+DinePro/
+├── assets/
+│   ├── scss/
+│   │   ├── abstract/
+│   │   ├── base/
+│   │   ├── components/
+│   │   ├── layouts/
+│   │   ├── pages/
+│   │   └── style.scss
+│   ├── css/
+│   ├── js/
+│   ├── images/
+│   └── vendors/
+├── *.html
+└── documentation/
+</pre>
+
+                <!-- Installation -->
+                <h2 id="install">5. Installation</h2>
+                <ol>
+                    <li>Unzip the downloaded package.</li>
+                    <li>Open <code>index.html</code> in your browser.</li>
+                    <li>Upload all files to your server’s public directory.</li>
+                </ol>
+
+                <!-- HTML Structure -->
+                <h2 id="html">6. HTML Structure</h2>
+                <pre>
+&lt;header&gt;&lt;/header&gt;
+&lt;main&gt;
+  &lt;section&gt;...&lt;/section&gt;
+&lt;/main&gt;
+&lt;footer&gt;&lt;/footer&gt;
+            </pre>
+                <h2 id="html">6. HTML Structure</h2>
+
+                <p>
+                    All HTML files in <strong>DinePro</strong> follow a clean, modular, and well-commented structure
+                    built with <strong>Bootstrap 5.3.8</strong>, <strong>HTML5</strong>, and modern best practices.
+                    Below is an overview of the standard page structure used across the template.
+                </p>
+
+                <pre>
+            &lt;!DOCTYPE html&gt;
+            &lt;html lang="en"&gt;
+            
+            &lt;head&gt;
+              &lt;meta charset="utf-8"&gt;
+              &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+            
+              &lt;!-- Page Title --&gt;
+              &lt;title&gt;DinePro&lt;/title&gt;
+            
+              &lt;!-- Favicon --&gt;
+              &lt;link rel="shortcut icon" href="assets/images/favicon.png"&gt;
+            
+              &lt;!-- Bootstrap CSS --&gt;
+              &lt;link href="bootstrap.min.css" rel="stylesheet"&gt;
+            
+              &lt;!-- Icons & Animation CSS --&gt;
+              &lt;link href="bootstrap-icons.css" rel="stylesheet"&gt;
+              &lt;link href="aos.css" rel="stylesheet"&gt;
+            
+              &lt;!-- Main Stylesheet --&gt;
+              &lt;link href="assets/css/style.css" rel="stylesheet"&gt;
+            &lt;/head&gt;
+            
+            &lt;body&gt;
+            
+              &lt;!-- Page Loader --&gt;
+              &lt;div class="loader-wrapper"&gt;
+                &lt;div class="spinner"&gt;&lt;/div&gt;
+              &lt;/div&gt;
+            
+              &lt;!-- Navbar / Header --&gt;
+              &lt;nav class="navbar navbar-expand-lg fixed-top"&gt;
+                &lt;!-- Logo --&gt;
+                &lt;!-- Navigation Menu with Dropdowns --&gt;
+              &lt;/nav&gt;
+            
+              &lt;!-- Hero Section --&gt;
+              &lt;!-- Home Carousel / Image Background / Video Background --&gt;
+              &lt;div class="carousel hero-section"&gt;
+                &lt;!-- Slides --&gt;
+              &lt;/div&gt;
+            
+              &lt;!-- About Section --&gt;
+              &lt;section class="home-about"&gt;
+                &lt;!-- Image Collage + Content --&gt;
+              &lt;/section&gt;
+            
+              &lt;!-- Chefs Section --&gt;
+              &lt;section&gt;
+                &lt;!-- Chef Carousel --&gt;
+              &lt;/section&gt;
+            
+              &lt;!-- Menu Section --&gt;
+              &lt;section class="our-menu"&gt;
+                &lt;!-- Menu Items --&gt;
+              &lt;/section&gt;
+            
+              &lt;!-- Reservation / Booking Section --&gt;
+              &lt;section class="book-a-table-split"&gt;
+                &lt;!-- Booking Form --&gt;
+              &lt;/section&gt;
+            
+              &lt;!-- Blog Section --&gt;
+              &lt;section&gt;
+                &lt;!-- Blog Cards --&gt;
+              &lt;/section&gt;
+            
+              &lt;!-- Footer --&gt;
+              &lt;footer&gt;
+                &lt;!-- Quick Links --&gt;
+                &lt;!-- Opening Hours --&gt;
+                &lt;!-- Contact Info --&gt;
+                &lt;!-- Copyright --&gt;
+              &lt;/footer&gt;
+            
+              &lt;!-- JavaScript Files --&gt;
+              &lt;script src="bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+              &lt;script src="aos.js"&gt;&lt;/script&gt;
+              &lt;script src="assets/js/app.js"&gt;&lt;/script&gt;
+            
+            &lt;/body&gt;
+            &lt;/html&gt;
+            </pre>
+
+                <p>
+                    Each section is clearly separated using HTML comments, making it easy to customize,
+                    remove, or extend individual sections. Animations are handled using the AOS library,
+                    and all interactive behavior is managed inside <code>assets/js/app.js</code>.
+                </p>
+
+                <!-- ================= SEO SECTION START ================= -->
+
+                <h2 id="seo">7. SEO Settings</h2>
+
+                <p>
+                    DinePro includes a <strong>basic SEO-ready setup</strong> in every HTML page.
+                    These settings help search engines understand your website content and improve
+                    visibility when your site is published online.
+                </p>
+
+                <h5>Where SEO Is Defined</h5>
+                <p>
+                    All SEO-related settings are located inside the <code>&lt;head&gt;</code> section
+                    of each HTML file.
+                </p>
+
+                <h5>Included SEO Meta Tags</h5>
+                <p>
+                    By default, the template includes the following SEO elements:
+                </p>
+
+                <ul>
+                    <li>Page title (<code>&lt;title&gt;</code>)</li>
+                    <li>Meta description</li>
+                    <li>Robots meta tag</li>
+                    <li>Canonical URL</li>
+                    <li>Open Graph (Facebook / LinkedIn sharing)</li>
+                </ul>
+
+                <h5>Example SEO Head Section</h5>
+                <p>
+                    Below is an example of the SEO markup included in the template.
+                    Users should customize the values based on their own website and content.
+                </p>
+
+                <pre>
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+
+  &lt;!-- SEO --&gt;
+  &lt;title&gt;Your Page Title Here&lt;/title&gt;
+  &lt;meta name="description" content="Write a short description about this page"&gt;
+  &lt;meta name="robots" content="index, follow"&gt;
+  &lt;meta name="author" content="Your Brand Name"&gt;
+
+  &lt;!-- Canonical URL --&gt;
+  &lt;link rel="canonical" href="https://yourdomain.com/page-url"&gt;
+
+  &lt;!-- Open Graph --&gt;
+  &lt;meta property="og:title" content="Page title for social sharing"&gt;
+  &lt;meta property="og:description" content="Description for social sharing"&gt;
+  &lt;meta property="og:image" content="assets/images/preview.jpg"&gt;
+  &lt;meta property="og:type" content="website"&gt;
+&lt;/head&gt;
+</pre>
+
+                <h5>How to Edit SEO Content</h5>
+                <ul>
+                    <li>Edit the <code>&lt;title&gt;</code> tag to match each page topic</li>
+                    <li>Update the <code>meta description</code> with relevant keywords</li>
+                    <li>Replace the canonical URL with your live page URL</li>
+                    <li>Update Open Graph values for better social media sharing</li>
+                </ul>
+
+                <h5>Image SEO</h5>
+                <p>
+                    All images in the template support <code>alt</code> attributes and lazy loading.
+                    Users should update image alt text to describe image content accurately.
+                </p>
+
+                <pre>
+&lt;img src="assets/images/image.webp"
+     alt="Describe the image here"
+     loading="lazy"&gt;
+</pre>
+
+                <div class="alert alert-info">
+                    <strong>Important:</strong> SEO values included in the template are placeholders.
+                    They must be customized before publishing a live website.
+                </div>
+
+                <!-- ================= SEO SECTION END ================= -->
+
+
+
+                <!-- SCSS -->
+                <h2 id="scss">8. SCSS Customization</h2>
+
+                <p>
+                    DinePro uses a modular <strong>SCSS</strong> architecture to keep styles clean, reusable, and
+                    easy to maintain. SCSS files are organized by abstracts, base styles, components, layouts,
+                    and page-specific styles.
+                </p>
+
+                <h5>SCSS Folder Structure</h5>
+                <pre>
+assets/scss/
+├── abstract/      (variables, mixins, functions)
+├── base/          (reset, typography, global styles)
+├── components/    (buttons, cards, forms, sliders)
+├── layouts/       (header, footer, navigation)
+├── pages/         (page-specific styles)
+└── style.scss     (main SCSS file)
+</pre>
+
+                <hr>
+
+                <h5>Changing Colors, Fonts & Global Styles</h5>
+                <p>
+                    To customize colors, fonts, or other global styles, edit the variables file:
+                </p>
+
+                <pre>assets/scss/abstract/_variables.scss</pre>
+
+                <p>
+                    After making changes, you must recompile the SCSS files to generate the updated CSS.
+                </p>
+
+                <hr>
+
+                <h5>How to Compile SCSS to CSS</h5>
+
+                <p>
+                    You can compile SCSS using any SCSS compiler. Below are the most common methods:
+                </p>
+
+                <h6>Option 1: Using Node.js (Recommended)</h6>
+                <pre>
+npm install -g sass
+sass assets/scss/style.scss assets/css/style.css --watch
+</pre>
+
+                <h6>Option 2: Using VS Code Extension</h6>
+                <ul>
+                    <li>Install <strong>Live Sass Compiler</strong> extension</li>
+                    <li>Set input file to <code>assets/scss/style.scss</code></li>
+                    <li>Set output file to <code>assets/css/style.css</code></li>
+                    <li>Click “Watch Sass”</li>
+                </ul>
+
+                <h6>Option 3: Using GUI Tools</h6>
+                <p>
+                    You can also use tools like:
+                </p>
+                <ul>
+                    <li>Koala</li>
+                    <li>Prepros</li>
+                    <li>Scout App</li>
+                </ul>
+
+                <hr>
+
+                <h5>For Users Who Do NOT Use SCSS</h5>
+
+                <p>
+                    If you do not want to work with SCSS, you can directly edit the compiled CSS file:
+                </p>
+
+                <pre>assets/css/style.css</pre>
+
+                <p>
+                    All SCSS is already compiled and included in the template.
+                    <strong>No SCSS compilation is required</strong> if you only edit the CSS file.
+                </p>
+
+                <p class="alert alert-warning">
+                    <strong>Important:</strong> If you edit the CSS file directly, your changes may be overwritten
+                    if you recompile SCSS in the future.
+                </p>
+
+                <hr>
+
+                <h5>Which Method Should You Use?</h5>
+                <ul>
+                    <li><strong>Developers:</strong> Use SCSS for clean, scalable customization</li>
+                    <li><strong>Beginners / Non-SCSS Users:</strong> Edit <code>style.css</code> directly</li>
+                </ul>
+
+
+                <h2 id="aos">9. AOS Animation (Animate On Scroll)</h2>
+
+                <p>
+                    DinePro uses the <strong>AOS (Animate On Scroll)</strong> library to create smooth and modern
+                    scroll-based animations across the template. Animations are initialized globally and
+                    trigger automatically when elements enter the viewport.
+                </p>
+
+                <hr>
+
+                <h5>How AOS Is Initialized</h5>
+
+                <p>
+                    AOS is initialized inside the main JavaScript file:
+                </p>
+
+                <pre>assets/js/app.js</pre>
+
+                <p>
+                    Animations are loaded automatically on page load and apply to all pages.
+                    No additional setup is required.
+                </p>
+
+                <div class="alert alert-info">
+                    <strong>Note:</strong> AOS is initialized once globally. You do not need to initialize it on
+                    individual pages.
+                </div>
+
+                <hr>
+
+                <h5>Basic Usage in HTML</h5>
+
+                <p>
+                    To apply animation to any element, add the <code>data-aos</code> attribute:
+                </p>
+
+                <pre>
+                &lt;div data-aos="fade-up" ata-aos-delay="0">&gt;
+                  Animated content
+                &lt;/div&gt;
+                </pre>
+
+                <hr>
+
+                <h5>Common AOS Attributes</h5>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Attribute</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>data-aos</code></td>
+                            <td>Animation type</td>
+                            <td><code>fade-up</code>, <code>fade-left</code>, <code>zoom-in</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>data-aos-delay</code></td>
+                            <td>Delay before animation (ms)</td>
+                            <td><code>200</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>data-aos-duration</code></td>
+                            <td>Animation duration (ms)</td>
+                            <td><code>800</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>data-aos-offset</code></td>
+                            <td>Offset from trigger point</td>
+                            <td><code>120</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>data-aos-easing</code></td>
+                            <td>Animation easing</td>
+                            <td><code>ease-in-out</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <hr>
+
+                <h5>Changing Global AOS Settings</h5>
+
+                <p>
+                    You can modify global animation settings inside <code>assets/js/app.js</code>:
+                </p>
+
+                <pre>
+                AOS.init({
+                  duration: 800,
+                  easing: 'ease-in-out',
+                  once: true,
+                  offset: 100
+                });
+                </pre>
+
+                <p>
+                    Changes here will affect all animations throughout the template.
+                </p>
+
+                <hr>
+
+                <h5>Disable AOS Animations</h5>
+
+                <p>
+                    To disable animations:
+                </p>
+                <ul>
+                    <li>Remove or comment out <code>AOS.init()</code> inside <code>app.js</code></li>
+                    <li>OR remove <code>data-aos</code> attributes from HTML elements</li>
+                </ul>
+
+                <hr>
+
+                <h5>Recommended Usage Tips</h5>
+                <ul>
+                    <li>Use small delays (100–300ms) for smooth animations</li>
+                    <li>Avoid excessive animations on mobile devices</li>
+                    <li>Keep animation styles consistent across pages</li>
+                </ul>
+
+
+                <!-- JS -->
+                <h2 id="js">10. JavaScript Files</h2>
+                <p>
+                    JavaScript files are located in <code>assets/js/</code> and are well commented.
+                    Used for sliders, navigation, video background, and UI interactions.
+                </p>
+
+                <!-- Responsive -->
+                <h2 id="responsive">11. Responsive Design</h2>
+                <p>
+                    The template is fully responsive and tested on mobile, tablet, desktop, and laptop devices.
+                </p>
+
+                <!-- Browser -->
+                <h2 id="browser">12. Browser Compatibility</h2>
+                <ul>
+                    <li>Google Chrome</li>
+                    <li>Mozilla Firefox</li>
+                    <li>Safari</li>
+                    <li>Microsoft Edge</li>
+                </ul>
+
+                <!-- Fonts -->
+                <h2 id="fonts">13. Fonts & Icons</h2>
+                <ul>
+                    <li>Google Fonts</li>
+                    <li>Bootstrap Icons</li>
+                </ul>
+
+                <!-- Credits -->
+                <h2 id="credits">14. Images & Credits</h2>
+                <p>
+                    Images are used for demo purposes only and are not included in the download.
+                </p>
+                <ul>
+                    <li>Unsplash</li>
+                    <li>Pexels</li>
+                </ul>
+
+                <!-- Support -->
+                <h2 id="support">15. Support</h2>
+                <p>
+                    For support, please contact:<br>
+                    <strong>Email:</strong> helloprettycodes@gmail.com<br>
+                    <strong>Response Time:</strong> 24–48 hours (Mon–Fri)
+                </p>
+
+                <hr>
+                <p class="text-muted text-center">
+                    © DinePro – Restaurant Bootstrap 5 HTML Template
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

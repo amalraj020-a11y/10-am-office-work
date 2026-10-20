@@ -1,0 +1,21 @@
+// -----------------------------------------------------------------------------
+// Component: Book A Table
+// Custom layout styles for reservation and booking forms.
+// -----------------------------------------------------------------------------
+
+/**
+ * Book A Table - Style One
+ * Specifically targets the layout of the first booking form variation.
+ */
+
+.book-a-table-classic {
+
+    /**
+    * Submission Button
+    * Adds specific vertical spacing to the button within this component
+    * to separate it clearly from the form fields.
+    */
+    button {
+        margin-top: 32px;
+    }
+}

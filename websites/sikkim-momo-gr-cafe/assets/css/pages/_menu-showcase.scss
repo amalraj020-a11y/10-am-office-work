@@ -1,0 +1,24 @@
+// -----------------------------------------------------------------------------
+// Page Styles: Menu Page (Style Two)
+// Layout logic for the secondary menu page design, featuring split-view imagery.
+// -----------------------------------------------------------------------------
+
+
+/**
+ * Menu Page Full-Height Image
+ * A specialized utility for the Menu Page to ensure side-images align perfectly 
+ * with the height of the food/drink listings in the adjacent column.
+ */
+
+.h-100-img {
+    width: 100%;
+    border-radius: 15px;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+
+    // min-height for mobile so the image doesn't disappear if empty
+    @media (max-width: 767px) {
+        height: 300px;
+    }
+}

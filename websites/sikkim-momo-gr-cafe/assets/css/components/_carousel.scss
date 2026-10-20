@@ -1,0 +1,61 @@
+// -----------------------------------------------------------------------------
+// Component: Home Hero Carousel
+// Refined Bootstrap carousel styles for smooth transitions and custom controls.
+// -----------------------------------------------------------------------------
+
+@use '../abstract/variables' as *;
+
+/**
+ * Main Carousel Component
+ * Standardizes the height and layout of the internal slider elements.
+ */
+.carousel {
+
+    // --- Slide Container Configuration ---
+
+    .carousel-inner,
+    .carousel-item {
+        height: 100%; // Ensures content fills the parent container height
+    }
+
+    // Individual Slide Item
+    // Manages background image positioning and scaling.
+
+    .carousel-item {
+        background-size: cover;
+        background-position: center;
+    }
+
+    // --- Navigation Controls ---
+
+
+    // Carousel Arrows
+    // Custom styling for the Next and Previous navigation click areas.
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        z-index: 3;
+        width: 5%;
+        margin: 0 10px; // Adds spacing from the edge of the viewport
+
+        // Control Icons
+        // Decorative background for the arrow icons using the theme's primary color.
+
+        &-icon {
+            background-color: $color-primary;
+            opacity: 0.7;
+            padding: 22px;
+            border-radius: 15%;
+            background-size: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        // Interactive States
+        // Adds a subtle scale effect to the icons when the user hovers over the control area.
+
+        &:hover .carousel-control-prev-icon,
+        &:hover .carousel-control-next-icon {
+            transform: scale(1.1);
+        }
+    }
+}

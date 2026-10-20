@@ -1,0 +1,32 @@
+// -----------------------------------------------------------------------------
+// Form Controls & Inputs
+// Custom overrides for Bootstrap's default input fields and textareas.
+// -----------------------------------------------------------------------------
+
+@use '../abstract/variables' as *;
+
+/**
+ * Global Input Styling
+ * Standardizes the appearance of all form-control elements (inputs, select, textarea).
+ */
+
+.form-control {
+    margin-bottom: 32px;
+    border-radius: 10px;
+
+    &:focus,
+    &:hover {
+        border-color: $color-primary; // Gives border color for texboxes and text area
+        box-shadow: none; // Removes the unwanted blue glow on textboxes and text area
+    }
+}
+
+/**
+ * Input Height Optimization
+ * Standardizes the height of single-line textboxes to 48px.
+ * The ':not(textarea)' ensures that multi-line text areas can still grow.
+ */
+
+.form-control:not(textarea) {
+    height: 48px;
+}

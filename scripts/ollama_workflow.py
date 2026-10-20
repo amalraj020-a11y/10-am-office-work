@@ -37,7 +37,8 @@ def extract_json(text: str) -> dict:
 
 def build_site_from_approved_template(business: dict, content: dict, target: Path) -> None:
     """Copy the approved ThemeWagon/Technext template and adapt only verified facts."""
-    source = ROOT / "koppee-template"
+    template_name = str(content.get("template_name", "")).strip().lower()
+    source = ROOT / ("dinepro-template" if template_name == "dinepro" else "koppee-template")
     if not source.exists():
         raise RuntimeError("Fresh approved template checkout is missing; no previously used template or generic replacement is permitted.")
     shutil.copytree(source, target, dirs_exist_ok=True, ignore=shutil.ignore_patterns(".git", ".DS_Store", "README.txt", "READ-ME.txt"))
@@ -48,7 +49,13 @@ def build_site_from_approved_template(business: dict, content: dict, target: Pat
     replacements = {
         "Koppee": business_name,
         "KOPPEE": business_name,
+        "DinePro": business_name,
+        "DINEPRO": business_name.upper(),
         "A restaurant website template": intro,
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sedolorm reminusto doeiusmod tempor incidition ulla mco laboris nisi ut aliquip ex ea commo condorico..": intro,
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit": intro,
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit.": intro,
+        "Lorem ipsum, dolor sit amet consectetur adipisicing elit.": intro,
         "FREEHTML5.co": "MultiMax",
         "freehtml5.co": "#",
         "2016": "2026",
@@ -145,7 +152,7 @@ def main() -> int:
     business = pending[0]
     if business["business_name"].startswith("REPLACE"):
         raise SystemExit("Add one verified no-website business to data/prospects.json before running.")
-    prompt = f'''You are the local-business website assistant. Use only the verified facts below. You MUST use this fresh approved template for this test: template_source="ThemeWagon free catalog / GitHub mirror", template_url="https://themewagon.com/themes/koppee/", template_name="Koppee", license_note="Free template source; confirm the source license before commercial delivery." The source is a design/code starting point only; do not copy another business identity. Create original marketing copy for a responsive multi-page website. Do not invent reviews, ratings, founders, prices, claims, or services. Return JSON only with keys niche, template_source, template_url, template_name, license_note, title, intro, cards (array of 4 objects with label, title, description), email_subject, email_body, whatsapp_body.
+    prompt = f'''You are the local-business website assistant. Use only the verified facts below. You MUST use this fresh approved template for this test: template_source="Free MIT-licensed GitHub template", template_url="https://github.com/techmahr/DinePro", template_name="DinePro", license_note="MIT License; preserve the license notice in the project." The source is a design/code starting point only; do not copy another business identity. Create original marketing copy for a responsive multi-page website. Do not invent reviews, ratings, founders, prices, claims, or services. Return JSON only with keys niche, template_source, template_url, template_name, license_note, title, intro, cards (array of 4 objects with label, title, description), email_subject, email_body, whatsapp_body.
 FACTS: {json.dumps(business, ensure_ascii=False)}
 TEMPLATE CATALOG: {json.dumps(template_catalog, ensure_ascii=False)}'''
     raw = ask_ollama(prompt)
@@ -158,10 +165,10 @@ TEMPLATE CATALOG: {json.dumps(template_catalog, ensure_ascii=False)}'''
         raise RuntimeError("Qwen did not return valid JSON; no website was created because the retired generic template is prohibited.")
     # Keep the model responsible for the copy, while pinning the build to the
     # approved source when Qwen omits metadata in an otherwise usable response.
-    content.setdefault("template_source", "ThemeWagon free catalog / GitHub mirror")
-    content.setdefault("template_url", "https://themewagon.com/themes/koppee/")
-    content.setdefault("template_name", "Koppee")
-    content.setdefault("license_note", "Free template source; confirm the source license before commercial delivery.")
+    content.setdefault("template_source", "Free MIT-licensed GitHub template")
+    content.setdefault("template_url", "https://github.com/techmahr/DinePro")
+    content.setdefault("template_name", "DinePro")
+    content.setdefault("license_note", "MIT License; preserve the license notice in the project.")
     required_template = str(content.get("template_url", "")).strip()
     required_name = str(content.get("template_name", "")).strip()
     required_license = str(content.get("license_note", "")).strip()
@@ -183,11 +190,11 @@ TEMPLATE CATALOG: {json.dumps(template_catalog, ensure_ascii=False)}'''
     (ROOT / "messages" / f"{site_slug}-ollama-whatsapp.md").write_text(content.get("whatsapp_body", ""), encoding="utf-8")
     prepare_outreach(business, content, site_slug, now)
     append_csv(ROOT / "tracker" / "prospects.csv", ["Prospect ID","Business name","Category","City / area","Phone","Email / contact","Google / Maps URL","Social URL","Official website checked","Qualification","Evidence / notes","Research date","Owner","Next action"], [business["id"],business["business_name"],business.get("category",""),business.get("city_area",""),business.get("phone",""),business.get("public_email",""),"",business.get("social_url",""),"No dedicated official website found","Qualified",business.get("website_evidence",""),now[:10],"Ollama","Review generated demo and verify outreach channel"])
-    append_csv(ROOT / "tracker" / "delivery.csv", ["Prospect ID","Business name","Git repo","Code path / commit","Vercel project / preview","Demo screenshot path","Proposed price","Delivery status","Payment status","Deployment status","Owner approval","Notes"], [business["id"],business["business_name"],REPO_NAME,f"sites/{site_slug}/index.html","Not deployed","Not created","To propose","Demo ready","Not requested","Not deployed","Required",f"Generated with {MODEL}; outreach adapters are not configured."])
-    run("git","add","sites", "docs", "messages", "tracker", "outreach")
+    append_csv(ROOT / "tracker" / "delivery.csv", ["Prospect ID","Business name","Git repo","Code path / commit","Vercel project / preview","Demo screenshot path","Proposed price","Delivery status","Payment status","Deployment status","Owner approval","Notes"], [business["id"],business["business_name"],REPO_NAME,f"websites/{site_slug}/index.html","Not deployed","Not created","To propose","Demo ready","Not requested","Not deployed","Required",f"Generated with {MODEL}; outreach adapters are not configured."])
+    run("git","add","websites", "docs", "messages", "tracker", "outreach", "data/used-templates.json", "scripts/ollama_workflow.py")
     run("git","commit","-m",f"Generate {business['business_name']} demo with Ollama",check=False)
     run("git","push",check=False)
-    print(json.dumps({"model":MODEL,"business":business["business_name"],"site":f"sites/{site_slug}/index.html","timestamp":now}))
+    print(json.dumps({"model":MODEL,"business":business["business_name"],"site":f"websites/{site_slug}/index.html","timestamp":now}))
     return 0
 
 if __name__ == "__main__":

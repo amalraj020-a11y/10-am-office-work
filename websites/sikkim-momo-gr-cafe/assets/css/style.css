@@ -1,0 +1,1448 @@
+@charset "UTF-8";
+/* ==========================================================================
+   Template Name: DinePro by Mahroof K
+   Version:       1.0.0
+   Licence:       MIT
+   Author:        Mahroof K
+   Description:   Premium Bootstrap 5 Restaurant Template
+   Contact        techmahr@gmail.com
+   --------------------------------------------------------------------------
+   Copyright © 2026 Mahroof. All rights reserved.
+   ========================================================================== */
+/* ==========================================================================
+   TEMPLATING INSTRUCTIONS
+   ==========================================================================
+   This file acts as the central hub for all project styles.
+   It uses the Sass @use rule to modularize components.
+
+   How to Customize:
+   1. Colors & Typography: Edit /abstract/_variables.scss
+   2. Global Tags:         Edit /base/_typography.scss
+   3. Individual UI:       Edit the respective file in /components/
+   4. Page Layouts:        Edit specific files in /pages/ for unique views.
+   ========================================================================== */
+/* ==========================================================================
+   1. ABSTRACTS
+   Variables, color tokens, mixins
+   ========================================================================== */
+/**
+ * Google Fonts Import
+ * * 1. DM Sans: Used for body text and UI elements.
+ * Weights: 400 (Regular), 500 (Medium), 700 (Bold)
+ * * 2. Playfair Display: Used for headings and featured titles.
+ * Weights: 400 through 900 (Variable) including Italics
+ */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+.hover-lift {
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ==========================================================================
+   2. BASE & UTILITIES
+   Global resets, fonts, typography, helpers
+   ========================================================================== */
+body {
+  font-family: "DM Sans", sans-serif;
+  color: #1F2632;
+}
+
+a {
+  color: #d32f2f;
+  text-decoration: none;
+}
+
+.text-primary {
+  color: #d32f2f !important;
+}
+
+.text-dark-muted {
+  color: #527179 !important;
+}
+
+.font-heading {
+  font-family: "Playfair Display", serif;
+  line-height: normal;
+  font-weight: 700;
+}
+
+.f-40 {
+  font-size: 40px !important;
+}
+
+.page-title {
+  font-size: 40px;
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.head1 h2 {
+  color: #1F2632;
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+.head1 p {
+  font-size: 18px;
+  color: #527179;
+}
+
+/**
+ * Bottom Margin Utility
+ * Applies a fixed 32px spacing to the bottom of an element.
+ */
+.mb-32 {
+  margin-bottom: 32px !important;
+}
+
+/**
+ * Top Margin Utility
+ * Applies a fixed 32px spacing to the top of an element.
+ */
+.mt-32 {
+  margin-top: 32px !important;
+}
+
+/**
+ * Standard Section Padding
+ * Provides consistent vertical rhythm across different sections.
+ * Scales up for larger screens (992px and above) based on the $section-spacing-y variable.
+ */
+.sec-pad {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+@media (min-width: 992px) {
+  .sec-pad {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+}
+
+/**
+ * Light Background Utility
+ * Applies the custom light background color defined in design tokens.
+ */
+.bg-light {
+  background-color: #f4f1ee !important;
+}
+
+/* ==========================================================================
+   3. LAYOUT
+   Shared structural elements
+   ========================================================================== */
+.custom-navbar {
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+.custom-navbar .nav-logo {
+  max-width: 160px;
+}
+@media (max-width: 767px) {
+  .custom-navbar .nav-logo {
+    max-width: 130px;
+  }
+}
+.custom-navbar .nav-item {
+  padding-right: 30px;
+}
+.custom-navbar .nav-item:last-child {
+  padding-right: 0;
+}
+.custom-navbar .dropdown-menu {
+  border: none;
+  padding: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+.custom-navbar .dropdown-menu .dropdown-item {
+  padding: 8px 20px;
+  transition: background-color 0.3s, color 0.3s;
+}
+.custom-navbar .dropdown-menu .dropdown-item:hover, .custom-navbar .dropdown-menu .dropdown-item:active {
+  background-color: #f4f1ee !important;
+  color: #d32f2f;
+}
+.custom-navbar .navbar-toggler {
+  border: none;
+}
+.custom-navbar .navbar-toggler:focus {
+  box-shadow: none;
+}
+.custom-navbar.navbar-theme-light {
+  background-color: transparent;
+}
+.custom-navbar.navbar-theme-light.navbar-light-mode .nav-link {
+  color: #1F2632;
+}
+.custom-navbar.navbar-theme-light.navbar-light-mode .navbar-toggler-icon {
+  filter: brightness(0);
+}
+.custom-navbar.navbar-theme-light.navbar-scrolled {
+  background-color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+.custom-navbar.navbar-theme-light.navbar-scrolled .nav-link {
+  color: #1F2632;
+}
+.custom-navbar.navbar-theme-light.navbar-scrolled .nav-link:hover, .custom-navbar.navbar-theme-light.navbar-scrolled .nav-link.active {
+  color: #d32f2f;
+}
+.custom-navbar.navbar-theme-light.navbar-scrolled .navbar-toggler-icon {
+  filter: brightness(0);
+}
+@media (max-width: 991px) {
+  .custom-navbar.navbar-theme-light .navbar-collapse {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 15px;
+    border-radius: 10px;
+  }
+  .custom-navbar.navbar-theme-light .navbar-collapse .nav-link {
+    color: #1F2632;
+  }
+  .custom-navbar.navbar-theme-light .navbar-collapse .nav-link:hover, .custom-navbar.navbar-theme-light .navbar-collapse .nav-link.active {
+    color: #d32f2f;
+  }
+}
+.custom-navbar.navbar-theme-dark {
+  background-color: transparent;
+}
+.custom-navbar.navbar-theme-dark.navbar-dark .nav-link {
+  color: #fff;
+}
+.custom-navbar.navbar-theme-dark.navbar-dark .navbar-toggler-icon {
+  filter: brightness(1);
+}
+.custom-navbar.navbar-theme-dark.navbar-scrolled {
+  background-color: #1F2632;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+.custom-navbar.navbar-theme-dark.navbar-scrolled .nav-link {
+  color: #fff;
+}
+.custom-navbar.navbar-theme-dark.navbar-scrolled .nav-link:hover, .custom-navbar.navbar-theme-dark.navbar-scrolled .nav-link.active {
+  color: #d32f2f;
+}
+.custom-navbar.navbar-theme-dark.navbar-scrolled .navbar-toggler-icon {
+  filter: brightness(1);
+}
+@media (max-width: 991px) {
+  .custom-navbar.navbar-theme-dark .navbar-collapse {
+    background-color: #1F2632;
+    padding: 20px;
+    margin-top: 15px;
+    border-radius: 10px;
+  }
+  .custom-navbar.navbar-theme-dark .navbar-collapse .nav-link {
+    color: #fff;
+  }
+  .custom-navbar.navbar-theme-dark .navbar-collapse .nav-link:hover, .custom-navbar.navbar-theme-dark .navbar-collapse .nav-link.active {
+    color: #d32f2f;
+  }
+}
+
+/**
+ * Footer Style One
+ * Designed with a dark aesthetic for high contrast and modern appeal.
+ */
+.footer-one {
+  background-color: #2D2926;
+  padding: 60px 0 30px 0;
+  color: #fff;
+}
+.footer-one h5 {
+  font-family: "DM Sans", sans-serif;
+  color: #fff !important;
+}
+.footer-one ul {
+  list-style: none;
+  padding: 0;
+}
+.footer-one ul li {
+  margin-bottom: 10px;
+}
+.footer-one ul li a {
+  color: #b4b4b4;
+  transition: 0.3s;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+.footer-one ul li a:hover {
+  color: #d32f2f;
+}
+.footer-one ul {
+  /**
+   * Timing List Variation
+   * Specifically for "Opening Hours" with a dotted-bottom separator.
+   */
+}
+.footer-one ul.timing-list li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  color: #b4b4b4;
+  border-bottom: 1px dotted #b4b4b4;
+  padding-bottom: 5px;
+  font-size: 14px;
+}
+.footer-one ul.timing-list li span {
+  color: #fff;
+  font-size: 14px;
+}
+.footer-one ul.timing-list li:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+.footer-one {
+  /**
+   * Copyright & Legal Section
+   * Positioned at the very bottom of the footer.
+   */
+}
+.footer-one .copyright p {
+  font-size: 14px;
+}
+.footer-one .copyright .pipe-separator {
+  padding: 0 10px;
+}
+.footer-one .copyright a {
+  color: #fff;
+}
+.footer-one .copyright a:hover {
+  color: #d32f2f;
+}
+
+/* ==========================================================================
+   4. COMPONENTS
+   Reusable UI modules
+   ========================================================================== */
+/**
+ * Global Button Reset
+ * Standardizes border radius across all Bootstrap button types.
+ */
+.btn {
+  border-radius: 4px;
+}
+
+/**
+ * Wide Button Utility
+ * Increases padding and adds a clean, uppercase aesthetic for prominent CTAs.
+ */
+.btn-wide {
+  padding: 10px 25px;
+  text-transform: uppercase;
+  font-weight: 300 !important;
+}
+
+/**
+ * Primary Solid Button
+ * The main theme button using the primary brand color and custom shadow on hover.
+ */
+.btn-primary {
+  background-color: #d32f2f;
+  border-color: #d32f2f;
+  color: #fff;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background-color: #b51616 !important;
+  border-color: #b51616 !important;
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgba(211, 47, 47, 0.2);
+}
+
+/**
+ * Outline Button
+ * A transparent variation with a primary-colored border.
+ */
+.btn-outline-primary {
+  color: #d32f2f;
+  border-color: #d32f2f;
+  background-color: transparent;
+}
+.btn-outline-primary:hover {
+  background-color: #d32f2f;
+  border-color: #d32f2f;
+  color: #fff;
+}
+
+/**
+ * Shine Hover Effect
+ * Adds a modern "glass-swipe" animation and subtle lift when hovered.
+ */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.btn-shine:hover {
+  transform: translateY(-1px);
+  background-color: #b51616 !important;
+  border-color: #b51616 !important;
+}
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 20%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.3);
+  background: rgba(211, 47, 47, 0.5);
+  transform: rotate(30deg);
+  transition: all 0.5s ease;
+}
+.btn-shine:hover::after {
+  left: 120%;
+}
+
+/**
+ * Animated Link Button
+ * A text-based button that slides to the right on hover for a dynamic feel.
+ */
+.btn-link {
+  display: inline-block;
+  margin-bottom: 0px !important;
+  text-decoration: none;
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+.btn-link:hover {
+  transform: translateX(5px);
+  color: #b51616;
+}
+
+/**
+ * Global Input Styling
+ * Standardizes the appearance of all form-control elements (inputs, select, textarea).
+ */
+.form-control {
+  margin-bottom: 32px;
+  border-radius: 10px;
+}
+.form-control:focus, .form-control:hover {
+  border-color: #d32f2f;
+  box-shadow: none;
+}
+
+/**
+ * Input Height Optimization
+ * Standardizes the height of single-line textboxes to 48px.
+ * The ':not(textarea)' ensures that multi-line text areas can still grow.
+ */
+.form-control:not(textarea) {
+  height: 48px;
+}
+
+/**
+ * Primary Theme Badge
+ * A custom-styled badge using the main brand color.
+ * Often used for categories, labels, or featured tags.
+ */
+.badge-primary {
+  background-color: #d32f2f;
+  padding: 8px 12px;
+  color: #fff;
+}
+
+/**
+ * Loader Wrapper
+ * Creates a high-z-index, full-screen background to hide the page content
+ * until it is fully loaded.
+ */
+.loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: #fff;
+}
+
+/**
+ * Loading Spinner
+ * The central animated square. Uses the theme's primary brand color.
+ */
+.spinner {
+  width: 40px;
+  height: 40px;
+  display: block;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  margin: -20px 0 0 -20px;
+  background: #d32f2f;
+  animation: sk-rotateplane 1.2s infinite ease-in-out;
+}
+
+/**
+ * 3D Rotating Plane Animation
+ * Creates a sophisticated "flipping" effect using CSS 3D perspectives.
+ */
+@keyframes sk-rotateplane {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}
+/**
+ * Main Carousel Component
+ * Standardizes the height and layout of the internal slider elements.
+ */
+.carousel .carousel-inner,
+.carousel .carousel-item {
+  height: 100%;
+}
+.carousel .carousel-item {
+  background-size: cover;
+  background-position: center;
+}
+.carousel .carousel-control-prev,
+.carousel .carousel-control-next {
+  z-index: 3;
+  width: 5%;
+  margin: 0 10px;
+}
+.carousel .carousel-control-prev-icon,
+.carousel .carousel-control-next-icon {
+  background-color: #d32f2f;
+  opacity: 0.7;
+  padding: 22px;
+  border-radius: 15%;
+  background-size: 50%;
+  transition: transform 0.3s ease;
+}
+.carousel .carousel-control-prev:hover .carousel-control-prev-icon, .carousel .carousel-control-prev:hover .carousel-control-next-icon,
+.carousel .carousel-control-next:hover .carousel-control-prev-icon,
+.carousel .carousel-control-next:hover .carousel-control-next-icon {
+  transform: scale(1.1);
+}
+
+/**
+ * Main Hero Container
+ * Standardizes the viewport height and core layout for all hero types.
+ */
+.hero-section {
+  position: relative;
+  height: 100vh;
+  max-height: 900px;
+  min-height: 500px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /**
+   * Hero Media Wrapper
+   * Ensures background video or images fill the container perfectly.
+   */
+}
+.hero-section .hero-media-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.hero-section .hero-media-container img,
+.hero-section .hero-media-container video {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+.hero-section {
+  /**
+   * Hero Content Area
+   * Manages the text overlay, z-index layering, and flex alignment.
+   */
+}
+.hero-section .hero-content-area {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+.hero-section .hero-content-area .hero-caption {
+  text-align: center;
+  max-width: 800px;
+  padding: 2rem;
+  width: 90%;
+}
+@media (max-width: 767px) {
+  .hero-section .hero-content-area .hero-caption {
+    width: 100%;
+  }
+}
+.hero-section .hero-content-area .hero-caption h1 {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+.hero-section .hero-content-area .hero-caption p {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  margin-bottom: 2rem;
+}
+.hero-section {
+  /**
+   * Dark Theme Variation
+   * Applies a darkened overlay for light-colored text readability.
+   */
+}
+.hero-section.theme-dark .hero-content-area {
+  background: rgba(0, 0, 0, 0.45);
+}
+.hero-section.theme-dark h1,
+.hero-section.theme-dark p {
+  color: #ffffff;
+}
+.hero-section {
+  /**
+   * Light Theme Variation
+   * Applies a bright, semi-transparent overlay for dark-colored text.
+   */
+}
+.hero-section.theme-light .hero-content-area {
+  background: rgba(255, 255, 255, 0.3);
+}
+.hero-section.theme-light h1,
+.hero-section.theme-light p {
+  color: #1F2632;
+}
+.hero-section {
+  /**
+   * Carousel Logic
+   * Specific overrides for when the hero section uses Bootstrap Carousel.
+   */
+}
+.hero-section.carousel .carousel-inner,
+.hero-section.carousel .carousel-item {
+  height: 100%;
+}
+.hero-section.carousel .carousel-item {
+  background-size: cover;
+  background-position: center;
+}
+.hero-section.carousel .carousel-control-prev,
+.hero-section.carousel .carousel-control-next {
+  z-index: 3;
+  width: 5%;
+  margin: 0 10px;
+}
+.hero-section.carousel .carousel-control-prev-icon,
+.hero-section.carousel .carousel-control-next-icon {
+  background-color: #d32f2f;
+  opacity: 0.7;
+  padding: 22px;
+  border-radius: 15%;
+  background-size: 50%;
+  transition: transform 0.3s ease;
+}
+.hero-section.carousel .carousel-control-prev,
+.hero-section.carousel .carousel-control-next {
+  /**
+   * Interactive States
+   * Hover effects for carousel navigation arrows.
+   */
+}
+.hero-section.carousel .carousel-control-prev:hover .carousel-control-prev-icon, .hero-section.carousel .carousel-control-prev:hover .carousel-control-next-icon,
+.hero-section.carousel .carousel-control-next:hover .carousel-control-prev-icon,
+.hero-section.carousel .carousel-control-next:hover .carousel-control-next-icon {
+  transform: scale(1.1);
+}
+
+/**
+ * Image Collage Container
+ * Creates a relative coordinate system for the absolute-positioned images.
+ */
+.img-collage-wrap {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  padding: 20px;
+  /**
+   * Shared Image Styles
+   * Standardizes the look of all images within the collage including 
+   * shadows and a clean "Polaroid" style border.
+   */
+}
+.img-collage-wrap img {
+  position: absolute;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  border: 4px solid white;
+}
+.img-collage-wrap {
+  /**
+   * First Layer (Background)
+   * The largest anchor image of the composition.
+   */
+}
+.img-collage-wrap .first {
+  width: 70%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+.img-collage-wrap .second {
+  width: 45%;
+  height: 300px;
+  top: 15%;
+  right: 0;
+  z-index: 2;
+}
+.img-collage-wrap .third {
+  width: 200px;
+  height: 200px;
+  bottom: 18%;
+  right: 20%;
+  z-index: 3;
+}
+.img-collage-wrap {
+  /**
+   * Responsive Adjustments
+   * Resizes the collage and its elements for tablets and mobile devices.
+   */
+}
+@media (max-width: 768px) {
+  .img-collage-wrap {
+    height: 400px;
+  }
+  .img-collage-wrap .first {
+    width: 75%;
+    height: 300px;
+  }
+  .img-collage-wrap .second {
+    width: 50%;
+    height: 180px;
+    top: 10%;
+  }
+  .img-collage-wrap .third {
+    width: 120px;
+    height: 120px;
+    bottom: 10%;
+    right: 15%;
+  }
+}
+
+/* ==========================================================================
+   Template Name: DinePro by Mahroof K
+   Version:       1.0.0
+   Licence:       MIT
+   Author:        Mahroof K
+   Description:   Premium Bootstrap 5 Restaurant Template
+   Contact        techmahr@gmail.com
+   --------------------------------------------------------------------------
+   Copyright © 2026 Mahroof. All rights reserved.
+   ========================================================================== */
+/* ==========================================================================
+   TEMPLATING INSTRUCTIONS
+   ==========================================================================
+   This file acts as the central hub for all project styles.
+   It uses the Sass @use rule to modularize components.
+
+   How to Customize:
+   1. Colors & Typography: Edit /abstract/_variables.scss
+   2. Global Tags:         Edit /base/_typography.scss
+   3. Individual UI:       Edit the respective file in /components/
+   4. Page Layouts:        Edit specific files in /pages/ for unique views.
+   ========================================================================== */
+/* ==========================================================================
+   1. ABSTRACTS
+   Variables, color tokens, mixins
+   ========================================================================== */
+/**
+ * Universal Card Wrapper
+ * Shared base styles for Blog, Team, and Testimonial cards.
+ */
+.card-blog,
+.card-team,
+.card-testimonial {
+  padding: 15px;
+  border: 0px;
+  background: #f4f1ee !important;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  /**
+  * Card Image Wrapper
+  * Manages aspect ratios and triggers the hover animation mixins.
+  */
+}
+.card-blog .card-img-wrapper,
+.card-team .card-img-wrapper,
+.card-testimonial .card-img-wrapper {
+  overflow: hidden;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.card-blog .card-img-wrapper img,
+.card-team .card-img-wrapper img,
+.card-testimonial .card-img-wrapper img {
+  transition: transform 0.4s ease-in-out;
+}
+.card-blog .card-img-wrapper:hover img,
+.card-team .card-img-wrapper:hover img,
+.card-testimonial .card-img-wrapper:hover img {
+  transform: scale(1.15);
+}
+.card-blog .card-img-wrapper,
+.card-team .card-img-wrapper,
+.card-testimonial .card-img-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+.card-blog .card-img-wrapper::after,
+.card-team .card-img-wrapper::after,
+.card-testimonial .card-img-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.card-blog .card-img-wrapper:hover::after,
+.card-team .card-img-wrapper:hover::after,
+.card-testimonial .card-img-wrapper:hover::after {
+  opacity: 1;
+}
+.card-blog .card-img-wrapper img,
+.card-team .card-img-wrapper img,
+.card-testimonial .card-img-wrapper img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.card-blog .card-body,
+.card-team .card-body,
+.card-testimonial .card-body {
+  padding-bottom: 10px;
+}
+.card-blog h5,
+.card-team h5,
+.card-testimonial h5 {
+  margin-bottom: 15px;
+}
+.card-blog .card-text,
+.card-team .card-text,
+.card-testimonial .card-text {
+  color: #527179;
+}
+.card-blog span,
+.card-team span,
+.card-testimonial span {
+  font-size: 14px;
+}
+.card-blog i,
+.card-team i,
+.card-testimonial i {
+  color: #789299;
+}
+.card-blog .social-links a:hover,
+.card-team .social-links a:hover,
+.card-testimonial .social-links a:hover {
+  background-color: transparent;
+}
+.card-blog .social-links a i:hover,
+.card-team .social-links a i:hover,
+.card-testimonial .social-links a i:hover {
+  color: #d32f2f;
+  background-color: transparent;
+}
+.card-blog,
+.card-team,
+.card-testimonial {
+  overflow: hidden;
+}
+.card-blog img,
+.card-team img,
+.card-testimonial img {
+  transition: transform 0.4s ease-in-out;
+}
+.card-blog:hover img,
+.card-team:hover img,
+.card-testimonial:hover img {
+  transform: scale(1.15);
+}
+.card-blog,
+.card-team,
+.card-testimonial {
+  position: relative;
+  overflow: hidden;
+}
+.card-blog::after,
+.card-team::after,
+.card-testimonial::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.card-blog:hover::after,
+.card-team:hover::after,
+.card-testimonial:hover::after {
+  opacity: 1;
+}
+
+/**
+ * Blog Item Card
+ * A secondary blog layout style with a focus on date and metadata.
+ */
+.card-blog-item {
+  background-color: #f4f1ee !important;
+  border-radius: 15px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+.card-blog-item .date {
+  color: #527179;
+  font-size: 16px;
+}
+.card-blog-item .title {
+  margin: 10px 0 15px 0;
+  font-size: 20px;
+}
+.card-blog-item .info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/**
+ * Menu Item - Style One
+ * A clean, flex-based layout for food and beverage listings.
+ * Features a dashed divider for a sophisticated restaurant feel.
+ */
+.menu-item-one {
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed #527179;
+  display: flex;
+}
+.menu-item-one img {
+  height: 80px;
+  width: 80px;
+  border-radius: 15%;
+  margin-right: 20px;
+}
+.menu-item-one .content-wrap {
+  width: 100%;
+}
+.menu-item-one .title-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.menu-item-one .title-wrap h5 {
+  margin-bottom: 0;
+  font-weight: 500;
+  color: #1F2632;
+}
+.menu-item-one .title-wrap .price {
+  font-weight: 700;
+  color: #d32f2f;
+  font-size: 1.1rem;
+}
+.menu-item-one p {
+  margin-top: 5px;
+  margin-bottom: 16px;
+  color: #527179;
+  font-size: 0.95rem;
+}
+@media (min-width: 768px) {
+  .menu-item-one:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+}
+.col-md-6:last-child .menu-item-one:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+/**
+ * Testimonial Enhancements
+ * Adds quote icons and star ratings to the standard card structure.
+ */
+.card-testimonial .quote-icon {
+  font-size: 62px !important;
+  color: #d32f2f;
+}
+.card-testimonial .ratings {
+  margin-bottom: 8px;
+}
+.card-testimonial .ratings i {
+  color: #d32f2f;
+}
+.card-testimonial .testi-user {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  margin-right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  font-size: 22px;
+}
+
+.accordion#faqAccordion {
+  /**
+  * Accordion Item Wrapper
+  * Features a modern card-like design with rounded corners and smooth transitions.
+  */
+}
+.accordion#faqAccordion .accordion-item {
+  margin-bottom: 30px;
+  border-radius: 15px !important;
+  border: 1px solid rgba(222, 226, 230, 0.2);
+  overflow: hidden;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+.accordion#faqAccordion .accordion-item:has(.collapse.show) {
+  background-color: rgba(211, 47, 47, 0.05);
+  border-color: rgba(211, 47, 47, 0.2);
+}
+.accordion#faqAccordion .accordion-item:hover {
+  border-color: rgba(211, 47, 47, 0.4) !important;
+}
+.accordion#faqAccordion {
+  /**
+  * Accordion Trigger Button
+  * Handles the interactive header of each FAQ item.
+  */
+}
+.accordion#faqAccordion .accordion-button {
+  font-weight: 700;
+  color: #1F2632;
+  padding: 20px;
+  border-radius: 15px !important;
+  font-size: 1.1rem;
+  background-color: transparent;
+}
+.accordion#faqAccordion .accordion-button:focus {
+  box-shadow: none;
+}
+.accordion#faqAccordion .accordion-button:not(.collapsed) {
+  color: #d32f2f;
+  background-color: transparent;
+  box-shadow: none;
+}
+.accordion#faqAccordion .accordion-button:not(.collapsed)::after {
+  filter: sepia(100%) saturate(2000%) hue-rotate(340deg);
+}
+.accordion#faqAccordion {
+  /**
+   * Accordion Content Body
+   * Styles the internal text area of the expanded item.
+   */
+}
+.accordion#faqAccordion .accordion-body {
+  padding: 0 20px 25px 20px;
+  color: #527179;
+  line-height: 1.6;
+  font-family: "DM Sans", sans-serif;
+  background-color: transparent;
+}
+
+/* ==========================================================================
+   Template Name: DinePro by Mahroof K
+   Version:       1.0.0
+   Licence:       MIT
+   Author:        Mahroof K
+   Description:   Premium Bootstrap 5 Restaurant Template
+   Contact        techmahr@gmail.com
+   --------------------------------------------------------------------------
+   Copyright © 2026 Mahroof. All rights reserved.
+   ========================================================================== */
+/* ==========================================================================
+   TEMPLATING INSTRUCTIONS
+   ==========================================================================
+   This file acts as the central hub for all project styles.
+   It uses the Sass @use rule to modularize components.
+
+   How to Customize:
+   1. Colors & Typography: Edit /abstract/_variables.scss
+   2. Global Tags:         Edit /base/_typography.scss
+   3. Individual UI:       Edit the respective file in /components/
+   4. Page Layouts:        Edit specific files in /pages/ for unique views.
+   ========================================================================== */
+/* ==========================================================================
+   1. ABSTRACTS
+   Variables, color tokens, mixins
+   ========================================================================== */
+/**
+ * Gallery Item Container
+ * Controls the dimensions and clipping of individual gallery thumbnails.
+ */
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  height: 250px;
+  /**
+   * Gallery Image Styling
+   * Ensures images fill the container perfectly without distortion.
+   */
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: transform 0.4s ease-in-out;
+}
+.gallery-item {
+  overflow: hidden;
+}
+.gallery-item img {
+  transition: transform 0.4s ease-in-out;
+}
+.gallery-item:hover img {
+  transform: scale(1.15);
+}
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+}
+.gallery-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.gallery-item:hover::after {
+  opacity: 1;
+}
+
+/**
+ * Gallery Modal Overrides
+ * Customizes the Bootstrap Modal to act as a high-end image lightbox.
+ */
+#galleryModal .modal-content {
+  background: transparent;
+  overflow: hidden;
+}
+#galleryModal .btn-close {
+  background-color: beige;
+  opacity: 1;
+}
+#galleryModal #modalImage {
+  max-height: 90vh;
+  width: auto;
+}
+
+/**
+ * Book A Table - Style One
+ * Specifically targets the layout of the first booking form variation.
+ */
+.book-a-table-classic {
+  /**
+  * Submission Button
+  * Adds specific vertical spacing to the button within this component
+  * to separate it clearly from the form fields.
+  */
+}
+.book-a-table-classic button {
+  margin-top: 32px;
+}
+
+/**
+ * Book A Table - Style Two
+ * A split-screen design where the image and form wrap into a single unit.
+ */
+.book-a-table-split {
+  /**
+   * Image Container
+   * Ensures the image takes up full height and handles responsive rounding.
+   */
+}
+.book-a-table-split .book-table-img-wrap {
+  height: 100%;
+  min-height: 400px;
+  overflow: hidden;
+  border-radius: 15px 0 0 15px;
+}
+@media (max-width: 991px) {
+  .book-a-table-split .book-table-img-wrap {
+    border-radius: 15px 15px 0px 0px;
+  }
+}
+.book-a-table-split {
+  /**
+   * Image Styling
+   * Optimized to fill the container without distortion.
+   */
+}
+.book-a-table-split .book-table-img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+}
+.book-a-table-split {
+  /**
+   * Booking Form Container
+   * The colored side of the split component.
+   */
+}
+.book-a-table-split .booking-form-wrap {
+  background-color: #d32f2f;
+  padding: 50px;
+  height: 100%;
+  border-radius: 0 15px 15px 0;
+}
+@media (max-width: 991px) {
+  .book-a-table-split .booking-form-wrap {
+    border-radius: 0px 0px 15px 15px;
+    padding: 20px;
+  }
+}
+.book-a-table-split .booking-form-wrap h2 {
+  color: #fff;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+.book-a-table-split .booking-form-wrap {
+  /**
+   * Form Inputs
+   * Custom overrides for Bootstrap's .form-control within this specific section.
+   */
+}
+.book-a-table-split .booking-form-wrap .form-control {
+  margin-bottom: 20px;
+  border: none;
+  padding: 12px;
+}
+.book-a-table-split .booking-form-wrap .form-control::-moz-placeholder {
+  color: #999;
+}
+.book-a-table-split .booking-form-wrap .form-control::placeholder {
+  color: #999;
+}
+
+/**
+ * Social Links Container
+ * Manages the layout and interactive states of social media anchor tags.
+ */
+.social-links a {
+  margin-bottom: 10px;
+  /**
+   * Hover Interaction
+   * Switches the border and background to the primary brand color.
+   */
+}
+.social-links a:hover {
+  border-color: #d32f2f;
+  background-color: #d32f2f;
+}
+
+/* ==========================================================================
+   5. PAGE-SPECIFIC STYLES
+   Styles unique to individual pages
+   ========================================================================== */
+/**
+ * Menu Page Full-Height Image
+ * A specialized utility for the Menu Page to ensure side-images align perfectly 
+ * with the height of the food/drink listings in the adjacent column.
+ */
+.h-100-img {
+  width: 100%;
+  border-radius: 15px;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+}
+@media (max-width: 767px) {
+  .h-100-img {
+    height: 300px;
+  }
+}
+
+/**
+ * Masonry Grid Wrapper
+ * Uses CSS column properties to create a fluid, staggered grid.
+ * This ensures that testimonial cards of different heights stack perfectly.
+ */
+.masonry-wrapper {
+  -moz-column-count: 3;
+       column-count: 3;
+  -moz-column-gap: 1.5rem;
+       column-gap: 1.5rem;
+}
+@media (max-width: 992px) {
+  .masonry-wrapper {
+    -moz-column-count: 2;
+         column-count: 2;
+  }
+}
+@media (max-width: 576px) {
+  .masonry-wrapper {
+    -moz-column-count: 1;
+         column-count: 1;
+  }
+}
+.masonry-wrapper {
+  /**
+   * Testimonial Card Integration
+   * Optimizes the standard testimonial component for the masonry environment.
+   */
+}
+.masonry-wrapper .card-testimonial {
+  display: inline-block;
+  width: 100%;
+  -moz-column-break-inside: avoid;
+       break-inside: avoid;
+}
+
+/**
+ * Blog Details Wrapper
+ * The main container for article content, featuring a clean card-style layout.
+ */
+.blog-details-wrap {
+  padding: 32px;
+  border: 0px;
+  background: #f4f1ee !important;
+  border-radius: 10px;
+  margin-bottom: 24px;
+}
+@media (max-width: 767px) {
+  .blog-details-wrap {
+    padding: 16px;
+  }
+}
+.blog-details-wrap {
+  /**
+  * Article Header
+  * Contains the title and meta-information such as the author/writer section.
+  */
+}
+.blog-details-wrap header .writer {
+  display: flex;
+  align-items: center;
+  margin: 34px 0 20px 0;
+}
+.blog-details-wrap header .writer span {
+  margin-right: 10px;
+  font-size: 20px;
+}
+.blog-details-wrap header .writer i {
+  color: #d32f2f;
+  font-size: 20px;
+}
+.blog-details-wrap {
+  /**
+  * Featured & Content Images
+  * Standardizes all images within the blog body with smooth rounded corners.
+  */
+}
+.blog-details-wrap img {
+  border-radius: 10px;
+}
+.blog-details-wrap p,
+.blog-details-wrap li {
+  color: #527179;
+}
+.blog-details-wrap i {
+  margin-right: 8px;
+}
+.blog-details-wrap ol {
+  padding-left: 20px;
+}
+.blog-details-wrap ol li {
+  margin-bottom: 15px;
+}
+
+/**
+ * Terms privacy Containers
+ * Standardizes the typography and layout for long-form legal documentation.
+ */
+.terms-section p,
+.privacy-section p {
+  color: #527179;
+}
+.terms-section hr,
+.privacy-section hr {
+  margin: 32px 0;
+  border-color: #dee2e6;
+  opacity: 1;
+}
+
+/**
+ * Contact Block Wrapper
+ * A modern, rounded container designed to house contact-related CTAs or FAQ highlights.
+ */
+.contact-block {
+  background: #f4f1ee !important;
+  border-radius: 15px;
+  padding: 40px 20px 50px 20px;
+}
+.contact-block img {
+  max-width: 200px;
+  padding: 20px 0;
+}
+
+/**
+ * Contact Section List
+ * Manages the layout for address, phone, and email information.
+ */
+.contact-section ul {
+  padding: 0px;
+}
+.contact-section ul li {
+  display: block;
+  margin: 0 0 15px;
+}
+.contact-section ul li span {
+  display: inline-block;
+  min-width: 140px;
+}
+.contact-section ul .social-links {
+  display: inline;
+}
+.contact-section ul .social-links a {
+  border-color: #1F2632;
+}
+.contact-section ul .social-links a i {
+  color: #1F2632;
+}/*# sourceMappingURL=style.css.map */
