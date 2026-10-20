@@ -1,4 +1,4 @@
-# Ollama run\n\nModel: `qwen3:4b`\nRun: `2026-10-20T18:55:34+05:30`\n\nNiche: `cafe`\nTemplate source: `Original implementation`\nTemplate URL: ``\nTemplate name: ``\nLicense note: Confirm before commercial delivery.\n\nBusiness facts:\n```json\n{
+# Ollama run\n\nModel: `qwen3:4b`\nRun: `2026-10-20T18:57:52+05:30`\n\nNiche: `cafe`\nTemplate source: `Original implementation`\nTemplate URL: ``\nTemplate name: ``\nLicense note: Confirm before commercial delivery.\n\nBusiness facts:\n```json\n{
   "id": "KOL-004",
   "business_name": "The Lighthouse Cafe",
   "category": "cafe",
