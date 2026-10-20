@@ -16,10 +16,10 @@ The Windows scheduled task runs `scripts/run-ollama-10am.ps1` every day at 10:00
 4. Creating the research note, email draft, WhatsApp draft, public screenshot links, and outreach record.
 5. Updating `tracker/`, `work/`, and the Excel tracker.
 6. Committing and pushing the complete run to this GitHub repository.
-7. Sending outreach through the connected channel when available and recording the exact result.
+7. Sending outreach through the connected channel when available without asking for per-run permission, then recording the exact result for the owner.
 8. If WhatsApp is unavailable, recording the reason and moving to another same-niche business with no official website instead of stopping the run.
 
-Qwen does not invent business facts, prices, reviews, or services. Production deployment, payment collection, ownership transfer, and backend work happen only after owner approval and payment agreement.
+Qwen does not invent business facts, prices, reviews, or services. Production deployment, payment collection, ownership transfer, and backend work happen only after owner approval and payment agreement. Routine website creation, GitHub/Excel updates, and outreach sending are authorized for the 10 AM workflow without a new permission request each day.
 
 Codex is not the runtime for this workflow. The Codex heartbeat automation is paused; the local Windows Ollama task is the only scheduled runner.
 
@@ -51,4 +51,4 @@ Codex is not the runtime for this workflow. The Codex heartbeat automation is pa
 
 `Mrs. Wilson's Cafe` has a Qwen-generated demo, two screenshots, a work log, an Excel tracker, and corrected WhatsApp outreach using public direct image URLs. The corrected message was delivered on 2026-10-20.
 
-This repository is a review demo; no business is represented or contacted without an appropriate approval and verified contact channel.
+This repository is a review demo; outreach uses verified public contact channels and the 10 AM workflow reports the exact delivery result afterward. Production delivery and paid work still require owner acceptance.

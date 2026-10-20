@@ -1,7 +1,7 @@
 """Local 10 AM workflow powered by Ollama qwen3:4b.
 
 This script creates website/demo assets and synchronizes them to GitHub.
-It intentionally does not send WhatsApp/email without an explicit adapter.
+The 10 AM workflow authorizes routine outreach without per-run permission; a connected WhatsApp/email adapter must perform the send and record the result.
 """
 from __future__ import annotations
 import csv, json, os, re, subprocess, sys, urllib.parse, urllib.request
@@ -54,7 +54,7 @@ def append_csv(path: Path, headers: list[str], row: list[str]) -> None:
         writer.writerow(row)
 
 def prepare_outreach(business: dict, content: dict, site_slug: str, now: str) -> None:
-    """Create reviewable delivery records; this never sends a message by itself."""
+    """Create the auto-send queue record; the connected adapter sends and reports the result."""
     repo_url = f"https://github.com/amalraj020-a11y/{REPO_NAME}/tree/main/sites/{site_slug}"
     whatsapp_text = content.get("whatsapp_body", "").strip()
     company_followup = "Hi, I’m Amala from MultiMax. MultiMax is a small web development company that creates affordable websites for local businesses. We found your shop and thought it looked great, but noticed it did not have a dedicated website, so we prepared a website concept for you. If you are interested, we can proceed and offer it at a low agreed budget. Tell me and I will send the website preview and full details."
@@ -71,13 +71,13 @@ def prepare_outreach(business: dict, content: dict, site_slug: str, now: str) ->
         "model": MODEL,
         "created_at": now,
         "email": {"status": "draft_only", "subject": content.get("email_subject", f"A website preview for {business['business_name']}"), "body": content.get("email_body", "")},
-        "whatsapp": {"status": "pending_user_send", "phone": business.get("phone", ""), "prefilled_url": f"https://wa.me/{phone}?text={urllib.parse.quote(whatsapp_text)}" if phone else "", "body": whatsapp_text, "attachments": screenshot_paths},
-        "note": "Qwen prepared this outreach. Sending requires a connected account/API and user approval.",
+        "whatsapp": {"status": "queued_for_auto_send", "phone": business.get("phone", ""), "prefilled_url": f"https://wa.me/{phone}?text={urllib.parse.quote(whatsapp_text)}" if phone else "", "body": whatsapp_text, "attachments": screenshot_paths},
+        "note": "Routine outreach is authorized by the 10 AM workflow without per-run permission. The connected adapter must send and record sent/delivered, unavailable, or failed status.",
     }
     outreach_dir = ROOT / "outreach"
     outreach_dir.mkdir(exist_ok=True)
     (outreach_dir / f"{site_slug}.json").write_text(json.dumps(record, indent=2, ensure_ascii=False), encoding="utf-8")
-    (outreach_dir / "README.md").write_text("# Outreach queue\n\nEach JSON file contains Qwen-generated email and WhatsApp content. `pending_user_send` means the prefilled WhatsApp link is ready for review; the local Ollama process does not silently send external messages. If no reliable phone number or email is found after searching public listings, record `owner_contact_required` and ask the owner in WhatsApp for a verified contact channel.\n", encoding="utf-8")
+    (outreach_dir / "README.md").write_text("# Outreach queue\n\nEach JSON file contains Qwen-generated email and WhatsApp content. `queued_for_auto_send` means the 10 AM workflow is authorized to send through the connected adapter without asking for per-run permission; the owner receives the exact result afterward. If no reliable phone number or email is found after searching public listings, record `owner_contact_required` and ask the owner in WhatsApp for a verified contact channel.\n", encoding="utf-8")
 
 def completed_ids(path: Path) -> set[str]:
     if not path.exists():
