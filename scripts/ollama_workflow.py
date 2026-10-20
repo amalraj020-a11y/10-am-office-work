@@ -53,10 +53,21 @@ def append_csv(path: Path, headers: list[str], row: list[str]) -> None:
         if not existing: writer.writerow(headers)
         writer.writerow(row)
 
+def completed_ids(path: Path) -> set[str]:
+    if not path.exists():
+        return set()
+    with path.open(newline="", encoding="utf-8") as handle:
+        return {row.get("Prospect ID", "") for row in csv.DictReader(handle)}
+
 def main() -> int:
     now = datetime.now().astimezone().isoformat(timespec="seconds")
     data = json.loads((ROOT / "data" / "prospects.json").read_text(encoding="utf-8"))
-    business = data[0]
+    done = completed_ids(ROOT / "tracker" / "prospects.csv")
+    pending = [candidate for candidate in data if candidate.get("id") not in done]
+    if not pending:
+        print(json.dumps({"status": "idle", "model": MODEL, "reason": "No unprocessed verified prospects in data/prospects.json"}))
+        return 0
+    business = pending[0]
     if business["business_name"].startswith("REPLACE"):
         raise SystemExit("Add one verified no-website business to data/prospects.json before running.")
     prompt = f'''You are the local-business website assistant. Use only the verified facts below. Create original marketing copy for a responsive one-page website. Do not invent reviews, ratings, founders, prices, claims, or services. Return JSON only with keys title, intro, cards (array of 4 objects with label, title, description), email_subject, email_body, whatsapp_body.
