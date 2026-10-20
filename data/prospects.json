@@ -54,5 +54,19 @@
     "services": ["artisan coffee", "breakfast and brunch", "sandwiches", "meal takeaway"],
     "website_evidence": "Public BizSeek listing reviewed; it states there is no website listed and mentions Facebook as the available web presence. Confirm current details with the business before production.",
     "source_urls": ["https://www.bizseek.co.uk/no-coffee_7E-020-3417-3500"]
+  },
+  {
+    "id": "AE-001",
+    "business_name": "7sea Specialty Cafe",
+    "category": "coffee shop",
+    "city_area": "Abu Dhabi",
+    "phone": "+971 50 802 7760",
+    "public_email": "",
+    "social_url": "",
+    "address": "شارع القُفَّال, Abu Dhabi, United Arab Emirates",
+    "hours": "Confirm with the business before publishing",
+    "services": ["coffee shop", "coffee", "dessert"],
+    "website_evidence": "Public UAE Biz Connect listing reviewed; it shows a phone number and explicitly lists no website yet. Confirm current details with the business before production.",
+    "source_urls": ["https://uaebizconnect.com/listing/420/7sea-specialty-cafe"]
   }
 ]
