@@ -30,7 +30,8 @@ Codex is not the runtime for this workflow. The Codex heartbeat automation is pa
 - Record evidence before marking a business as having no website.
 - Contact-channel priority: record every reliable public phone, WhatsApp number, email, contact form, or social-message channel found, preserve its source URL, and use the available channel for outreach.
 - Contact validation before build: verify that each discovered phone/WhatsApp number is correctly formatted and usable through the connected adapter, and verify that each email address is syntactically valid and accepted by the mail adapter before starting website creation.
-- Template selection: choose a polished free template from the approved sources, especially ThemeWagon's free catalog, and record the template URL, repository, and license note before adapting it.
+- Template selection: strictly choose a polished, reputable free template from the approved sources—especially ThemeWagon or a clearly licensed GitHub repository—and record the exact template URL, repository, and license note before adapting it.
+- Template prohibition: never use the workflow's old custom/original layout, never silently fall back to an invented template, and never use a template when its source, license, attribution, or export rights cannot be verified. If validation fails, stop the build and report it.
 - Delivery sequence: deploy the finished demo to GitHub Pages, verify the live URL, capture clean current screenshots, then send the live link and screenshots by email and WhatsApp when available; record every result in the tracker.
 - Outreach order: attempt public email, then WhatsApp, then phone call or SMS when the corresponding connected adapter is available; record each attempt and its exact result without claiming success unless visibly confirmed.
 - Test demos on mobile and desktop.

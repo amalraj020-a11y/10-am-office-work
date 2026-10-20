@@ -4,7 +4,8 @@
     "Record the exact source URL and license or usage terms before adapting it.",
     "Do not copy a competitor's branding, photos, text, logo, or business identity.",
     "Use editor-only Canva, Figma, or Wix templates as visual references unless code/export rights allow reuse.",
-    "Prefer an original implementation when license terms are unclear."
+    "Never generate the customer website from the workflow's own generic/original layout.",
+    "Never use a source with unclear ownership, license, attribution, or export rights; stop and choose another approved source instead."
   ],
   "sources": [
     {"name":"FreeWebsiteTemplates","url":"https://freewebsitetemplates.com/","best_for":["cafe","salon","fitness","local retail"],"default_license_note":"Review the individual template terms before commercial delivery."},

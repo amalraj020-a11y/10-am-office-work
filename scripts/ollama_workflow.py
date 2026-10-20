@@ -4,7 +4,7 @@ This script creates website/demo assets and synchronizes them to GitHub.
 The 10 AM workflow authorizes routine outreach without per-run permission; a connected WhatsApp/email adapter must perform the send and record the result.
 """
 from __future__ import annotations
-import csv, json, os, re, subprocess, sys, urllib.parse, urllib.request
+import csv, json, os, re, shutil, subprocess, sys, urllib.parse, urllib.request
 from datetime import datetime
 from pathlib import Path
 
@@ -35,16 +35,31 @@ def extract_json(text: str) -> dict:
         raise ValueError("Ollama did not return JSON")
     return json.loads(match.group(0))
 
-def build_site(business: dict, content: dict, target: Path) -> None:
-    target.mkdir(parents=True, exist_ok=True)
-    title = content.get("title", business["business_name"])
+def build_site_from_approved_template(business: dict, content: dict, target: Path) -> None:
+    """Copy the approved ThemeWagon/Technext template and adapt only verified facts."""
+    source = ROOT.parent / "foodee-template"
+    if not source.exists():
+        raise RuntimeError("Approved template checkout is missing; no generic replacement is permitted.")
+    shutil.copytree(source, target, dirs_exist_ok=True)
+    index = target / "index.html"
+    html = index.read_text(encoding="utf-8")
+    business_name = business["business_name"]
     intro = content.get("intro", "A welcoming local place for good food and good company.")
-    cards = content.get("cards", [])[:4]
-    cards_html = "".join(f'<article class="card"><span>{c.get("label", "Highlight")}</span><h2>{c.get("title", "Service")}</h2><p>{c.get("description", "Made with care for the neighbourhood.")}</p></article>' for c in cards)
-    html = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{intro}"><title>{title}</title><style>
-:root{{--ink:#142019;--muted:#68766d;--paper:#f8f5ef;--leaf:#1e4e3a;--lime:#d8e6bd;--orange:#e77b45}}*{{box-sizing:border-box}}body{{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,sans-serif;line-height:1.6}}header,main,footer{{max-width:1100px;margin:auto;padding:24px}}header{{display:flex;justify-content:space-between;align-items:center}}nav{{display:flex;gap:18px}}a{{color:inherit}}.hero{{padding:70px 24px;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}}.eyebrow{{color:var(--orange);font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800}}h1,h2{{font-family:Georgia,serif;font-weight:500;line-height:1}}h1{{font-size:clamp(3.3rem,8vw,6.8rem);letter-spacing:-.07em;margin:14px 0}}.lead{{font-size:1.15rem;color:var(--muted);max-width:540px}}.button{{display:inline-block;padding:12px 18px;border-radius:999px;background:var(--leaf);color:white;text-decoration:none;font-weight:700;margin-top:18px}}.art{{min-height:390px;border-radius:42% 42% 20px 20px;background:linear-gradient(135deg,#f0c57d,#e77b45 45%,#356e51 46%,#d8e6bd);box-shadow:18px 20px 0 #e4ded1}}.section{{padding:70px 24px}}.grid{{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}}.card{{background:white;padding:22px;border-radius:18px;min-height:205px;box-shadow:0 8px 24px #14201912}}.card:nth-child(2){{background:var(--lime)}}.card:nth-child(3){{background:#f8d8b9}}.card:nth-child(4){{background:var(--leaf);color:white}}.card span{{font-size:.78rem;opacity:.7}}.card h2{{font-size:2rem}}.visit{{background:var(--leaf);color:white;border-radius:24px;padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:24px}}.visit p{{color:var(--lime)}}footer{{color:var(--muted);font-size:.85rem}}@media(max-width:760px){{.hero,.visit{{grid-template-columns:1fr}}.grid{{grid-template-columns:repeat(2,1fr)}}nav{{display:none}}}}@media(max-width:480px){{.grid{{grid-template-columns:1fr}}}}
-</style></head><body><header><strong>{title}</strong><nav><a href="#services">Services</a><a href="#visit">Visit</a></nav></header><main><section class="hero"><div><div class="eyebrow">{business.get("city_area", "Local")}</div><h1>{title}</h1><p class="lead">{intro}</p><a class="button" href="#visit">Plan your visit ↗</a></div><div class="art"></div></section><section id="services" class="section"><div class="eyebrow">Made for the neighbourhood</div><h2>What guests come for.</h2><div class="grid">{cards_html}</div></section><section id="visit" class="section"><div class="visit"><div><div class="eyebrow">Come by</div><h2>See you soon.</h2><p>{business.get("address", "Confirm address before publishing.")}<br>{business.get("hours", "Confirm opening hours before publishing.")}</p></div><div><p><strong>Phone:</strong> {business.get("phone", "Confirm phone") or "Confirm phone"}</p><p><strong>Services:</strong> {", ".join(business.get("services", []))}</p><p><strong>Website demo:</strong> Prepared for owner review.</p></div></div></section></main><footer>Demo concept. Confirm all business details and permissions before production. · Developed by <strong>MultiMax</strong></footer></body></html>'''
-    (target / "index.html").write_text(html, encoding="utf-8")
+    replacements = {
+        "Foodee - Restaurant HTML Template": f"{business_name} | Website Preview",
+        "Foodee": business_name,
+        "A restaurant website template": intro,
+        "FREEHTML5.co": "MultiMax",
+        "freehtml5.co": "#",
+        "2016": "2026",
+    }
+    for old, new in replacements.items():
+        html = html.replace(old, new)
+    footer = f"&copy; 2026 {business_name}. All rights reserved.<br><strong>Developed by MultiMax</strong>"
+    html = re.sub(r"<p class=\"to-animate\">.*?</p>", f'<p class="to-animate">{footer}</p>', html, count=1, flags=re.S)
+    index.write_text(html, encoding="utf-8")
+    for unwanted in target.rglob(".DS_Store"):
+        unwanted.unlink(missing_ok=True)
 
 def append_csv(path: Path, headers: list[str], row: list[str]) -> None:
     existing = path.exists() and path.stat().st_size > 0
@@ -119,20 +134,17 @@ TEMPLATE CATALOG: {json.dumps(template_catalog, ensure_ascii=False)}'''
     try:
         content = extract_json(raw)
     except ValueError:
-        # Keep the run useful when a local model returns prose instead of JSON.
-        # The facts remain deterministic and the failed model response is retained for review.
-        content = {
-            "niche": business.get("category", "local business"), "template_source": "Original implementation", "template_url": "", "template_name": "", "license_note": "No external template used because the local model response was not valid JSON.",
-            "title": business["business_name"],
-            "intro": f"A welcoming {business.get('category', 'local')} place in {business.get('city_area', 'the neighbourhood')}, made for good food and good company.",
-            "cards": [{"label": f"0{i+1} / Local favourite", "title": service.title(), "description": "A detail to confirm with the business before publishing."} for i, service in enumerate(business.get("services", [])[:4])],
-            "email_subject": f"A website preview for {business['business_name']}",
-            "email_body": f"Hello {business['business_name']} team,\n\nI prepared a simple website preview for your cafe using the public business details we found. It is only a concept for your review. If you are interested, I can customize it, deploy it, and add backend features after confirming the exact requirements and a small budget.\n\nThank you.",
-            "whatsapp_body": f"Hello {business['business_name']} team. I prepared a simple website preview for your cafe using public business details. I can customize it, deploy it, and add backend features if you are interested, with a small budget agreed in advance. May I share the preview with you?",
-        }
+        # Never fall back to the retired generic layout. Preserve the model output
+        # for diagnosis and stop so the next run can retry with an approved template.
         (ROOT / "docs" / f"{slug(business['business_name'])}-ollama-raw-response.txt").write_text(raw, encoding="utf-8")
+        raise RuntimeError("Qwen did not return valid JSON; no website was created because the retired generic template is prohibited.")
+    required_template = str(content.get("template_url", "")).strip()
+    required_name = str(content.get("template_name", "")).strip()
+    required_license = str(content.get("license_note", "")).strip()
+    if not required_template or not required_name or not required_license or content.get("template_source") == "Original implementation":
+        raise RuntimeError("Approved template source, name, URL, and license note are required; no website was created.")
     site_slug = slug(business["business_name"])
-    build_site(business, content, ROOT / "sites" / site_slug)
+    build_site_from_approved_template(business, content, ROOT / "sites" / site_slug)
     (ROOT / "docs" / f"{site_slug}-ollama-run.md").write_text(f"# Ollama run\\n\\nModel: `{MODEL}`\\nRun: `{now}`\\n\\nNiche: `{content.get('niche', business.get('category', 'local business'))}`\\nTemplate source: `{content.get('template_source', 'Original implementation')}`\\nTemplate URL: `{content.get('template_url', '')}`\\nTemplate name: `{content.get('template_name', '')}`\\nLicense note: {content.get('license_note', 'Confirm before commercial delivery.')}\\n\\nBusiness facts:\\n```json\\n{json.dumps(business, indent=2, ensure_ascii=False)}\\n```\\n\\nNo business details were invented by the workflow.\\n", encoding="utf-8")
     (ROOT / "messages" / f"{site_slug}-ollama-email.md").write_text(content.get("email_body", ""), encoding="utf-8")
     (ROOT / "messages" / f"{site_slug}-ollama-whatsapp.md").write_text(content.get("whatsapp_body", ""), encoding="utf-8")
