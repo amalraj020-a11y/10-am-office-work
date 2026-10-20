@@ -57,7 +57,7 @@ def prepare_outreach(business: dict, content: dict, site_slug: str, now: str) ->
     """Create reviewable delivery records; this never sends a message by itself."""
     repo_url = f"https://github.com/amalraj020-a11y/{REPO_NAME}/tree/main/sites/{site_slug}"
     whatsapp_text = content.get("whatsapp_body", "").strip()
-    company_followup = "About MultiMax: we create affordable website concepts for local businesses and can handle customization, deployment, and backend upgrades after approval. If you are interested, tell me and I will send the website preview and full details."
+    company_followup = "Hi, I’m Amala from MultiMax. MultiMax is a small web development company that creates affordable websites for local businesses. We found your shop and thought it looked great, but noticed it did not have a dedicated website, so we prepared a website concept for you. If you are interested, we can proceed and offer it at a low agreed budget. Tell me and I will send the website preview and full details."
     screenshot_paths = [f"work/screenshots/{site_slug}-home.jpg", f"work/screenshots/{site_slug}-services.jpg"]
     screenshot_links = [f"https://raw.githubusercontent.com/amalraj020-a11y/{REPO_NAME}/main/{path}" for path in screenshot_paths]
     if repo_url not in whatsapp_text:
