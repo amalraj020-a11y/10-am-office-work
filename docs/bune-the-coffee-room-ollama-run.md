@@ -1,4 +1,4 @@
-# Ollama run\n\nModel: `qwen3:4b`\nRun: `2026-10-20T18:25:31+05:30`\n\nNiche: `coffee shop`\nTemplate source: `Original implementation`\nTemplate URL: ``\nTemplate name: ``\nLicense note: Confirm before commercial delivery.\n\nBusiness facts:\n```json\n{
+# Ollama run\n\nModel: `qwen3:4b`\nRun: `2026-10-20T18:25:31+05:30`\n\nNiche: `coffee shop`\nTemplate source: `Retired legacy run; not approved for future builds`\nTemplate URL: ``\nTemplate name: ``\nLicense note: Confirm before commercial delivery.\n\nBusiness facts:\n```json\n{
   "id": "KOL-003",
   "business_name": "Bune - The Coffee Room",
   "category": "coffee shop",

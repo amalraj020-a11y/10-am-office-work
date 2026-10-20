@@ -141,11 +141,11 @@ TEMPLATE CATALOG: {json.dumps(template_catalog, ensure_ascii=False)}'''
     required_template = str(content.get("template_url", "")).strip()
     required_name = str(content.get("template_name", "")).strip()
     required_license = str(content.get("license_note", "")).strip()
-    if not required_template or not required_name or not required_license or content.get("template_source") == "Original implementation":
+    if not required_template or not required_name or not required_license or content.get("template_source") == "Retired legacy run; not approved for future builds":
         raise RuntimeError("Approved template source, name, URL, and license note are required; no website was created.")
     site_slug = slug(business["business_name"])
     build_site_from_approved_template(business, content, ROOT / "sites" / site_slug)
-    (ROOT / "docs" / f"{site_slug}-ollama-run.md").write_text(f"# Ollama run\\n\\nModel: `{MODEL}`\\nRun: `{now}`\\n\\nNiche: `{content.get('niche', business.get('category', 'local business'))}`\\nTemplate source: `{content.get('template_source', 'Original implementation')}`\\nTemplate URL: `{content.get('template_url', '')}`\\nTemplate name: `{content.get('template_name', '')}`\\nLicense note: {content.get('license_note', 'Confirm before commercial delivery.')}\\n\\nBusiness facts:\\n```json\\n{json.dumps(business, indent=2, ensure_ascii=False)}\\n```\\n\\nNo business details were invented by the workflow.\\n", encoding="utf-8")
+    (ROOT / "docs" / f"{site_slug}-ollama-run.md").write_text(f"# Ollama run\\n\\nModel: `{MODEL}`\\nRun: `{now}`\\n\\nNiche: `{content.get('niche', business.get('category', 'local business'))}`\\nTemplate source: `{content.get('template_source', 'Approved template required')}`\\nTemplate URL: `{content.get('template_url', '')}`\\nTemplate name: `{content.get('template_name', '')}`\\nLicense note: {content.get('license_note', 'Confirm before commercial delivery.')}\\n\\nBusiness facts:\\n```json\\n{json.dumps(business, indent=2, ensure_ascii=False)}\\n```\\n\\nNo business details were invented by the workflow.\\n", encoding="utf-8")
     (ROOT / "messages" / f"{site_slug}-ollama-email.md").write_text(content.get("email_body", ""), encoding="utf-8")
     (ROOT / "messages" / f"{site_slug}-ollama-whatsapp.md").write_text(content.get("whatsapp_body", ""), encoding="utf-8")
     prepare_outreach(business, content, site_slug, now)
