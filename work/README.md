@@ -40,3 +40,14 @@ Amala must search the business name across public listings before marking a cont
 - WhatsApp: draft prepared for `+91 8910780424`; delivery requires a connected WhatsApp check.
 - Email: draft-only; no public email found.
 - Deployment: not deployed; owner approval and budget confirmation required.
+
+## No. 41 Coffee
+
+- Research: worldwide search found a public BizSeek listing with no dedicated website listed; business details require owner confirmation.
+- Source: [BizSeek listing](https://www.bizseek.co.uk/no-coffee_7E-020-3417-3500).
+- Website: `sites/no-41-coffee/index.html`
+- Model: `qwen3:4b` through local Ollama.
+- Screenshots: `screenshots/no-41-coffee-home.jpg` and `screenshots/no-41-coffee-services.jpg`.
+- WhatsApp: queued for the connected adapter to attempt at `+44 20 3417 3500`; delivery must be recorded as sent, delivered, unavailable, or failed.
+- Email: draft prepared for `no41coffeekitchen@outlook.com`; send only through the connected mail adapter and record the result.
+- Deployment: not deployed; owner approval and budget confirmation required.
