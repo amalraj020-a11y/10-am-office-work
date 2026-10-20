@@ -14,3 +14,14 @@ This folder records the companies reached during the 10 AM office workflow and t
 - Deployment: not deployed; owner approval and budget confirmation required.
 
 All business facts must be confirmed with the owner before production use. The demo, screenshots, and outreach copy are for review only.
+
+## Bune - The Coffee Room
+
+- Research: public listings reviewed; no dedicated official website URL found.
+- Website: `sites/bune-the-coffee-room/index.html`
+- Template: KOPPEE coffee-shop HTML template by HTML Codex, CC BY 4.0, adapted for Bune.
+- Footer: template attribution retained and `Developed by MultiMax` added.
+- Screenshots: `screenshots/bune-the-coffee-room-home.jpg` and `screenshots/bune-the-coffee-room-services.jpg`.
+- WhatsApp: prepared for `+91 3346014070`; use the public screenshot links in `outreach/bune-the-coffee-room.json`.
+- Email: no public email found; draft saved in the outreach record.
+- Deployment: not deployed; owner approval and budget confirmation required.
