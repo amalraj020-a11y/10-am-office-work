@@ -82,6 +82,17 @@ def completed_ids(path: Path) -> set[str]:
     with path.open(newline="", encoding="utf-8") as handle:
         return {row.get("Prospect ID", "") for row in csv.DictReader(handle)}
 
+def has_contact_channel(candidate: dict) -> bool:
+    """Only start a new outreach build when a public contact channel exists.
+
+    A channel adapter can later mark ``whatsapp_available`` false after checking
+    WhatsApp. The next run then skips that prospect and selects another business
+    in the same niche when one is available.
+    """
+    if candidate.get("whatsapp_available") is False:
+        return False
+    return bool(re.sub(r"[^0-9]", "", candidate.get("phone", "")) or candidate.get("public_email", "").strip())
+
 def main() -> int:
     now = datetime.now().astimezone().isoformat(timespec="seconds")
     data = json.loads((ROOT / "data" / "prospects.json").read_text(encoding="utf-8"))
@@ -89,8 +100,11 @@ def main() -> int:
     done = completed_ids(ROOT / "tracker" / "prospects.csv")
     force_id = os.getenv("OLLAMA_FORCE_PROSPECT_ID", "").strip()
     pending = [candidate for candidate in data if candidate.get("id") == force_id] if force_id else [candidate for candidate in data if candidate.get("id") not in done]
+    contactable = [candidate for candidate in pending if has_contact_channel(candidate)]
+    if not force_id:
+        pending = contactable
     if not pending:
-        print(json.dumps({"status": "idle", "model": MODEL, "reason": "No unprocessed verified prospects in data/prospects.json"}))
+        print(json.dumps({"status": "owner_contact_required", "model": MODEL, "reason": "No contactable prospect found; ask the owner for a verified channel or add another same-niche no-website prospect."}))
         return 0
     business = pending[0]
     if business["business_name"].startswith("REPLACE"):

@@ -17,6 +17,7 @@ The Windows scheduled task runs `scripts/run-ollama-10am.ps1` every day at 10:00
 5. Updating `tracker/`, `work/`, and the Excel tracker.
 6. Committing and pushing the complete run to this GitHub repository.
 7. Sending outreach through the connected channel when available and recording the exact result.
+8. If WhatsApp is unavailable, recording the reason and moving to another same-niche business with no official website instead of stopping the run.
 
 Qwen does not invent business facts, prices, reviews, or services. Production deployment, payment collection, ownership transfer, and backend work happen only after owner approval and payment agreement.
 
@@ -30,6 +31,7 @@ Codex is not the runtime for this workflow. The Codex heartbeat automation is pa
 - Test demos on mobile and desktop.
 - Ask the user to handle or approve payment collection.
 - Never claim a message was sent unless the channel visibly reports sent/delivered.
+- If a prospect has no usable WhatsApp channel, mark it clearly, ask the owner for a verified contact channel when required, and continue with another same-niche no-website prospect.
 - Use public direct screenshot URLs when the GitHub repository is not accessible to the recipient.
 - Deploy or transfer ownership only after acceptance and payment confirmation.
 
