@@ -29,3 +29,12 @@ All business facts must be confirmed with the owner before production use. The d
 ## Contact fallback rule
 
 Amala must search the business name across public listings before marking a contact unavailable. If no reliable phone number or email can be found, she must ask the owner in WhatsApp for a verified contact channel and record that request in the tracker.
+
+## The Lighthouse Cafe
+
+- Research: public BharatiBiz listing reviewed; no website was listed.
+- Website: `sites/the-lighthouse-cafe/index.html`
+- Model: `qwen3:4b` through local Ollama.
+- WhatsApp: draft prepared for `+91 8910780424`; delivery requires a connected WhatsApp check.
+- Email: draft-only; no public email found.
+- Deployment: not deployed; owner approval and budget confirmation required.

@@ -26,5 +26,19 @@
     "services": ["coffee shop", "coffee", "cafe service"],
     "website_evidence": "Public LocalU and District listings reviewed. They provide the business address, hours, and phone numbers but no dedicated official website URL. Confirm with the owner before production.",
     "source_urls": ["https://www.localu.in/listing/bune-the-coffee-room/", "https://www.district.in/dining/kolkata/bune-the-coffee-room-jodhpur-park"]
+  },
+  {
+    "id": "KOL-004",
+    "business_name": "The Lighthouse Cafe",
+    "category": "cafe",
+    "city_area": "Kolkata - Jodhpur Gardens",
+    "phone": "+91 8910780424",
+    "public_email": "",
+    "social_url": "",
+    "address": "164, 9/1, Prince Anwar Shah Road, Jodhpur Gardens, Lake Gardens, Kolkata, West Bengal 700045, India",
+    "hours": "Confirm with the business before publishing",
+    "services": ["cafe", "coffee", "local food and drink"],
+    "website_evidence": "Public BharatiBiz listing reviewed; it states that no website is listed and mentions Facebook as the available web presence. Confirm current details with the business before production.",
+    "source_urls": ["https://www.bharatibiz.com/en/the-lighthouse-cafe-089107-80424"]
   }
 ]
