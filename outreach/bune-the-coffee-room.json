@@ -1,0 +1,22 @@
+{
+  "prospect_id": "KOL-003",
+  "business_name": "Bune - The Coffee Room",
+  "model": "qwen3:4b",
+  "created_at": "2026-10-20T18:25:31+05:30",
+  "email": {
+    "status": "draft_only",
+    "subject": "A website preview for Bune - The Coffee Room",
+    "body": ""
+  },
+  "whatsapp": {
+    "status": "pending_user_send",
+    "phone": "+91 3346014070",
+    "prefilled_url": "https://wa.me/913346014070?text=%0A%0AWebsite%20preview%3A%20https%3A//github.com/amalraj020-a11y/10-am-office-work/tree/main/sites/bune-the-coffee-room%0A%0AScreenshots%3A%20https%3A//raw.githubusercontent.com/amalraj020-a11y/10-am-office-work/main/work/screenshots/bune-the-coffee-room-home.jpg%20and%20https%3A//raw.githubusercontent.com/amalraj020-a11y/10-am-office-work/main/work/screenshots/bune-the-coffee-room-services.jpg%0A%0AIf%20you%20are%20interested%2C%20I%20can%20customize%20it%2C%20deploy%20it%2C%20and%20add%20backend%20features%20within%20a%20small%20agreed%20budget.",
+    "body": "\n\nWebsite preview: https://github.com/amalraj020-a11y/10-am-office-work/tree/main/sites/bune-the-coffee-room\n\nScreenshots: https://raw.githubusercontent.com/amalraj020-a11y/10-am-office-work/main/work/screenshots/bune-the-coffee-room-home.jpg and https://raw.githubusercontent.com/amalraj020-a11y/10-am-office-work/main/work/screenshots/bune-the-coffee-room-services.jpg\n\nIf you are interested, I can customize it, deploy it, and add backend features within a small agreed budget.",
+    "attachments": [
+      "work/screenshots/bune-the-coffee-room-home.jpg",
+      "work/screenshots/bune-the-coffee-room-services.jpg"
+    ]
+  },
+  "note": "Qwen prepared this outreach. Sending requires a connected account/API and user approval."
+}
