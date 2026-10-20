@@ -35,6 +35,8 @@ Amala must search the business name across public listings before marking a cont
 - Research: public BharatiBiz listing reviewed; no website was listed.
 - Website: `sites/the-lighthouse-cafe/index.html`
 - Model: `qwen3:4b` through local Ollama.
+- Template: ThemeWagon's free Tasty restaurant template, adapted with attribution; details in `docs/the-lighthouse-cafe-template.md`.
+- Screenshot: `screenshots/the-lighthouse-cafe-home.jpg`.
 - WhatsApp: draft prepared for `+91 8910780424`; delivery requires a connected WhatsApp check.
 - Email: draft-only; no public email found.
 - Deployment: not deployed; owner approval and budget confirmation required.
