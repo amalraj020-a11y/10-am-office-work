@@ -4,7 +4,7 @@ This script creates website/demo assets and synchronizes them to GitHub.
 It intentionally does not send WhatsApp/email without an explicit adapter.
 """
 from __future__ import annotations
-import csv, json, os, re, subprocess, sys, urllib.request
+import csv, json, os, re, subprocess, sys, urllib.parse, urllib.request
 from datetime import datetime
 from pathlib import Path
 
@@ -53,6 +53,27 @@ def append_csv(path: Path, headers: list[str], row: list[str]) -> None:
         if not existing: writer.writerow(headers)
         writer.writerow(row)
 
+def prepare_outreach(business: dict, content: dict, site_slug: str, now: str) -> None:
+    """Create reviewable delivery records; this never sends a message by itself."""
+    repo_url = f"https://github.com/amalraj020-a11y/{REPO_NAME}/tree/main/sites/{site_slug}"
+    whatsapp_text = content.get("whatsapp_body", "").strip()
+    if repo_url not in whatsapp_text:
+        whatsapp_text = f"{whatsapp_text}\n\nWebsite preview: {repo_url}\n\nIf you are interested, I can customize it, deploy it, and add backend features within a small agreed budget."
+    phone = re.sub(r"[^0-9]", "", business.get("phone", ""))
+    record = {
+        "prospect_id": business["id"],
+        "business_name": business["business_name"],
+        "model": MODEL,
+        "created_at": now,
+        "email": {"status": "draft_only", "subject": content.get("email_subject", f"A website preview for {business['business_name']}"), "body": content.get("email_body", "")},
+        "whatsapp": {"status": "pending_user_send", "phone": business.get("phone", ""), "prefilled_url": f"https://wa.me/{phone}?text={urllib.parse.quote(whatsapp_text)}" if phone else "", "body": whatsapp_text},
+        "note": "Qwen prepared this outreach. Sending requires a connected account/API and user approval.",
+    }
+    outreach_dir = ROOT / "outreach"
+    outreach_dir.mkdir(exist_ok=True)
+    (outreach_dir / f"{site_slug}.json").write_text(json.dumps(record, indent=2, ensure_ascii=False), encoding="utf-8")
+    (outreach_dir / "README.md").write_text("# Outreach queue\n\nEach JSON file contains Qwen-generated email and WhatsApp content. `pending_user_send` means the prefilled WhatsApp link is ready for review; the local Ollama process does not silently send external messages.\n", encoding="utf-8")
+
 def completed_ids(path: Path) -> set[str]:
     if not path.exists():
         return set()
@@ -83,8 +104,8 @@ FACTS: {json.dumps(business, ensure_ascii=False)}'''
             "intro": f"A welcoming {business.get('category', 'local')} place in {business.get('city_area', 'the neighbourhood')}, made for good food and good company.",
             "cards": [{"label": f"0{i+1} / Local favourite", "title": service.title(), "description": "A detail to confirm with the business before publishing."} for i, service in enumerate(business.get("services", [])[:4])],
             "email_subject": f"A website preview for {business['business_name']}",
-            "email_body": raw,
-            "whatsapp_body": raw,
+            "email_body": f"Hello {business['business_name']} team,\n\nI prepared a simple website preview for your cafe using the public business details we found. It is only a concept for your review. If you are interested, I can customize it, deploy it, and add backend features after confirming the exact requirements and a small budget.\n\nThank you.",
+            "whatsapp_body": f"Hello {business['business_name']} team. I prepared a simple website preview for your cafe using public business details. I can customize it, deploy it, and add backend features if you are interested, with a small budget agreed in advance. May I share the preview with you?",
         }
         (ROOT / "docs" / f"{slug(business['business_name'])}-ollama-raw-response.txt").write_text(raw, encoding="utf-8")
     site_slug = slug(business["business_name"])
@@ -92,9 +113,10 @@ FACTS: {json.dumps(business, ensure_ascii=False)}'''
     (ROOT / "docs" / f"{site_slug}-ollama-run.md").write_text(f"# Ollama run\\n\\nModel: `{MODEL}`\\nRun: `{now}`\\n\\nBusiness facts:\\n```json\\n{json.dumps(business, indent=2, ensure_ascii=False)}\\n```\\n\\nNo business details were invented by the workflow.\\n", encoding="utf-8")
     (ROOT / "messages" / f"{site_slug}-ollama-email.md").write_text(content.get("email_body", ""), encoding="utf-8")
     (ROOT / "messages" / f"{site_slug}-ollama-whatsapp.md").write_text(content.get("whatsapp_body", ""), encoding="utf-8")
+    prepare_outreach(business, content, site_slug, now)
     append_csv(ROOT / "tracker" / "prospects.csv", ["Prospect ID","Business name","Category","City / area","Phone","Email / contact","Google / Maps URL","Social URL","Official website checked","Qualification","Evidence / notes","Research date","Owner","Next action"], [business["id"],business["business_name"],business.get("category",""),business.get("city_area",""),business.get("phone",""),business.get("public_email",""),"",business.get("social_url",""),"No dedicated official website found","Qualified",business.get("website_evidence",""),now[:10],"Ollama","Review generated demo and verify outreach channel"])
     append_csv(ROOT / "tracker" / "delivery.csv", ["Prospect ID","Business name","Git repo","Code path / commit","Vercel project / preview","Demo screenshot path","Proposed price","Delivery status","Payment status","Deployment status","Owner approval","Notes"], [business["id"],business["business_name"],REPO_NAME,f"sites/{site_slug}/index.html","Not deployed","Not created","To propose","Demo ready","Not requested","Not deployed","Required",f"Generated with {MODEL}; outreach adapters are not configured."])
-    run("git","add","sites", "docs", "messages", "tracker")
+    run("git","add","sites", "docs", "messages", "tracker", "outreach")
     run("git","commit","-m",f"Generate {business['business_name']} demo with Ollama",check=False)
     run("git","push",check=False)
     print(json.dumps({"model":MODEL,"business":business["business_name"],"site":f"sites/{site_slug}/index.html","timestamp":now}))
