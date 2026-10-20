@@ -1,0 +1,17 @@
+{
+  "rules": [
+    "Choose a template that matches the business niche and mobile use case.",
+    "Record the exact source URL and license or usage terms before adapting it.",
+    "Do not copy a competitor's branding, photos, text, logo, or business identity.",
+    "Use editor-only Canva, Figma, or Wix templates as visual references unless code/export rights allow reuse.",
+    "Prefer an original implementation when license terms are unclear."
+  ],
+  "sources": [
+    {"name":"FreeWebsiteTemplates","url":"https://freewebsitetemplates.com/","best_for":["cafe","salon","fitness","local retail"],"default_license_note":"Review the individual template terms before commercial delivery."},
+    {"name":"GitHub website-template topic","url":"https://github.com/topics/website-template","best_for":["developer-friendly static sites","landing pages","portfolio"],"default_license_note":"Use only repositories with a clear license compatible with adaptation and commercial work."},
+    {"name":"ThemeWagon","url":"https://themewagon.com/","best_for":["restaurant","agency","startup","local service"],"default_license_note":"Check the selected template license and attribution requirements."},
+    {"name":"Figma Community","url":"https://www.figma.com/community","best_for":["visual direction","premium UI references"],"default_license_note":"Treat as a design reference unless the file explicitly grants reusable/exportable rights."},
+    {"name":"Canva templates","url":"https://www.canva.com/templates/","best_for":["visual direction","marketing layouts"],"default_license_note":"Use only within Canva or with a license that permits the intended website delivery."},
+    {"name":"Wix templates","url":"https://www.wix.com/website/templates","best_for":["visual direction","business layout references"],"default_license_note":"Do not extract Wix assets or code unless the platform terms explicitly permit it."}
+  ]
+}

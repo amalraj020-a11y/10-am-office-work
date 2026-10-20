@@ -85,6 +85,7 @@ def completed_ids(path: Path) -> set[str]:
 def main() -> int:
     now = datetime.now().astimezone().isoformat(timespec="seconds")
     data = json.loads((ROOT / "data" / "prospects.json").read_text(encoding="utf-8"))
+    template_catalog = json.loads((ROOT / "data" / "template-catalog.json").read_text(encoding="utf-8"))
     done = completed_ids(ROOT / "tracker" / "prospects.csv")
     pending = [candidate for candidate in data if candidate.get("id") not in done]
     if not pending:
@@ -93,8 +94,9 @@ def main() -> int:
     business = pending[0]
     if business["business_name"].startswith("REPLACE"):
         raise SystemExit("Add one verified no-website business to data/prospects.json before running.")
-    prompt = f'''You are the local-business website assistant. Use only the verified facts below. Create original marketing copy for a responsive one-page website. Do not invent reviews, ratings, founders, prices, claims, or services. Return JSON only with keys title, intro, cards (array of 4 objects with label, title, description), email_subject, email_body, whatsapp_body.
-FACTS: {json.dumps(business, ensure_ascii=False)}'''
+    prompt = f'''You are the local-business website assistant. Use only the verified facts below. First choose the best niche and a suitable premium template source from the catalog. The source is a design/code starting point only; do not copy another business identity. Record the exact source name, URL, template name if known, and a concise license note. Create original marketing copy for a responsive one-page website. Do not invent reviews, ratings, founders, prices, claims, or services. Return JSON only with keys niche, template_source, template_url, template_name, license_note, title, intro, cards (array of 4 objects with label, title, description), email_subject, email_body, whatsapp_body.
+FACTS: {json.dumps(business, ensure_ascii=False)}
+TEMPLATE CATALOG: {json.dumps(template_catalog, ensure_ascii=False)}'''
     raw = ask_ollama(prompt)
     try:
         content = extract_json(raw)
@@ -102,6 +104,7 @@ FACTS: {json.dumps(business, ensure_ascii=False)}'''
         # Keep the run useful when a local model returns prose instead of JSON.
         # The facts remain deterministic and the failed model response is retained for review.
         content = {
+            "niche": business.get("category", "local business"), "template_source": "Original implementation", "template_url": "", "template_name": "", "license_note": "No external template used because the local model response was not valid JSON.",
             "title": business["business_name"],
             "intro": f"A welcoming {business.get('category', 'local')} place in {business.get('city_area', 'the neighbourhood')}, made for good food and good company.",
             "cards": [{"label": f"0{i+1} / Local favourite", "title": service.title(), "description": "A detail to confirm with the business before publishing."} for i, service in enumerate(business.get("services", [])[:4])],
@@ -112,7 +115,7 @@ FACTS: {json.dumps(business, ensure_ascii=False)}'''
         (ROOT / "docs" / f"{slug(business['business_name'])}-ollama-raw-response.txt").write_text(raw, encoding="utf-8")
     site_slug = slug(business["business_name"])
     build_site(business, content, ROOT / "sites" / site_slug)
-    (ROOT / "docs" / f"{site_slug}-ollama-run.md").write_text(f"# Ollama run\\n\\nModel: `{MODEL}`\\nRun: `{now}`\\n\\nBusiness facts:\\n```json\\n{json.dumps(business, indent=2, ensure_ascii=False)}\\n```\\n\\nNo business details were invented by the workflow.\\n", encoding="utf-8")
+    (ROOT / "docs" / f"{site_slug}-ollama-run.md").write_text(f"# Ollama run\\n\\nModel: `{MODEL}`\\nRun: `{now}`\\n\\nNiche: `{content.get('niche', business.get('category', 'local business'))}`\\nTemplate source: `{content.get('template_source', 'Original implementation')}`\\nTemplate URL: `{content.get('template_url', '')}`\\nTemplate name: `{content.get('template_name', '')}`\\nLicense note: {content.get('license_note', 'Confirm before commercial delivery.')}\\n\\nBusiness facts:\\n```json\\n{json.dumps(business, indent=2, ensure_ascii=False)}\\n```\\n\\nNo business details were invented by the workflow.\\n", encoding="utf-8")
     (ROOT / "messages" / f"{site_slug}-ollama-email.md").write_text(content.get("email_body", ""), encoding="utf-8")
     (ROOT / "messages" / f"{site_slug}-ollama-whatsapp.md").write_text(content.get("whatsapp_body", ""), encoding="utf-8")
     prepare_outreach(business, content, site_slug, now)
