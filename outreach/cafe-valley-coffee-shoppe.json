@@ -4,9 +4,11 @@
   "model": "qwen3:4b",
   "created_at": "2026-10-20T21:08:53+05:30",
   "email": {
-    "status": "draft_only",
-    "subject": "A website preview for Cafe Valley Coffee Shoppe",
-    "body": "Hello Cafe Valley Coffee Shoppe team,\n\nI’m Amala from MultiMax. We prepared a website concept for your business.\n\nLive website preview: https://amalraj020-a11y.github.io/10-am-office-work/sites/cafe-valley-coffee-shoppe/\n\nGitHub source: https://github.com/amalraj020-a11y/10-am-office-work/tree/main/sites/cafe-valley-coffee-shoppe\n\nIf you are interested, we can customize it and continue at a small agreed budget."
+    "status": "sent",
+    "sent_at": "2026-10-20T21:15:00+05:30",
+    "message_id": "1a15a49c3dce4505",
+    "subject": "Website preview for Cafe Valley Coffee Shoppe",
+    "body": "Hello Cafe Valley Coffee Shoppe team,\n\nI’m Amala from MultiMax. MultiMax is a small web development company that creates affordable websites for local businesses.\n\nWe found Cafe Valley Coffee Shoppe and noticed it did not have a dedicated website, so we prepared a website concept for your review.\n\nLive website preview: https://amalraj020-a11y.github.io/10-am-office-work/sites/cafe-valley-coffee-shoppe/\n\nGitHub source: https://github.com/amalraj020-a11y/10-am-office-work/tree/main/sites/cafe-valley-coffee-shoppe\n\nIf you are interested, we can customize the website and continue at a small agreed budget. Please let me know.\n\nThank you,\nAmala\nMultiMax"
   },
   "whatsapp": {
     "status": "unavailable_not_registered",
