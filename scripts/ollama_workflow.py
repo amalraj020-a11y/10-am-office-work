@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 MODEL = os.getenv("OLLAMA_MODEL", "qwen3:4b")
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://127.0.0.1:11434/api/generate")
-REPO_NAME = "10-am-office-work"
+REPO_NAME = "10am-office-work"
 
 def slug(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-") or "business"
@@ -51,11 +51,17 @@ def build_site_from_approved_template(business: dict, content: dict, target: Pat
         "KOPPEE": business_name,
         "DinePro": business_name,
         "DINEPRO": business_name.upper(),
+        "PrettyCodes": "MultiMax",
         "A restaurant website template": intro,
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sedolorm reminusto doeiusmod tempor incidition ulla mco laboris nisi ut aliquip ex ea commo condorico..": intro,
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit": intro,
         "Lorem ipsum dolor, sit amet consectetur adipisicing elit.": intro,
         "Lorem ipsum, dolor sit amet consectetur adipisicing elit.": intro,
+        "Some quick example text to build on the card title and make up the bulk of the card’s content.": intro,
+        "123 Gourmet Avenue,": business.get("address", ""),
+        "Culinary District, NY 10001": "",
+        "info@dinepro.com": business.get("public_email", ""),
+        "+1 (555) 123-4567": business.get("phone", ""),
         "FREEHTML5.co": "MultiMax",
         "freehtml5.co": "#",
         "2016": "2026",
@@ -66,6 +72,8 @@ def build_site_from_approved_template(business: dict, content: dict, target: Pat
         html = html.replace(old, new)
     footer = f"&copy; 2026 {business_name}. All rights reserved.<br><strong>Developed by MultiMax</strong>"
     html = re.sub(r"<p class=\"to-animate\">.*?</p>", f'<p class="to-animate">{footer}</p>', html, count=1, flags=re.S)
+    if "Developed by MultiMax" not in html:
+        html = html.replace("</footer>", f'<div class="container text-center pb-4"><strong>Developed by MultiMax</strong></div></footer>', 1)
     index.write_text(html, encoding="utf-8")
     for unwanted in target.rglob(".DS_Store"):
         unwanted.unlink(missing_ok=True)
