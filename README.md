@@ -33,6 +33,7 @@ Codex is not the runtime for this workflow. The Codex heartbeat automation is pa
 - Never claim a message was sent unless the channel visibly reports sent/delivered.
 - If a prospect has no usable WhatsApp channel, mark it clearly, ask the owner for a verified contact channel when required, and continue with another same-niche no-website prospect.
 - Before delivery, remove template/demo branding such as template names, years, “Free HTML5,” and original demo credits from the customer-facing footer; keep required legal attribution only in the project documentation/license record, and show `Developed by MultiMax`.
+- Every outreach message must include a short MultiMax introduction and the follow-up: “If you are interested, tell me and I will send the website preview and full details.”
 - Use public direct screenshot URLs when the GitHub repository is not accessible to the recipient.
 - Deploy or transfer ownership only after acceptance and payment confirmation.
 
