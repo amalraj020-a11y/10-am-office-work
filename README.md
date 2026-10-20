@@ -28,6 +28,7 @@ Codex is not the runtime for this workflow. The Codex heartbeat automation is pa
 - Work only during the 10:00–11:00 AM IST window.
 - Prefer free research, free development tools, GitHub, and free hosting tiers.
 - Record evidence before marking a business as having no website.
+- Contact-channel priority: record every reliable public phone, WhatsApp number, email, contact form, or social-message channel found, preserve its source URL, and use the available channel for outreach.
 - Test demos on mobile and desktop.
 - Ask the user to handle or approve payment collection.
 - Never claim a message was sent unless the channel visibly reports sent/delivered.
