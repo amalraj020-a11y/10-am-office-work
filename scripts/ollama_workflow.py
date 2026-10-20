@@ -17,7 +17,7 @@ def slug(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-") or "business"
 
 def ask_ollama(prompt: str) -> str:
-    payload = json.dumps({"model": MODEL, "prompt": prompt, "stream": False, "think": False, "options": {"temperature": 0.2, "num_predict": 900}}).encode()
+    payload = json.dumps({"model": MODEL, "prompt": prompt, "stream": False, "think": False, "format": "json", "options": {"temperature": 0.2, "num_predict": 420}}).encode()
     request = urllib.request.Request(OLLAMA_URL, data=payload, headers={"Content-Type": "application/json"})
     with urllib.request.urlopen(request, timeout=300) as response:
         body = json.loads(response.read().decode())
@@ -87,7 +87,8 @@ def main() -> int:
     data = json.loads((ROOT / "data" / "prospects.json").read_text(encoding="utf-8"))
     template_catalog = json.loads((ROOT / "data" / "template-catalog.json").read_text(encoding="utf-8"))
     done = completed_ids(ROOT / "tracker" / "prospects.csv")
-    pending = [candidate for candidate in data if candidate.get("id") not in done]
+    force_id = os.getenv("OLLAMA_FORCE_PROSPECT_ID", "").strip()
+    pending = [candidate for candidate in data if candidate.get("id") == force_id] if force_id else [candidate for candidate in data if candidate.get("id") not in done]
     if not pending:
         print(json.dumps({"status": "idle", "model": MODEL, "reason": "No unprocessed verified prospects in data/prospects.json"}))
         return 0
