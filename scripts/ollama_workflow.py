@@ -74,7 +74,7 @@ def prepare_outreach(business: dict, content: dict, site_slug: str, now: str) ->
     outreach_dir = ROOT / "outreach"
     outreach_dir.mkdir(exist_ok=True)
     (outreach_dir / f"{site_slug}.json").write_text(json.dumps(record, indent=2, ensure_ascii=False), encoding="utf-8")
-    (outreach_dir / "README.md").write_text("# Outreach queue\n\nEach JSON file contains Qwen-generated email and WhatsApp content. `pending_user_send` means the prefilled WhatsApp link is ready for review; the local Ollama process does not silently send external messages.\n", encoding="utf-8")
+    (outreach_dir / "README.md").write_text("# Outreach queue\n\nEach JSON file contains Qwen-generated email and WhatsApp content. `pending_user_send` means the prefilled WhatsApp link is ready for review; the local Ollama process does not silently send external messages. If no reliable phone number or email is found after searching public listings, record `owner_contact_required` and ask the owner in WhatsApp for a verified contact channel.\n", encoding="utf-8")
 
 def completed_ids(path: Path) -> set[str]:
     if not path.exists():

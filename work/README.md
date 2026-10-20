@@ -22,6 +22,10 @@ All business facts must be confirmed with the owner before production use. The d
 - Template: KOPPEE coffee-shop HTML template by HTML Codex, CC BY 4.0, adapted for Bune.
 - Footer: template attribution retained and `Developed by MultiMax` added.
 - Screenshots: `screenshots/bune-the-coffee-room-home.jpg` and `screenshots/bune-the-coffee-room-services.jpg`.
-- WhatsApp: checked through connected WhatsApp Web; `+91 3346014070` is not registered on WhatsApp, so no message was sent.
+- WhatsApp: the first listed number was unavailable; a second public listing search found `+91 9330321589`, pending WhatsApp availability check.
 - Email: no public email found; draft saved in the outreach record.
 - Deployment: not deployed; owner approval and budget confirmation required.
+
+## Contact fallback rule
+
+Amala must search the business name across public listings before marking a contact unavailable. If no reliable phone number or email can be found, she must ask the owner in WhatsApp for a verified contact channel and record that request in the tracker.
