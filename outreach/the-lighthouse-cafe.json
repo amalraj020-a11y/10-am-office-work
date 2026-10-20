@@ -2,7 +2,7 @@
   "prospect_id": "KOL-004",
   "business_name": "The Lighthouse Cafe",
   "model": "qwen3:4b",
-  "created_at": "2026-10-20T18:54:47+05:30",
+  "created_at": "2026-10-20T18:55:34+05:30",
   "email": {
     "status": "draft_only",
     "subject": "A website preview for The Lighthouse Cafe",
