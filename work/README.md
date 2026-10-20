@@ -22,6 +22,6 @@ All business facts must be confirmed with the owner before production use. The d
 - Template: KOPPEE coffee-shop HTML template by HTML Codex, CC BY 4.0, adapted for Bune.
 - Footer: template attribution retained and `Developed by MultiMax` added.
 - Screenshots: `screenshots/bune-the-coffee-room-home.jpg` and `screenshots/bune-the-coffee-room-services.jpg`.
-- WhatsApp: prepared for `+91 3346014070`; use the public screenshot links in `outreach/bune-the-coffee-room.json`.
+- WhatsApp: checked through connected WhatsApp Web; `+91 3346014070` is not registered on WhatsApp, so no message was sent.
 - Email: no public email found; draft saved in the outreach record.
 - Deployment: not deployed; owner approval and budget confirmation required.
