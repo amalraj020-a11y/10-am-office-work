@@ -11,7 +11,8 @@
     "body": ""
   },
   "whatsapp": {
-    "status": "pending_user_send",
+    "status": "sent_delivered",
+    "sent_at": "2026-10-20 7:16 pm IST",
     "phone": "+91 8910780424",
     "prefilled_url": "https://wa.me/918910780424?text=%0A%0AWebsite%20preview%3A%20https%3A//github.com/amalraj020-a11y/10-am-office-work/tree/main/sites/the-lighthouse-cafe%0A%0AHomepage%20screenshot%3A%20https%3A//raw.githubusercontent.com/amalraj020-a11y/10-am-office-work/main/work/screenshots/the-lighthouse-cafe-home.jpg%0A%0AIf%20you%20are%20interested%2C%20I%20can%20customize%20it%2C%20deploy%20it%2C%20and%20add%20backend%20features%20within%20a%20small%20agreed%20budget.",
     "body": "\n\nWebsite preview: https://github.com/amalraj020-a11y/10-am-office-work/tree/main/sites/the-lighthouse-cafe\n\nHomepage screenshot: https://raw.githubusercontent.com/amalraj020-a11y/10-am-office-work/main/work/screenshots/the-lighthouse-cafe-home.jpg\n\nIf you are interested, I can customize it, deploy it, and add backend features within a small agreed budget.",
@@ -19,5 +20,5 @@
       "work/screenshots/the-lighthouse-cafe-home.jpg"
     ]
   },
-  "note": "Qwen prepared this outreach. Sending requires a connected account/API and user approval."
+  "note": "Corrected website preview sent through connected WhatsApp Web; WhatsApp showed Sent and delivered status at 7:16 pm IST on 2026-10-20."
 }
