@@ -1,4 +1,4 @@
-# Ollama run\n\nModel: `qwen3:4b`\nRun: `2026-10-20T19:41:57+05:30`\n\nNiche: `coffee shop`\nTemplate source: `Original implementation`\nTemplate URL: ``\nTemplate name: ``\nLicense note: Confirm before commercial delivery.\n\nBusiness facts:\n```json\n{
+# Ollama run\n\nModel: `qwen3:4b`\nRun: `2026-10-20T19:41:57+05:30`\n\nNiche: `coffee shop`\nTemplate source: `ThemeWagon free catalog / Technext GitHub`\nTemplate URL: `https://themewagon.com/themes/free-bootstrap-templates-restaurant-website-design-online-ordering/`\nTemplate repository: `https://github.com/technext/foodee`\nTemplate name: `Foodee`\nLicense note: Free template adapted for this demo; confirm the source license before commercial delivery.\n\nBusiness facts:\n```json\n{
   "id": "GB-001",
   "business_name": "No. 41 Coffee",
   "category": "coffee shop",

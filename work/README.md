@@ -47,6 +47,8 @@ Amala must search the business name across public listings before marking a cont
 - Source: [BizSeek listing](https://www.bizseek.co.uk/no-coffee_7E-020-3417-3500).
 - Website: `sites/no-41-coffee/index.html`
 - Model: `qwen3:4b` through local Ollama.
+- Template: ThemeWagon free Foodee restaurant template from [Technext's GitHub source](https://github.com/technext/foodee), adapted for No. 41 Coffee.
+- Branding cleanup: original template/demo branding removed; footer shows only `Developed by MultiMax`.
 - Screenshots: `screenshots/no-41-coffee-home.jpg` and `screenshots/no-41-coffee-services.jpg`.
 - WhatsApp: queued for the connected adapter to attempt at `+44 20 3417 3500`; delivery must be recorded as sent, delivered, unavailable, or failed.
 - Email: draft prepared for `no41coffeekitchen@outlook.com`; send only through the connected mail adapter and record the result.
