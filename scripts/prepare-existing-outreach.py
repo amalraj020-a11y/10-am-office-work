@@ -11,13 +11,15 @@ slug = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
 whatsapp = f"Hello {name} team. I prepared a simple website preview for your cafe using public business details. I can customize it, deploy it, and add backend features if you are interested, with a small budget agreed in advance. May I share the preview with you?"
 email = f"Hello {name} team,\n\nI prepared a simple website preview for your cafe using the public business details we found. It is only a concept for your review. If you are interested, I can customize it, deploy it, and add backend features after confirming the exact requirements and a small budget.\n\nThank you."
 preview = f"https://github.com/amalraj020-a11y/10-am-office-work/tree/main/sites/{slug}"
-whatsapp = f"{whatsapp}\n\nWebsite preview: {preview}\n\nIf you are interested, I can customize it, deploy it, and add backend features within a small agreed budget."
+home_image = f"https://raw.githubusercontent.com/amalraj020-a11y/10-am-office-work/main/work/screenshots/{slug}-home.jpg"
+services_image = f"https://raw.githubusercontent.com/amalraj020-a11y/10-am-office-work/main/work/screenshots/{slug}-services.jpg"
+whatsapp = f"{whatsapp}\n\nWebsite preview: {preview}\n\nScreenshots: {home_image} and {services_image}\n\nIf you are interested, I can customize it, deploy it, and add backend features within a small agreed budget."
 phone = re.sub(r"[^0-9]", "", business.get("phone", ""))
 record = {
     "prospect_id": business["id"], "business_name": name, "model": "qwen3:4b",
     "created_at": datetime.now().astimezone().isoformat(timespec="seconds"),
     "email": {"status": "draft_only", "subject": f"A website preview for {name}", "body": email},
-    "whatsapp": {"status": "pending_user_send", "phone": business.get("phone", ""), "prefilled_url": f"https://wa.me/{phone}?text={urllib.parse.quote(whatsapp)}", "body": whatsapp},
+    "whatsapp": {"status": "pending_user_send", "phone": business.get("phone", ""), "prefilled_url": f"https://wa.me/{phone}?text={urllib.parse.quote(whatsapp)}", "body": whatsapp, "attachments": ["work/screenshots/mrs-wilsons-cafe-home.jpg", "work/screenshots/mrs-wilsons-cafe-services.jpg"]},
     "note": "Qwen prepared this outreach. Sending requires a connected account/API and user approval.",
 }
 (ROOT / "outreach").mkdir(exist_ok=True)
