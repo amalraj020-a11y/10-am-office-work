@@ -2,7 +2,7 @@
   "prospect_id": "KOL-002",
   "business_name": "Mrs. Wilson's Cafe",
   "model": "qwen3:4b",
-  "created_at": "2026-10-20T18:16:21+05:30",
+  "created_at": "2026-10-20T18:23:41+05:30",
   "email": {
     "status": "draft_only",
     "subject": "A website preview for Mrs. Wilson's Cafe",
