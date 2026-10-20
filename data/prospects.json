@@ -96,5 +96,19 @@
     "services": ["cafe dining", "restaurant meals", "local takeaway"],
     "website_evidence": "Public KaroSearch listing explicitly says No website and provides the phone and email. A focused search did not identify a dedicated official domain. Confirm current details with the business before production.",
     "source_urls": ["https://www.karosearch.com/business/cafe-37-056243.html"]
+  },
+  {
+    "id": "KOL-007",
+    "business_name": "Sikkim Momo Gr. Cafe",
+    "category": "cafe and fast food restaurant",
+    "city_area": "Kolkata - Baguiati",
+    "phone": "+91 98302 11764",
+    "public_email": "chantingayurved@gmail.com",
+    "social_url": "",
+    "address": "CB 7, Desh Bandhu Nagar, Baguiati, Kolkata, West Bengal 700059, India",
+    "hours": "Mon 4:30 AM–10:30 PM; Tue–Sun 9 AM–1:30 PM and 4:30 PM–10:30 PM; confirm with the business",
+    "services": ["momos", "coffee", "fast food", "cafe service", "takeaway"],
+    "website_evidence": "Public Bharatibiz listing reviewed; it provides a public phone and email, states that no website is listed, and identifies Facebook as the available web presence. The listing also includes historical information that should be confirmed with the business before production.",
+    "source_urls": ["https://www.bharatibiz.com/en/sikkim-momo-gr-cafe-098302-11764"]
   }
 ]
