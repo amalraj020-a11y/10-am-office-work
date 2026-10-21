@@ -1,11 +1,10 @@
-"""Register the EC2-only office agent without changing other agents or secrets."""
+"""Register the local model without changing any agent's tool permissions."""
 import json
 import pathlib
 import subprocess
 
 HOME = pathlib.Path.home()
 CONFIG = HOME / '.openclaw/openclaw.json'
-WORKSPACE = HOME / '.openclaw/workspace-office'
 MODEL = 'ollama/qwen3:0.6b'
 
 
@@ -29,27 +28,7 @@ def main():
     allowed = config['agents']['defaults'].get('modelPolicy', {}).get('allow', [])
     if allowed and MODEL not in allowed:
         set_config('agents.defaults.modelPolicy.allow', allowed + [MODEL])
-    WORKSPACE.mkdir(parents=True, exist_ok=True)
-    agent = config['agents'].get('entries', {}).get('amala-office', {})
-    agent.update({
-        'name': 'Amala 10 AM Office', 'workspace': str(WORKSPACE),
-        'model': {'primary': MODEL, 'fallbacks': []},
-        'tools': {'profile': 'full', 'allow': ['read', 'write', 'edit', 'exec', 'process', 'browser', 'web_fetch']},
-    })
-    set_config('agents.entries.amala-office', agent)
-    target = WORKSPACE / 'AGENTS.md'
-    if not target.exists():
-        target.write_text(
-            '# Amala office agent\n\n'
-            'You are Amala, the MultiMax website assistant. Execute the assigned task using tools. '
-            'Never invent a tool result, business fact, screenshot, deployment, or delivery. '
-            'Use only the configured local Ollama Qwen model. No hosted model fallback. '
-            'The repository is /home/ubuntu/amala-office-repo. Read cloud/RULEBOOK.md before daily work. '
-            'Routine daily research, one qualified demo, GitHub Pages publishing and verified-channel outreach '
-            'are authorized by Raj. No per-business permission question is needed. '
-            'Do not contact anyone during a self-test. Never expose credentials or private conversations.\n'
-        )
-    print('Office agent registered; scheduler activation requires a passing self-test.')
+    print('Local model registered. Existing Amala tool permissions are unchanged.')
 
 
 if __name__ == '__main__':

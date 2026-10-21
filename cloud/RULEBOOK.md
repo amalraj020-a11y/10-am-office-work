@@ -1,8 +1,9 @@
 # EC2 office workflow
 
 This is the authoritative specification for the EC2 10:00–11:00 Asia/Kolkata job.
-OpenClaw owns scheduling, tools and sending. The dedicated `amala-office` agent uses
-local Ollama `qwen3:0.6b`, with no hosted fallback. Codex only installs and repairs
+OpenClaw owns scheduling, tools and sending. The office job uses existing agent `amala`
+with an explicit local Ollama `qwen3:0.6b` override and no hosted fallback. It does
+not grant new tool permissions. Codex only installs and repairs
 this runtime. This smaller model must pass an actual tool-use test before activation;
 its presence on disk is not proof that it can complete the job.
 
