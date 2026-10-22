@@ -14,6 +14,10 @@ def set_config(path, value):
 
 def main():
     config = json.loads(CONFIG.read_text())
+    plugins = config.get('plugins', {}).get('allow', [])
+    if plugins and 'ollama' not in plugins:
+        set_config('plugins.allow', plugins + ['ollama'])
+    set_config('plugins.entries.ollama.enabled', True)
     models = config['models']['providers']['ollama'].get('models', [])
     if not any(m['id'] == 'qwen3:0.6b' for m in models):
         models.append({
