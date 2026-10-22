@@ -1,5 +1,11 @@
 # 10 AM Office Work
 
+> **Current EC2 setup:** See [cloud/README.md](cloud/README.md) and
+> [cloud/RULEBOOK.md](cloud/RULEBOOK.md). The full business workflow is not yet
+> verified or activated on EC2. The Windows instructions below describe the
+> historical prototype, not a working cloud schedule. Server setup/repair by Codex
+> is authorized; scheduled business work must run through OpenClaw and local Qwen.
+
 Amala's 10:00–11:00 AM local-business website workflow, powered by local Ollama `qwen3:4b`.
 
 ## Goal

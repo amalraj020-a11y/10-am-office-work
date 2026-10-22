@@ -1,11 +1,6 @@
 name: Deploy latest website to GitHub Pages
 
-on:
-  push:
-    branches: [main]
-    paths:
-      - "websites/sikkim-momo-gr-cafe/**"
-      - ".github/workflows/deploy-cafe-37-pages.yml"
+on: workflow_dispatch
 
 permissions:
   contents: read
@@ -18,6 +13,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: ${{ false }} # Replaced by deploy-websites-pages.yml; retain historical definition.
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

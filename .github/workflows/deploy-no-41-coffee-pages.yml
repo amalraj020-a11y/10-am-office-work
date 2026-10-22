@@ -2,12 +2,7 @@ name: Deploy No. 41 Coffee to GitHub Pages
 
 # GitHub Pages source: GitHub Actions
 
-on:
-  push:
-    branches: [main]
-    paths:
-      - "sites/no-41-coffee/**"
-      - ".github/workflows/deploy-no-41-coffee-pages.yml"
+on: workflow_dispatch
 
 permissions:
   contents: read
@@ -20,6 +15,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: ${{ false }} # Replaced by deploy-websites-pages.yml; retain historical definition.
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
