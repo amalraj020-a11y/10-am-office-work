@@ -13,6 +13,7 @@ import uuid
 ROOT = Path(__file__).resolve().parents[1]
 JOB = 'dc414724-bccf-4bc0-88b0-abbe624447f8'
 MODEL = 'ollama/qwen3:0.6b'
+TEST_JOB = 'd8c5b65a-74b9-432d-a94a-d6e22d11f907'
 STATE = Path.home() / '.local/share/amala-office'
 
 
@@ -43,15 +44,18 @@ def install():
     fixture = STATE / 'read-fixture.txt'
     expected = 'AMALA_' + uuid.uuid4().hex
     fixture.write_text(expected)
-    result = json.loads(run(
-        'openclaw', 'agent', '--agent', 'amala', '--local', '--model', MODEL,
-        '--session-id', str(uuid.uuid4()), '--thinking', 'off', '--timeout', '180',
+    run('openclaw', 'cron', 'edit', TEST_JOB,
+        '--model', MODEL, '--fallbacks', '', '--tools', 'read',
+        '--thinking', 'off', '--timeout-seconds', '180',
         '--message', f'Read {fixture} using the read tool. Reply with exactly the contents, nothing else. Do not guess. /no_think',
-        '--json', timeout=210))
-    payload = result.get('result', result)
-    texts = [p.get('text', '').strip() for p in payload.get('payloads', [])]
-    meta = payload.get('meta', {}).get('agentMeta', {})
-    passed = expected in texts and meta.get('provider') == 'ollama' and meta.get('model') == 'qwen3:0.6b'
+        '--disable')
+    result = json.loads(run('openclaw', 'cron', 'run', TEST_JOB,
+                            '--wait', '--wait-timeout', '4m', '--json', timeout=270))
+    outcome = result.get('run', {})
+    passed = (outcome.get('status') == 'ok'
+              and expected in outcome.get('summary', '')
+              and outcome.get('provider') == 'ollama'
+              and outcome.get('model') == 'qwen3:0.6b')
     (STATE / 'preflight.json').write_text(json.dumps({
         'model': MODEL, 'read_tool_test_passed': passed, 'browser': executable,
         'github_account': 'amalraj020-a11y', 'full_workflow_tested': False,
