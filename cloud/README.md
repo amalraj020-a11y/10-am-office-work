@@ -6,8 +6,15 @@ have succeeded. Do not infer that the full workflow works from this repository.
 Completed server checks: GitHub authentication as `amalraj020-a11y`, repository
 access, enabled OpenClaw and Ollama services, user linger, and linked WhatsApp
 account `amala`. The local Qwen 0.6B model has been registered in OpenClaw's catalog
-and model allow-list. The browser/Excel dependency installation and a read-only
-Qwen tool test were started; their final results still require server verification.
+and model allow-list. Browser and Excel dependencies are installed and the browser
+preflight passed. The Ollama plugin allow-list was repaired. A direct Qwen prompt
+completed locally, but the agent tool-use test has not yet passed.
+
+The first agent test was killed by Ollama's 850 MiB service memory cap. On
+23 October the existing instance's service limits were adjusted to MemoryHigh
+950 MiB and MemoryMax 1200 MiB and the verified read-tool test was restarted.
+No instance resize or hosted model fallback was enabled. This is not proof that
+the 2 GiB instance can support the complete browser/model workflow reliably.
 
 The existing 10 AM job is a check-in until `install_schedule.py` succeeds. Its
 replacement uses existing Amala permissions, a local-model override without hosted

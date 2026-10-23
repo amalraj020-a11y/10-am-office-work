@@ -21,6 +21,10 @@ def run(*args, timeout=60):
     result = subprocess.run(args, capture_output=True, text=True, timeout=timeout)
     if result.returncode:
         # Avoid dumping configuration or credential-bearing stderr to public logs.
+        STATE.mkdir(parents=True, exist_ok=True)
+        diagnostic = STATE / 'last-command-error.txt'
+        diagnostic.write_text(result.stdout + '\n' + result.stderr)
+        diagnostic.chmod(0o600)
         raise RuntimeError(f'{args[0]} {args[1]} failed with exit {result.returncode}; inspect locally')
     return result.stdout
 
