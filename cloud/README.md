@@ -11,10 +11,11 @@ preflight passed. The Ollama plugin allow-list was repaired. A direct Qwen promp
 completed locally, but the agent tool-use test has not yet passed.
 
 The first agent test was killed by Ollama's 850 MiB service memory cap. On
-23 October the existing instance's service limits were adjusted to MemoryHigh
-950 MiB and MemoryMax 1200 MiB and the verified read-tool test was restarted.
-No instance resize or hosted model fallback was enabled. This is not proof that
-the 2 GiB instance can support the complete browser/model workflow reliably.
+23 October a trial with MemoryHigh 950 MiB and MemoryMax 1200 MiB caused the
+OpenClaw gateway to be killed by the OOM killer during testing. The previous
+650 MiB/850 MiB Ollama limits were restored to protect the existing services.
+The 2 GiB instance has not demonstrated capacity for this workflow. No instance
+resize or hosted model fallback was enabled. The office schedule was NOT installed.
 
 The existing 10 AM job is a check-in until `install_schedule.py` succeeds. Its
 replacement uses existing Amala permissions, a local-model override without hosted
