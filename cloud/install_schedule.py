@@ -8,6 +8,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -76,14 +77,19 @@ def install():
     (STATE / 'previous-10am-job.json').write_text(backup)
     run('openclaw', 'config', 'set', 'browser.executablePath', json.dumps(executable), '--strict-json')
     run('openclaw', 'config', 'set', 'browser.headless', 'true', '--strict-json')
-    run('openclaw', 'cron', 'edit', JOB,
-        '--name', 'Amala 10 AM Website Office', '--cron', '0 10 * * *',
-        '--tz', 'Asia/Kolkata', '--exact', '--agent', 'amala', '--session', 'isolated',
-        '--model', MODEL, '--fallbacks', '', '--thinking', 'off', '--light-context',
-        '--timeout-seconds', '3300', '--message', (ROOT / 'cloud/office-task.md').read_text(),
-        '--tools', 'read,exec', '--account', 'amala', '--enable')
-    # Existing owner delivery account and destination are deliberately preserved.
-    print('10 AM IST job installed with Groq Qwen; existing owner reporting preserved.')
+    run('openclaw', 'cron', 'edit', test_job, '--tools', 'exec', '--light-context',
+        '--timeout-seconds', '180', '--no-deliver', '--disable')
+    config_path = STATE / 'step-runner.json'
+    existing = json.loads(config_path.read_text()) if config_path.exists() else {}
+    job_record = json.loads(backup)
+    owner = existing.get('owner') or job_record.get('job', job_record).get('delivery', {}).get('to')
+    if not owner:
+        raise RuntimeError('Existing owner reporting destination could not be resolved')
+    config_path.write_text(json.dumps({'step_job': test_job, 'owner': owner}))
+    config_path.chmod(0o600)
+    run(sys.executable, str(ROOT / 'cloud/step_runner.py'), '--test', '--max-steps', '1', timeout=310)
+    run(sys.executable, str(ROOT / 'cloud/install_step_schedule.py'), timeout=120)
+    print('Bounded 10 AM IST runner installed; owner reporting preserved.')
 
 
 if __name__ == '__main__':

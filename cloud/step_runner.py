@@ -115,6 +115,8 @@ def main():
                   'model': 'groq/' + MODEL, 'finished': time.time()}
         (run_dir / 'result.json').write_text(json.dumps(report, indent=2))
         print(json.dumps(report), flush=True)
+        if args.test and outcome != 'probe_passed':
+            raise SystemExit(1)
         if not args.test:
             message = ('Amala 10 AM EC2 run: ' + outcome + '.\n' + reason +
                        '\nNo completion is claimed without deployment and message evidence.')

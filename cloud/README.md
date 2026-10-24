@@ -1,8 +1,9 @@
 # EC2 office runtime setup
 
 Status on 24 October 2026: the daily 10 AM Asia/Kolkata office schedule is installed
-and enabled on EC2 using Groq Qwen. The read-tool test passed in 14.3 seconds.
-A full workflow test has been started; end-to-end outreach is not yet verified.
+and enabled on EC2 using Groq Qwen. The full-rulebook, fresh-session tool probe
+passed. The daily command now starts amala-office.service, which runs small Qwen
+steps through the existing OpenClaw gateway. End-to-end outreach is not yet verified.
 
 Completed server checks: GitHub authentication as `amalraj020-a11y`, repository
 access, enabled OpenClaw and Ollama services, user linger, and linked WhatsApp
@@ -18,10 +19,15 @@ OpenClaw gateway to be killed by the OOM killer during testing. The previous
 The 2 GiB instance has not demonstrated capacity for this workflow. No instance
 resize was performed. The user subsequently approved Groq's Free plan instead.
 
-The previous 10 AM check-in is now replaced by the office job. It
-uses existing Amala permissions, an explicit Groq override without any
-fallback, the full task in office-task.md, a 55-minute timeout, and its existing
-owner-reporting destination. No new Codex automation is created.
+The previous 10 AM check-in is replaced by the office job. The original long
+conversation overflowed Groq's free request limit. step_runner.py now gives each
+small action a fresh isolated OpenClaw session, the rulebook and a saved handoff.
+It uses existing Amala permissions, explicit Groq Qwen with no fallback, a process
+lock, a 55-minute deadline and a bounded token budget. The systemd service survives
+the Windows PC shutting down. OpenClaw starts it daily at 10 AM Asia/Kolkata.
+Private run state stays under ~/.local/share/amala-office/runs. Unknown results
+are not automatically replayed. The worker sends the actual outcome to the existing
+owner destination. A successful launcher alone does not mean business work finished.
 
 Server installation:
 
@@ -33,7 +39,7 @@ python3 /home/ubuntu/amala-office-repo/cloud/groq_setup.py
 ```
 
 The installer stops before changing the schedule if GitHub, browser dependencies
-or Qwen's actual file-reading test fails. Even a passing smoke test does not prove
+or Qwen's tool probes fail. Even a passing smoke test does not prove
 the entire research/build/deploy/outreach process. A full run must be checked by
 its artifacts, deployment and message IDs before being reported as successful.
 
