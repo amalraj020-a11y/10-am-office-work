@@ -1,24 +1,25 @@
 # EC2 office runtime setup
 
-Status: installation is incomplete until the server preflight and scheduler update
-have succeeded. Do not infer that the full workflow works from this repository.
+Status on 24 October 2026: the daily 10 AM Asia/Kolkata office schedule is installed
+and enabled on EC2 using Groq Qwen. The read-tool test passed in 14.3 seconds.
+A full workflow test has been started; end-to-end outreach is not yet verified.
 
 Completed server checks: GitHub authentication as `amalraj020-a11y`, repository
 access, enabled OpenClaw and Ollama services, user linger, and linked WhatsApp
-account `amala`. The local Qwen 0.6B model has been registered in OpenClaw's catalog
-and model allow-list. Browser and Excel dependencies are installed and the browser
-preflight passed. The Ollama plugin allow-list was repaired. A direct Qwen prompt
-completed locally, but the agent tool-use test has not yet passed.
+account `amala`. Browser and Excel dependencies are installed and the browser
+preflight passed. The existing EC2 Groq API credential works. Groq's account UI
+confirmed the Free plan. The office model is `groq/qwen/qwen3.8-27b`, with no
+fallbacks. No API key is stored in this repository.
 
 The first agent test was killed by Ollama's 850 MiB service memory cap. On
 23 October a trial with MemoryHigh 950 MiB and MemoryMax 1200 MiB caused the
 OpenClaw gateway to be killed by the OOM killer during testing. The previous
 650 MiB/850 MiB Ollama limits were restored to protect the existing services.
 The 2 GiB instance has not demonstrated capacity for this workflow. No instance
-resize or hosted model fallback was enabled. The office schedule was NOT installed.
+resize was performed. The user subsequently approved Groq's Free plan instead.
 
-The existing 10 AM job is a check-in until `install_schedule.py` succeeds. Its
-replacement uses existing Amala permissions, a local-model override without hosted
+The previous 10 AM check-in is now replaced by the office job. It
+uses existing Amala permissions, an explicit Groq override without any
 fallback, the full task in office-task.md, a 55-minute timeout, and its existing
 owner-reporting destination. No new Codex automation is created.
 
@@ -27,7 +28,7 @@ Server installation:
 ```sh
 export PATH="$HOME/.npm-global/bin:$HOME/.local/bin:$PATH"
 git -C /home/ubuntu/amala-office-repo pull --ff-only
-python3 /home/ubuntu/amala-office-repo/cloud/bootstrap.py
+python3 /home/ubuntu/amala-office-repo/cloud/groq_setup.py
 /home/ubuntu/.local/share/amala-office-venv/bin/python /home/ubuntu/amala-office-repo/cloud/install_schedule.py
 ```
 

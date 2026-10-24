@@ -75,7 +75,7 @@ def install():
         '--tz', 'Asia/Kolkata', '--exact', '--agent', 'amala', '--session', 'isolated',
         '--model', MODEL, '--fallbacks', '', '--thinking', 'off', '--light-context',
         '--timeout-seconds', '3300', '--message', (ROOT / 'cloud/office-task.md').read_text(),
-        '--enable')
+        '--account', 'amala', '--enable')
     # Existing owner delivery account and destination are deliberately preserved.
     print('10 AM IST job installed with Groq Qwen; existing owner reporting preserved.')
 
