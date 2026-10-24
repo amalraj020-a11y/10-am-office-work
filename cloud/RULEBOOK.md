@@ -1,7 +1,10 @@
 # EC2 office workflow
 
 This is the authoritative specification for the EC2 10:00–11:00 Asia/Kolkata job.
-OpenClaw owns scheduling, tools and sending. The office job uses existing agent `amala`
+OpenClaw owns scheduling, tools and sending. The office steps use agent `amala-office`
+in the website repository, with only `exec` exposed in the step job. The user approved
+this dedicated agent on 24 October 2026. The linked WhatsApp account remains `amala`.
+The job runs
 with an explicit `groq/qwen/qwen3.8-27b` override on the verified Groq Free plan
 and no fallback. The user authorized this cloud-model change on 23 October. It does
 not grant new tool permissions. Codex only installs and repairs

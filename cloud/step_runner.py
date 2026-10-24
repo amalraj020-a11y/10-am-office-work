@@ -125,8 +125,12 @@ def main():
         if not args.test:
             message = ('Amala 10 AM EC2 run: ' + outcome + '.\n' + reason +
                        '\nNo completion is claimed without deployment and message evidence.')
-            sent = cli('message', 'send', '--channel', 'whatsapp', '--account', 'amala',
-                       '--target', config['owner'], '--message', message, '--json')
+            try:
+                sent = cli('message', 'send', '--channel', 'whatsapp', '--account', 'amala',
+                           '--target', config['owner'], '--message', message, '--json')
+            except Exception as exc:
+                sent = {'status': 'unknown', 'error': str(exc)[:1000],
+                        'retry': 'Do not resend until delivery has been reconciled.'}
             (run_dir / 'owner-report.json').write_text(json.dumps(sent, indent=2))
 
 

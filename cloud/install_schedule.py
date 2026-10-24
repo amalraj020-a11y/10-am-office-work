@@ -45,7 +45,8 @@ def install():
             assert page.locator('h1').inner_text() == 'Amala browser preflight'
         finally:
             browser.close()
-    fixture = STATE / 'read-fixture.txt'
+    fixture = ROOT / '.openclaw/tmp/read-fixture.txt'
+    fixture.parent.mkdir(parents=True, exist_ok=True)
     expected = 'AMALA_' + uuid.uuid4().hex
     fixture.write_text(expected)
     # Previous one-shot tests were deleted after success. Create a fresh disabled
@@ -53,7 +54,7 @@ def install():
     created = json.loads(run('openclaw', 'cron', 'add',
         '--name', 'Amala read preflight ' + uuid.uuid4().hex[:8],
         '--at', '24h', '--disabled', '--keep-after-run', '--json',
-        '--agent', 'amala', '--session', 'isolated', '--no-deliver',
+        '--agent', 'amala-office', '--session', 'isolated', '--no-deliver',
         '--model', MODEL, '--fallbacks', '', '--tools', 'read',
         '--thinking', 'off', '--timeout-seconds', '180',
         '--message', f'Read {fixture} using the read tool. Reply with exactly the contents, nothing else. Do not guess. /no_think'))

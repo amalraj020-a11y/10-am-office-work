@@ -1,2 +1,13 @@
 __pycache__/
 *.pyc
+.openclaw/
+.env
+.env.*
+AGENTS.md
+BOOTSTRAP.md
+HEARTBEAT.md
+IDENTITY.md
+SOUL.md
+TOOLS.md
+USER.md
+memory/
