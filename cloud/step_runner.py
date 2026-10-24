@@ -23,9 +23,14 @@ MODEL = 'qwen/qwen3.8-27b'
 def cli(*args, timeout=240):
     proc = subprocess.run(['openclaw', *args], capture_output=True, text=True,
                           timeout=timeout, cwd=ROOT)
-    if proc.returncode:
-        raise RuntimeError(proc.stderr[-2000:] or proc.stdout[-2000:])
-    return json.loads(proc.stdout)
+    try:
+        result = json.loads(proc.stdout)
+    except json.JSONDecodeError:
+        raise RuntimeError(proc.stderr[-1200:] or 'No structured CLI result')
+    if proc.returncode and not result.get('completed'):
+        error = result.get('error', {})
+        raise RuntimeError(error.get('message', 'CLI failed') if isinstance(error, dict) else str(error))
+    return result
 
 
 def validate_step(result):
@@ -74,7 +79,7 @@ def main():
         handoff = ('Inspect available browser and WhatsApp CLI capabilities and previous '
                    'business/template records. Select a NEW prospect only after that. '
                    'First perform one small prerequisite inspection; no outreach yet.')
-        rules = (ROOT / 'cloud/RULEBOOK.md').read_text()
+        rules = (ROOT / 'cloud/runtime-rules.md').read_text()
         instructions = (ROOT / 'cloud/office-step.md').read_text()
         total_tokens = 0
         outcome = 'incomplete'
