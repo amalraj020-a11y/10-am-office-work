@@ -13,7 +13,6 @@ import uuid
 ROOT = Path(__file__).resolve().parents[1]
 JOB = 'dc414724-bccf-4bc0-88b0-abbe624447f8'
 MODEL = 'groq/qwen/qwen3.8-27b'
-TEST_JOB = 'd8c5b65a-74b9-432d-a94a-d6e22d11f907'
 STATE = Path.home() / '.local/share/amala-office'
 
 
@@ -48,12 +47,19 @@ def install():
     fixture = STATE / 'read-fixture.txt'
     expected = 'AMALA_' + uuid.uuid4().hex
     fixture.write_text(expected)
-    run('openclaw', 'cron', 'edit', TEST_JOB,
+    # Previous one-shot tests were deleted after success. Create a fresh disabled
+    # fixture job instead of relying on a stale hard-coded automation ID.
+    created = json.loads(run('openclaw', 'cron', 'add',
+        '--name', 'Amala read preflight ' + uuid.uuid4().hex[:8],
+        '--at', '24h', '--disabled', '--keep-after-run', '--json',
+        '--agent', 'amala', '--session', 'isolated', '--no-deliver',
         '--model', MODEL, '--fallbacks', '', '--tools', 'read',
         '--thinking', 'off', '--timeout-seconds', '180',
-        '--message', f'Read {fixture} using the read tool. Reply with exactly the contents, nothing else. Do not guess. /no_think',
-        '--disable')
-    result = json.loads(run('openclaw', 'cron', 'run', TEST_JOB,
+        '--message', f'Read {fixture} using the read tool. Reply with exactly the contents, nothing else. Do not guess. /no_think'))
+    test_job = created.get('job', created).get('id')
+    if not test_job:
+        raise RuntimeError('Preflight job creation returned no ID')
+    result = json.loads(run('openclaw', 'cron', 'run', test_job,
                             '--wait', '--wait-timeout', '4m', '--json', timeout=270))
     outcome = result.get('run', {})
     passed = (outcome.get('status') == 'ok'
