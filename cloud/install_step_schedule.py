@@ -11,15 +11,19 @@ def main():
     passed = []
     for path in (STATE / 'runs').glob('*-test-*/result.json'):
         report = json.loads(path.read_text())
-        if report.get('status') == 'probe_passed' and report.get('model') == 'groq/qwen/qwen3.8-27b':
+        if report.get('status') == 'probe_passed' and report.get('execution_version') == 2 and report.get('model') == 'groq/qwen/qwen3.8-27b':
             passed.append(path)
     if not passed:
         raise RuntimeError('Full-rulebook step probe must pass before installation')
     step = json.loads(run('openclaw', 'cron', 'get', config['step_job'], '--json'))
     payload = step.get('job', step)['payload']
-    if (payload.get('model') != 'groq/qwen/qwen3.8-27b'
-            or payload.get('fallbacks') != [] or payload.get('toolsAllow') != ['exec']):
-        raise RuntimeError('Step job must use only the authorized Qwen route and exec tool')
+    if payload.get('kind') != 'script' or payload.get('toolsAllow') != ['exec']:
+        raise RuntimeError('Execution job must be an exec-only script')
+    planner = json.loads(run('openclaw', 'cron', 'get', config['decision_job'], '--json'))
+    decision = planner.get('job', planner)['payload']
+    if (decision.get('model') != 'groq/qwen/qwen3.8-27b'
+            or decision.get('fallbacks') != [] or decision.get('toolsAllow') != []):
+        raise RuntimeError('Planner must use Qwen without tools or model fallback')
     backup = STATE / 'before-step-schedule.json'
     if not backup.exists():
         backup.write_text(run('openclaw', 'cron', 'get', JOB, '--json'))

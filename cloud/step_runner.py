@@ -9,6 +9,7 @@ from datetime import datetime
 import fcntl
 import json
 import os
+import shlex
 from pathlib import Path
 import subprocess
 import sys
@@ -42,6 +43,28 @@ def validate_step(result):
     if run.get('status') != 'ok':
         raise RuntimeError(run.get('error', 'Step failed; inspect recorded effects.'))
     return run
+
+
+def parse_decision(summary):
+    text = summary.strip()
+    if text.startswith('```'):
+        text = '\n'.join(text.splitlines()[1:-1])
+    decision = json.loads(text)
+    if decision.get('status') not in {'continue', 'blocked', 'complete'}:
+        raise ValueError('Model did not return a valid step status')
+    command = decision.get('command', '')
+    if not isinstance(command, str) or len(command) > 12000:
+        raise ValueError('Invalid or oversized command')
+    if decision['status'] == 'continue' and not command.strip():
+        raise ValueError('Continuation has no command')
+    return decision
+
+
+def execution_script(command):
+    # JSON serialization prevents generated shell text from becoming JS code.
+    params = {'command': 'cd ' + shlex.quote(str(ROOT)) + ' && (\n' + command + '\n)',
+              'timeoutSeconds': 90, 'title': 'Amala Qwen office action'}
+    return 'const result = await exec(' + json.dumps(params) + ');\njson({notify:JSON.stringify(result)});\n'
 
 
 def main():
@@ -89,35 +112,52 @@ def main():
                 if time.monotonic() + 240 > deadline or total_tokens >= 160000:
                     break
                 if args.test:
-                    prompt = instructions + '\nRULES:\n' + rules + '\nTEST OVERRIDE:\n' + ('Use exec once to run: printf AMALA_STEP_OK. Report the actual '
-                              'output and stop. Do not send messages or change any files.')
+                    prompt = instructions + '\nRULES:\n' + rules + '\nTEST OVERRIDE:\n' + (
+                        'Propose exactly the command: printf AMALA_STEP_OK. Set status continue. '
+                        'Do not propose messages or file changes.')
                 else:
                     prompt = instructions + '\nRULES:\n' + rules + '\nLAST HANDOFF:\n' + handoff
-                cli('cron', 'edit', config['step_job'], '--message', prompt, '--disable')
+                cli('cron', 'edit', config['decision_job'], '--message', prompt, '--disable')
                 # Persist intent before dispatch. A timeout never triggers a resend.
                 (run_dir / f'{index:02d}-intent.json').write_text(json.dumps({'time': time.time()}))
-                result = cli('cron', 'run', config['step_job'], '--wait',
+                result = cli('cron', 'run', config['decision_job'], '--wait',
                              '--wait-timeout', '4m', '--json', timeout=260)
                 (run_dir / f'{index:02d}-result.json').write_text(json.dumps(result, indent=2))
                 run = validate_step(result)
                 total_tokens += run.get('usage', {}).get('total_tokens', 0)
-                handoff = run.get('summary', '')[:2200]
+                decision = parse_decision(run.get('summary', ''))
+                (run_dir / f'{index:02d}-decision.json').write_text(json.dumps(decision, indent=2))
+                if decision['status'] != 'continue':
+                    reason = 'Agent reports ' + decision['status'] + ': ' + str(decision.get('handoff', ''))
+                    break
+                script = run_dir / f'{index:02d}-action.js'
+                script.write_text(execution_script(decision['command']))
+                cli('cron', 'edit', config['step_job'], '--script', str(script),
+                    '--script-tool-budget', '1', '--script-timeout-seconds', '120', '--disable')
+                executed = cli('cron', 'run', config['step_job'], '--wait',
+                               '--wait-timeout', '3m', '--json', timeout=200)
+                (run_dir / f'{index:02d}-execution.json').write_text(json.dumps(executed, indent=2))
+                if not executed.get('completed') or executed.get('run', {}).get('status') != 'ok':
+                    raise RuntimeError('Action did not finish successfully; reconcile saved execution before retrying.')
+                observation = json.loads(executed['run']['summary'])
+                if observation.get('status') != 'completed':
+                    raise RuntimeError('Action outcome is not final; do not repeat it.')
+                handoff = json.dumps({'plan': decision.get('handoff', '')[:900],
+                                      'command': decision['command'][:900],
+                                      'exitCode': observation.get('exitCode'),
+                                      'actual_output': observation.get('aggregated', '')[:1400]})
                 (run_dir / 'handoff.txt').write_text(handoff)
                 if args.test:
-                    if 'AMALA_STEP_OK' not in handoff:
+                    if observation.get('exitCode') != 0 or observation.get('aggregated', '').strip() != 'AMALA_STEP_OK':
                         raise RuntimeError('Probe output did not match')
-                    outcome, reason = 'probe_passed', 'Fresh-session OpenClaw tool probe passed.'
-                    break
-                # A model summary alone is never accepted as verified completion.
-                if 'COMPLETE' in handoff or 'BLOCKED' in handoff:
-                    reason = 'Agent returned a terminal handoff; review its artifact/send evidence.\n' + handoff
+                    outcome, reason = 'probe_passed', 'Qwen decision and enforced single OpenClaw exec passed.'
                     break
                 # Free quota is per minute; avoid immediately starting another step.
                 time.sleep(65)
         except Exception as exc:
             reason = str(exc)[:2000]
         report = {'status': outcome, 'reason': reason, 'tokens': total_tokens,
-                  'model': 'groq/' + MODEL, 'finished': time.time()}
+                  'model': 'groq/' + MODEL, 'execution_version': 2, 'finished': time.time()}
         (run_dir / 'result.json').write_text(json.dumps(report, indent=2))
         print(json.dumps(report), flush=True)
         if args.test and outcome != 'probe_passed':
