@@ -78,15 +78,26 @@ def install():
     (STATE / 'previous-10am-job.json').write_text(backup)
     run('openclaw', 'config', 'set', 'browser.executablePath', json.dumps(executable), '--strict-json')
     run('openclaw', 'config', 'set', 'browser.headless', 'true', '--strict-json')
-    run('openclaw', 'cron', 'edit', test_job, '--tools', 'exec', '--light-context',
+    run('openclaw', 'cron', 'edit', test_job, '--tools', '', '--light-context',
         '--timeout-seconds', '180', '--no-deliver', '--disable')
+    probe_script = STATE / 'initial-execution-probe.js'
+    probe_script.write_text("const r = await exec({command:'printf AMALA_STEP_OK',timeoutSeconds:30}); json({notify:JSON.stringify(r)});\n")
+    execution = json.loads(run('openclaw', 'cron', 'add',
+        '--name', 'Amala bounded execution ' + uuid.uuid4().hex[:8],
+        '--at', '24h', '--disabled', '--keep-after-run', '--json',
+        '--agent', 'amala-office', '--session', 'isolated', '--no-deliver',
+        '--tools', 'exec', '--script', str(probe_script),
+        '--script-tool-budget', '1', '--script-timeout-seconds', '120'))
+    execution_job = execution.get('job', execution).get('id')
+    if not execution_job:
+        raise RuntimeError('Execution job creation returned no ID')
     config_path = STATE / 'step-runner.json'
     existing = json.loads(config_path.read_text()) if config_path.exists() else {}
     job_record = json.loads(backup)
     owner = existing.get('owner') or job_record.get('job', job_record).get('delivery', {}).get('to')
     if not owner:
         raise RuntimeError('Existing owner reporting destination could not be resolved')
-    config_path.write_text(json.dumps({'step_job': test_job, 'owner': owner}))
+    config_path.write_text(json.dumps({'step_job': execution_job, 'decision_job': test_job, 'owner': owner}))
     config_path.chmod(0o600)
     run(sys.executable, str(ROOT / 'cloud/step_runner.py'), '--test', '--max-steps', '1', timeout=310)
     run(sys.executable, str(ROOT / 'cloud/install_step_schedule.py'), timeout=120)

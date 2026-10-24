@@ -21,7 +21,11 @@ resize was performed. The user subsequently approved Groq's Free plan instead.
 
 The previous 10 AM check-in is replaced by the office job. The original long
 conversation overflowed Groq's free request limit. step_runner.py now gives each
-small action a fresh isolated OpenClaw session, the rulebook and a saved handoff.
+small decision a fresh isolated OpenClaw session, the rulebook and a saved handoff.
+The Qwen decision job has no tools and returns JSON. A separate OpenClaw script
+job executes that command using the approved exec tool with a hard one-call budget.
+The command is rooted in the website repository, and its actual result is saved
+before the next Qwen decision. Prompt-only one-call instructions proved insufficient.
 It uses existing Amala permissions, explicit Groq Qwen with no fallback, a process
 lock, a 55-minute deadline and a bounded token budget. The systemd service survives
 the Windows PC shutting down. OpenClaw starts it daily at 10 AM Asia/Kolkata.
