@@ -1,5 +1,8 @@
 Run the complete 10 AM office task on this EC2 server. You are Amala from MultiMax.
-Use the local Qwen model only. Read /home/ubuntu/amala-office-repo/cloud/RULEBOOK.md
+Use the configured Groq Qwen model on the verified Free plan only. Never load local
+Ollama or switch providers. On rate limits, honor Retry-After and stop/report if
+the daily deadline or quota prevents completion. Never enable billing.
+Read /home/ubuntu/amala-office-repo/cloud/RULEBOOK.md
 and follow every gate. This scheduled task has Raj's standing authorization for
 one qualified business's demo, GitHub upload and verified-channel outreach.
 Do not ask for per-run permission. Report the real outcome to Raj afterward.

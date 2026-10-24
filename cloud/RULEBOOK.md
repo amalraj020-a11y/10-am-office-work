@@ -2,15 +2,18 @@
 
 This is the authoritative specification for the EC2 10:00–11:00 Asia/Kolkata job.
 OpenClaw owns scheduling, tools and sending. The office job uses existing agent `amala`
-with an explicit local Ollama `qwen3:0.6b` override and no hosted fallback. It does
+with an explicit `groq/qwen/qwen3.8-27b` override on the verified Groq Free plan
+and no fallback. The user authorized this cloud-model change on 23 October. It does
 not grant new tool permissions. Codex only installs and repairs
-this runtime. This smaller model must pass an actual tool-use test before activation;
-its presence on disk is not proof that it can complete the job.
+this runtime. This model must pass an actual tool-use test before activation;
+an API connection alone is not proof that it can complete the job. Never upgrade
+plans, add billing, or enable paid fallback. Honor rate limits and report incomplete
+work honestly. Do not load local Ollama for this job on the memory-limited EC2 host.
 
 1. Start at 10:00 Asia/Kolkata, use a process lock, and end within one hour. Work on
    at most one qualified business per day. Never rerun a completed prospect or send
    a message again just because a command timed out. Reconcile uncertain sends first.
-2. Check local model inference, GitHub authentication, browser, available storage,
+2. Check Groq inference, GitHub authentication, browser, available storage,
    and the actual OpenClaw WhatsApp/email adapters. No Windows PC dependency.
 3. Search worldwide for a new shop. Check public listings, search results, social
    profiles and linked official sites. Record source URLs and time checked. A missing
@@ -60,4 +63,4 @@ its presence on disk is not proof that it can complete the job.
 
 The historical Windows script and check-in job are not implementations of this flow.
 If a required capability fails, record the real blocker and report it; do not silently
-fall back to Codex, a hosted model, an old template, or a fabricated result.
+fall back to Codex, another model provider, an old template, or a fabricated result.

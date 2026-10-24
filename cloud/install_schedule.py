@@ -12,7 +12,7 @@ import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
 JOB = 'dc414724-bccf-4bc0-88b0-abbe624447f8'
-MODEL = 'ollama/qwen3:0.6b'
+MODEL = 'groq/qwen/qwen3.8-27b'
 TEST_JOB = 'd8c5b65a-74b9-432d-a94a-d6e22d11f907'
 STATE = Path.home() / '.local/share/amala-office'
 
@@ -58,14 +58,14 @@ def install():
     outcome = result.get('run', {})
     passed = (outcome.get('status') == 'ok'
               and expected in outcome.get('summary', '')
-              and outcome.get('provider') == 'ollama'
-              and outcome.get('model') == 'qwen3:0.6b')
+              and outcome.get('provider') == 'groq'
+              and outcome.get('model') == 'qwen/qwen3.8-27b')
     (STATE / 'preflight.json').write_text(json.dumps({
         'model': MODEL, 'read_tool_test_passed': passed, 'browser': executable,
         'github_account': 'amalraj020-a11y', 'full_workflow_tested': False,
     }, indent=2))
     if not passed:
-        raise RuntimeError('Local Qwen failed the verified tool-use test; schedule not changed')
+        raise RuntimeError('Groq Qwen failed the verified tool-use test; schedule not changed')
     backup = run('openclaw', 'cron', 'get', JOB)
     (STATE / 'previous-10am-job.json').write_text(backup)
     run('openclaw', 'config', 'set', 'browser.executablePath', json.dumps(executable), '--strict-json')
@@ -77,7 +77,7 @@ def install():
         '--timeout-seconds', '3300', '--message', (ROOT / 'cloud/office-task.md').read_text(),
         '--enable')
     # Existing owner delivery account and destination are deliberately preserved.
-    print('10 AM IST job installed with local Qwen; existing owner reporting preserved.')
+    print('10 AM IST job installed with Groq Qwen; existing owner reporting preserved.')
 
 
 if __name__ == '__main__':
