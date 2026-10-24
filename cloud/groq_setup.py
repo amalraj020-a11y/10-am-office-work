@@ -17,9 +17,12 @@ def main():
     if not any(m['id'] == MODEL_ID for m in models):
         models.append({'id': MODEL_ID, 'name': 'Groq Qwen office',
                        'input': ['text'], 'reasoning': False,
-                       'contextWindow': 16384, 'maxTokens': 2048,
+                       'contextWindow': 131072, 'contextTokens': 5800, 'maxTokens': 768,
                        'compat': {'supportsTools': True}})
-        set_config('models.providers.groq.models', models)
+    for model in models:
+        if model['id'] == MODEL_ID:
+            model.update(contextWindow=131072, contextTokens=5800, maxTokens=768)
+    set_config('models.providers.groq.models', models)
     allowed = c['agents']['defaults'].get('modelPolicy', {}).get('allow', [])
     if allowed and 'groq/' + MODEL_ID not in allowed:
         set_config('agents.defaults.modelPolicy.allow', allowed + ['groq/' + MODEL_ID])

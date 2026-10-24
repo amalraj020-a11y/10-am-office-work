@@ -13,6 +13,12 @@ outreach. Never overwrite another shop's website. Read previous work and tracker
 entries before choosing a prospect. Finish within 55 minutes.
 
 Use the existing OpenClaw browser for research. Use free public search pages when
+accessing it through `openclaw browser` via exec; run CLI help for supported syntax.
+Only read and exec tools are exposed to keep the free-tier tool schema small.
+Bound command output and browser snapshots; do not dump full pages, configurations,
+large source files or logs into model context. Read files in small sections.
+Use compact stage notes on disk to preserve progress across context compaction.
+Use free public search pages when
 no paid search API is configured. Find and verify a new shop with no official
 website and a usable contact channel before building. Skip unavailable contacts.
 Use a fresh licensed ThemeWagon free template; preserve required licenses and
